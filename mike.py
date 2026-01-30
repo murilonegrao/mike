@@ -1,7 +1,9 @@
 import json
+import os
 
 
 training_sessions = []
+DEFAULT_PATH = 'mike.json'
 
 def create_session(training_date, training_type):
     new_session = {
@@ -210,6 +212,19 @@ def report_volume_by_exercise(training_sessions_list):
 
     return report_by_exercise
 
+def save_sessions(training_session_list, path=DEFAULT_PATH):
+    with open(path, 'w', encoding='utf8') as f:
+        json.dump(training_session_list, f)
+    return True
+
+
+def load_sessions(training_file=DEFAULT_PATH):
+    if not os.path.exists(training_file):
+        return None
+    with open(training_file, 'r', encoding='utf8') as mike_file:
+        complete_training = json.load(mike_file)
+    return complete_training
+
 if __name__ == '__main__':
     session1 = create_session('2025-12-04', 'A')
     exercise1 = insert_exercise(session1, 'Agachamento')
@@ -246,12 +261,13 @@ if __name__ == '__main__':
     set1 = add_set(exercise2, 90, 8)
     set2 = add_set(exercise2, 70, 7)
     set3 = add_set(exercise2, 90, 6)
-    show_training()
-    print(100*'-')
+    save_sessions(training_sessions)
+    # show_training()
+    # print(100*'-')
     session_1 = find_session_by_date('2025-12-04')
-    print(session_1)
+    # print(session_1)
     volume_session_1 = session_volume(session_1)
-    print(volume_session_1)
+    # print(volume_session_1)
     result = find_exercise_by_session(session3, 'Abdominal')
     result1 = find_exercise_by_session(session1, 'Agachamento')
     result2 = find_exercise_by_session(session2, 'Leg Press')
@@ -259,15 +275,15 @@ if __name__ == '__main__':
     volume2 = exercise_volume(result1)
     volume3 = exercise_volume(result2)
     volume4 = exercise_volume('abcd')
-    print(volume1)
-    print(volume2)
-    print(volume3)
-    print(volume4)
-    print(report_session(session1))
-    print(result2)
+    # print(volume1)
+    # print(volume2)
+    # print(volume3)
+    # print(volume4)
+    # print(report_session(session1))
+    # print(result2)
     update_set(result, 6, 200, 100)
     remove_set(result, 3)
-    show_training()
+    # show_training()
     assert update_set(result, 4, 200, 90) is True
     assert update_set('abcd', 4, 200, 90) is False
     assert update_set(result, 10, 200, 90) is False
@@ -290,6 +306,19 @@ if __name__ == '__main__':
     assert report["total_volume"] == session_volume(session3)
     assert len(report["exercises"]) == len(session3["exercises"])
     assert report["exercises"][0]["sets_count"] > 0
-    print(json.dumps(report_all_sessions(training_sessions), indent=2))
-    print(report_volume_by_exercise(training_sessions))
-    
+    # print(json.dumps(report_all_sessions(training_sessions), indent=2))
+    # print(report_volume_by_exercise(training_sessions))
+    # save_sessions(training_sessions)
+    TRAINING = save_sessions(training_sessions)
+    assert load_sessions('mike_tyson.json') is None
+    new_training = load_sessions('mike_tyson.json')
+    if isinstance(new_training, list):
+        training_sessions.extend(new_training)
+
+    session_load = load_sessions()
+    training_sessions.clear()
+    assert len(training_sessions) == 0
+    new_training = load_sessions('mike_jhonson.json')
+    if isinstance(new_training, list):
+        training_sessions.extend(new_training)
+    print(training_sessions)
