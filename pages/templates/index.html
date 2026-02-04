@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-br"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mike | Evolução Baseada em Dados</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#EA2831", "background-light": "#f8f6f6", "background-dark": "#211111", "surface-dark": "#171717", "border-dark": "#262626"}, fontFamily: {display: "Lexend"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
-<style type="text/tailwindcss">
-        body {
+<html class="dark" lang="pt-br">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Mike | Evolução Baseada em Dados</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet" />
+        <script
+            id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { primary: "#EA2831", "background-light": "#f8f6f6", "background-dark": "#211111", "surface-dark": "#171717", "border-dark": "#262626" }, fontFamily: { display: "Lexend" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" } } } };</script>
+        <style type="text/tailwindcss">
+            body {
             font-family: 'Lexend', sans-serif;
             @apply bg-background-dark text-white;
         }
@@ -32,263 +39,356 @@
             background: linear-gradient(to top, rgba(10, 10, 10, 1) 0%, rgba(10, 10, 10, 0.6) 50%, rgba(10, 10, 10, 0.3) 100%);
         }
     </style>
-</head>
-<body class="transition-colors duration-300">
-<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-<header class="fixed top-0 z-50 w-full border-b border-border-dark bg-background-dark/90 backdrop-blur-xl px-6 md:px-20 py-4">
-<div class="mx-auto flex max-w-7xl items-center justify-between">
-<div class="flex items-center gap-2">
-<div class="size-8 text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-3xl font-bold">query_stats</span>
-</div>
-<h2 class="text-2xl font-black uppercase tracking-tighter">Mike</h2>
-</div>
-<nav class="hidden flex-1 justify-end gap-10 md:flex items-center">
-<a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors" href="#recursos">Recursos</a>
-<a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors" href="#analise">Análise</a>
-<a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors" href="#precos">Planos</a>
-<button class="bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 hover:brightness-110 transition-all border border-primary">
-                    Começar Agora
-                </button>
-</nav>
-</div>
-</header>
-<main class="pt-20">
-<section class="px-6 md:px-20 py-12 md:py-24">
-<div class="mx-auto max-w-7xl">
-<div class="relative overflow-hidden rounded-lg bg-surface-dark border border-border-dark">
-<div class="flex min-h-[650px] flex-col justify-center p-8 md:p-20 bg-cover bg-center relative" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCH7rD2WOkYlgEH9YRzg0DjaX9eFr1ihnhdwlkd7ozLzFdLfwzvhrCO9mB54Hu-bs1IemwGN-baIar1oRlqkZ1BwTgRgjuxTcfsKUpnQpEKk6tlUuMiHaxI1I-G6p6T_FTWrHrHMGo4C4s4CmQHtSTsUX5Mhgr1Xlg05q7zr6vh3SAc-6UmOrdQvwlxduD3RDtji_sfhz4tIQMfR7KNA9ULfsnIPcERWM4xqlweMcNQFrLdR8MdtnjUryO_SvGVQ-8X5CmLNaVeWbg");'>
-<div class="absolute inset-0 hero-gradient"></div>
-<div class="relative z-10 max-w-3xl space-y-8">
-<div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-3 py-1 text-primary text-[10px] font-bold uppercase tracking-widest">
-<span class="material-symbols-outlined text-sm">bolt</span> Alta Performance
+    </head>
+
+    <body class="transition-colors duration-300">
+        <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+            <header
+                class="fixed top-0 z-50 w-full border-b border-border-dark bg-background-dark/90 backdrop-blur-xl px-6 md:px-20 py-4">
+                <div class="mx-auto flex max-w-7xl items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="size-8 text-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl font-bold">query_stats</span>
+                        </div>
+                        <h2 class="text-2xl font-black uppercase tracking-tighter">Mike</h2>
+                    </div>
+                    <nav class="hidden flex-1 justify-end gap-10 md:flex items-center">
+                        <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
+                            href="#recursos">Recursos</a>
+                        <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
+                            href="#analise">Análise</a>
+                        <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
+                            href="#precos">Planos</a>
+                        <button
+                            class="bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 hover:brightness-110 transition-all border border-primary">
+                            Começar Agora
+                        </button>
+                    </nav>
+                </div>
+            </header>
+            <main class="pt-20">
+                <section class="px-6 md:px-20 py-12 md:py-24">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="relative overflow-hidden rounded-lg bg-surface-dark border border-border-dark">
+                            <div class="flex min-h-[650px] flex-col justify-center p-8 md:p-20 bg-cover bg-center relative"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCH7rD2WOkYlgEH9YRzg0DjaX9eFr1ihnhdwlkd7ozLzFdLfwzvhrCO9mB54Hu-bs1IemwGN-baIar1oRlqkZ1BwTgRgjuxTcfsKUpnQpEKk6tlUuMiHaxI1I-G6p6T_FTWrHrHMGo4C4s4CmQHtSTsUX5Mhgr1Xlg05q7zr6vh3SAc-6UmOrdQvwlxduD3RDtji_sfhz4tIQMfR7KNA9ULfsnIPcERWM4xqlweMcNQFrLdR8MdtnjUryO_SvGVQ-8X5CmLNaVeWbg");'>
+                                <div class="absolute inset-0 hero-gradient"></div>
+                                <div class="relative z-10 max-w-3xl space-y-8">
+                                    <div
+                                        class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-3 py-1 text-primary text-[10px] font-bold uppercase tracking-widest">
+                                        <span class="material-symbols-outlined text-sm">bolt</span> Alta Performance
+                                    </div>
+                                    <h1
+                                        class="text-5xl md:text-8xl font-black leading-none tracking-tighter uppercase italic">
+                                        Mike: Evolução <br /><span class="text-primary">Baseada em Dados</span>
+                                    </h1>
+                                    <p class="text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-xl">
+                                        Otimize cada repetição com inteligência analítica. Gestão de treinos de alta
+                                        intensidade para quem busca resultados mensuráveis e performance extrema.
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                                        <button
+                                            class="flex items-center justify-center gap-3 bg-primary text-white px-10 py-5 text-sm font-black uppercase tracking-widest hover:brightness-110 transition-all">
+                                            Iniciar Jornada
+                                            <span class="material-symbols-outlined">trending_up</span>
+                                        </button>
+                                        <button
+                                            class="flex items-center justify-center gap-3 bg-transparent border border-white/20 text-white px-10 py-5 text-sm font-black uppercase tracking-widest hover:bg-white/10 transition-all">
+                                            Ver Demonstração
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-<h1 class="text-5xl md:text-8xl font-black leading-none tracking-tighter uppercase italic">
-                                Mike: Evolução <br/><span class="text-primary">Baseada em Dados</span>
-</h1>
-<p class="text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-xl">
-                                Otimize cada repetição com inteligência analítica. Gestão de treinos de alta intensidade para quem busca resultados mensuráveis e performance extrema.
-                            </p>
-<div class="flex flex-col sm:flex-row gap-4 pt-4">
-<button class="flex items-center justify-center gap-3 bg-primary text-white px-10 py-5 text-sm font-black uppercase tracking-widest hover:brightness-110 transition-all">
-                                    Iniciar Jornada
-                                    <span class="material-symbols-outlined">trending_up</span>
-</button>
-<button class="flex items-center justify-center gap-3 bg-transparent border border-white/20 text-white px-10 py-5 text-sm font-black uppercase tracking-widest hover:bg-white/10 transition-all">
-                                    Ver Demonstração
+                        </div>
+                    </div>
+                </section>
+                <section class="px-6 md:px-20 py-24 bg-background-dark" id="recursos">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="flex flex-col gap-4 mb-16">
+                            <h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Ecossistema de
+                                Performance</h2>
+                            <h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">O Próximo
+                                Nível da Gestão</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+                            <div
+                                class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
+                                <div class="mb-8 text-primary">
+                                    <span class="material-symbols-outlined text-5xl">fitness_center</span>
+                                </div>
+                                <h4 class="text-2xl font-black uppercase mb-4">Criação de Treinos</h4>
+                                <p class="text-neutral-500 leading-relaxed mb-6">
+                                    Monte rotinas personalizadas com algoritmos que priorizam a biomecânica e o tempo
+                                    sob tensão ideal para hipertrofia máxima.
+                                </p>
+                                <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
+                            </div>
+                            <div
+                                class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
+                                <div class="mb-8 text-primary">
+                                    <span class="material-symbols-outlined text-5xl">edit_note</span>
+                                </div>
+                                <h4 class="text-2xl font-black uppercase mb-4">Registro Simplificado</h4>
+                                <p class="text-neutral-500 leading-relaxed mb-6">
+                                    Log de treinos intuitivo. Registre cargas, reps e falhas em segundos, sem
+                                    interromper o fluxo da sua sessão de treino.
+                                </p>
+                                <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
+                            </div>
+                            <div
+                                class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
+                                <div class="mb-8 text-primary">
+                                    <span class="material-symbols-outlined text-5xl">monitoring</span>
+                                </div>
+                                <h4 class="text-2xl font-black uppercase mb-4">Análise de Progresso Muscular</h4>
+                                <p class="text-neutral-500 leading-relaxed mb-6">
+                                    Visualize sua evolução através de mapas de calor musculares e gráficos de volume de
+                                    carga progressiva.
+                                </p>
+                                <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="px-6 md:px-20 py-24 bg-surface-dark border-y border-border-dark" id="analise">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            <div class="space-y-8">
+                                <h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Inteligência de
+                                    Dados</h2>
+                                <h3
+                                    class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter leading-none">
+                                    Decisões Baseadas <br /><span class="text-neutral-500">em Evidências</span>
+                                </h3>
+                                <p class="text-neutral-400 text-lg leading-relaxed">
+                                    Nossa plataforma analisa seu histórico para prever períodos de overtraining e
+                                    sugerir o momento exato de aumentar a carga. Não é apenas sorte, é ciência aplicada
+                                    à sua musculatura.
+                                </p>
+                                <div class="grid grid-cols-2 gap-8 py-4">
+                                    <div>
+                                        <div class="text-primary font-black text-3xl mb-1">98%</div>
+                                        <div class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest">
+                                            Precisão de Volume</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-primary font-black text-3xl mb-1">-25%</div>
+                                        <div class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest">
+                                            Risco de Lesão</div>
+                                    </div>
+                                </div>
+                                <button
+                                    class="border-b-2 border-primary pb-1 text-xs font-black uppercase tracking-widest hover:text-primary transition-colors inline-flex items-center gap-2">
+                                    Conhecer a Metodologia <span
+                                        class="material-symbols-outlined text-sm">arrow_forward</span>
                                 </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="px-6 md:px-20 py-24 bg-background-dark" id="recursos">
-<div class="mx-auto max-w-7xl">
-<div class="flex flex-col gap-4 mb-16">
-<h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Ecossistema de Performance</h2>
-<h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">O Próximo Nível da Gestão</h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-1">
-<div class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
-<div class="mb-8 text-primary">
-<span class="material-symbols-outlined text-5xl">fitness_center</span>
-</div>
-<h4 class="text-2xl font-black uppercase mb-4">Criação de Treinos</h4>
-<p class="text-neutral-500 leading-relaxed mb-6">
-                            Monte rotinas personalizadas com algoritmos que priorizam a biomecânica e o tempo sob tensão ideal para hipertrofia máxima.
+                            </div>
+                            <div class="relative">
+                                <div class="bg-background-dark p-6 rounded-lg border border-border-dark shadow-2xl">
+                                    <div class="flex justify-between items-center mb-8">
+                                        <h5 class="text-xs font-bold uppercase tracking-widest text-neutral-500">
+                                            Eficiência de Treino</h5>
+                                        <div
+                                            class="bg-primary/20 text-primary px-3 py-1 rounded-full text-[10px] font-bold">
+                                            +15.4%</div>
+                                    </div>
+                                    <svg class="w-full h-64" viewbox="0 0 400 150">
+                                        <defs>
+                                            <lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.3"></stop>
+                                                <stop offset="100%" style="stop-color:#ff0000;stop-opacity:0"></stop>
+                                            </lineargradient>
+                                        </defs>
+                                        <path d="M0,120 Q50,110 80,60 T160,80 T240,30 T320,50 T400,10 L400,150 L0,150 Z"
+                                            fill="url(#grad)"></path>
+                                        <path d="M0,120 Q50,110 80,60 T160,80 T240,30 T320,50 T400,10" fill="none"
+                                            stroke="#ff0000" stroke-width="3"></path>
+                                        <circle cx="80" cy="60" fill="#ff0000" r="4"></circle>
+                                        <circle cx="240" cy="30" fill="#ff0000" r="4"></circle>
+                                        <circle cx="400" cy="10" fill="#ff0000" r="4"></circle>
+                                    </svg>
+                                    <div
+                                        class="grid grid-cols-4 mt-6 text-center text-[10px] font-bold text-neutral-600 uppercase">
+                                        <span>Seg</span><span>Qua</span><span>Sex</span><span>Dom</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute -bottom-6 -right-6 h-48 w-48 bg-primary/10 blur-[100px] rounded-full -z-10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="px-6 md:px-20 py-24 bg-background-dark">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                            <div class="order-2 lg:order-1">
+                                <div
+                                    class="aspect-video bg-neutral-900 rounded-lg overflow-hidden border border-border-dark group">
+                                    <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA3b1cclmL4NbGmFlBeSQyEez6IRN6alWdwyP3sy7wHIbL7G6y-kOE5SM-54CNdxDtuOfjduzzAJ961loyXMvDgcuju6xXmff95yh2CSFfP46ijaJ8TNbtHNba1vjmyTxXb1X3LpSRVcqcmtqcUTeVF1IIQLSlHypk8o2QUkLaziU78qLYh1Uf24RhXerQoWcVgjwKydGlbi7jqFHj4PelUVIP8iCyAp68ehpKsir_8rNs8uNw6OHP6UuoOQPi42Iff6nyN-vQzZi8");'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-1 lg:order-2 space-y-6">
+                                <h2 class="text-4xl md:text-5xl font-black uppercase italic leading-none">Equipamento
+                                    Moderno, <br />Dados <span class="text-primary">Precisos</span></h2>
+                                <p class="text-neutral-400">
+                                    Nossa tecnologia se integra aos equipamentos mais modernos do mercado, permitindo
+                                    uma leitura fiel de cada movimento executado.
+                                </p>
+                                <ul class="space-y-4 pt-4">
+                                    <li class="flex items-center gap-4">
+                                        <span class="material-symbols-outlined text-primary">analytics</span>
+                                        <span class="text-xs font-bold uppercase tracking-widest">Análise de Torque e
+                                            Vetores</span>
+                                    </li>
+                                    <li class="flex items-center gap-4">
+                                        <span class="material-symbols-outlined text-primary">timer</span>
+                                        <span class="text-xs font-bold uppercase tracking-widest">Controle de Cadência
+                                            em Tempo Real</span>
+                                    </li>
+                                    <li class="flex items-center gap-4">
+                                        <span class="material-symbols-outlined text-primary">history</span>
+                                        <span class="text-xs font-bold uppercase tracking-widest">Histórico Vitalício de
+                                            Cargas</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="px-6 md:px-20 py-24 bg-surface-dark" id="precos">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="text-center mb-16 space-y-4">
+                            <h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Investimento em Você
+                            </h2>
+                            <h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Planos de
+                                Performance</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="bg-background-dark border border-border-dark p-10 flex flex-col">
+                                <h4 class="text-xs font-black uppercase tracking-widest text-neutral-500 mb-2">Essential
+                                </h4>
+                                <div class="text-4xl font-black mb-8">R$ 49<span
+                                        class="text-sm text-neutral-600">/mês</span></div>
+                                <ul
+                                    class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-400">
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Registro
+                                        de Treinos</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Análise
+                                        Básica</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> App
+                                        Mobile</li>
+                                    <li class="flex items-center gap-2 text-neutral-700"><span
+                                            class="material-symbols-outlined text-lg">close</span> Suporte Prioritário
+                                    </li>
+                                </ul>
+                                <button
+                                    class="w-full py-4 border border-white/20 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Assinar</button>
+                            </div>
+                            <div
+                                class="bg-background-dark border-2 border-primary p-10 flex flex-col relative scale-105 z-10">
+                                <div
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-1">
+                                    Popular</div>
+                                <h4 class="text-xs font-black uppercase tracking-widest text-primary mb-2">High
+                                    Performance</h4>
+                                <div class="text-4xl font-black mb-8">R$ 99<span
+                                        class="text-sm text-neutral-600">/mês</span></div>
+                                <ul
+                                    class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-300">
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Tudo do
+                                        Essential</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Mapas de
+                                        Calor Muscular</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Predição
+                                        de Cargas</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span>
+                                        Exportação de Dados</li>
+                                </ul>
+                                <button
+                                    class="w-full py-4 bg-primary text-white text-xs font-black uppercase tracking-widest hover:brightness-110 transition-all">Assinar
+                                    Agora</button>
+                            </div>
+                            <div class="bg-background-dark border border-border-dark p-10 flex flex-col">
+                                <h4 class="text-xs font-black uppercase tracking-widest text-neutral-500 mb-2">Elite
+                                    Biohacking</h4>
+                                <div class="text-4xl font-black mb-8">R$ 199<span
+                                        class="text-sm text-neutral-600">/mês</span></div>
+                                <ul
+                                    class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-400">
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Tudo do
+                                        Pro</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span>
+                                        Concierge 24/7</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> IA
+                                        Personal Trainer</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-primary text-lg">check</span> Testes
+                                        de DNA Integração</li>
+                                </ul>
+                                <button
+                                    class="w-full py-4 border border-white/20 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Assinar</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer class="px-6 md:px-20 py-20 border-t border-border-dark bg-background-dark">
+                <div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
+                    <div class="col-span-1 md:col-span-2 space-y-8">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-3xl font-bold">query_stats</span>
+                            <h2 class="text-2xl font-black uppercase tracking-tighter">Mike</h2>
+                        </div>
+                        <p class="text-neutral-500 max-w-sm text-sm leading-relaxed">
+                            Evolução constante através da análise rigorosa. Mike é a ferramenta definitiva para atletas
+                            que não aceitam estagnação. Transforme esforço em dados, e dados em resultados.
                         </p>
-<div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
-</div>
-<div class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
-<div class="mb-8 text-primary">
-<span class="material-symbols-outlined text-5xl">edit_note</span>
-</div>
-<h4 class="text-2xl font-black uppercase mb-4">Registro Simplificado</h4>
-<p class="text-neutral-500 leading-relaxed mb-6">
-                            Log de treinos intuitivo. Registre cargas, reps e falhas em segundos, sem interromper o fluxo da sua sessão de treino.
-                        </p>
-<div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
-</div>
-<div class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
-<div class="mb-8 text-primary">
-<span class="material-symbols-outlined text-5xl">monitoring</span>
-</div>
-<h4 class="text-2xl font-black uppercase mb-4">Análise de Progresso Muscular</h4>
-<p class="text-neutral-500 leading-relaxed mb-6">
-                            Visualize sua evolução através de mapas de calor musculares e gráficos de volume de carga progressiva.
-                        </p>
-<div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
-</div>
-</div>
-</div>
-</section>
-<section class="px-6 md:px-20 py-24 bg-surface-dark border-y border-border-dark" id="analise">
-<div class="mx-auto max-w-7xl">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-<div class="space-y-8">
-<h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Inteligência de Dados</h2>
-<h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter leading-none">
-                            Decisões Baseadas <br/><span class="text-neutral-500">em Evidências</span>
-</h3>
-<p class="text-neutral-400 text-lg leading-relaxed">
-                            Nossa plataforma analisa seu histórico para prever períodos de overtraining e sugerir o momento exato de aumentar a carga. Não é apenas sorte, é ciência aplicada à sua musculatura.
-                        </p>
-<div class="grid grid-cols-2 gap-8 py-4">
-<div>
-<div class="text-primary font-black text-3xl mb-1">98%</div>
-<div class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest">Precisão de Volume</div>
-</div>
-<div>
-<div class="text-primary font-black text-3xl mb-1">-25%</div>
-<div class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest">Risco de Lesão</div>
-</div>
-</div>
-<button class="border-b-2 border-primary pb-1 text-xs font-black uppercase tracking-widest hover:text-primary transition-colors inline-flex items-center gap-2">
-                            Conhecer a Metodologia <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</button>
-</div>
-<div class="relative">
-<div class="bg-background-dark p-6 rounded-lg border border-border-dark shadow-2xl">
-<div class="flex justify-between items-center mb-8">
-<h5 class="text-xs font-bold uppercase tracking-widest text-neutral-500">Eficiência de Treino</h5>
-<div class="bg-primary/20 text-primary px-3 py-1 rounded-full text-[10px] font-bold">+15.4%</div>
-</div>
-<svg class="w-full h-64" viewbox="0 0 400 150">
-<defs>
-<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
-<stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.3"></stop>
-<stop offset="100%" style="stop-color:#ff0000;stop-opacity:0"></stop>
-</lineargradient>
-</defs>
-<path d="M0,120 Q50,110 80,60 T160,80 T240,30 T320,50 T400,10 L400,150 L0,150 Z" fill="url(#grad)"></path>
-<path d="M0,120 Q50,110 80,60 T160,80 T240,30 T320,50 T400,10" fill="none" stroke="#ff0000" stroke-width="3"></path>
-<circle cx="80" cy="60" fill="#ff0000" r="4"></circle>
-<circle cx="240" cy="30" fill="#ff0000" r="4"></circle>
-<circle cx="400" cy="10" fill="#ff0000" r="4"></circle>
-</svg>
-<div class="grid grid-cols-4 mt-6 text-center text-[10px] font-bold text-neutral-600 uppercase">
-<span>Seg</span><span>Qua</span><span>Sex</span><span>Dom</span>
-</div>
-</div>
-<div class="absolute -bottom-6 -right-6 h-48 w-48 bg-primary/10 blur-[100px] rounded-full -z-10"></div>
-</div>
-</div>
-</div>
-</section>
-<section class="px-6 md:px-20 py-24 bg-background-dark">
-<div class="mx-auto max-w-7xl">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-<div class="order-2 lg:order-1">
-<div class="aspect-video bg-neutral-900 rounded-lg overflow-hidden border border-border-dark group">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA3b1cclmL4NbGmFlBeSQyEez6IRN6alWdwyP3sy7wHIbL7G6y-kOE5SM-54CNdxDtuOfjduzzAJ961loyXMvDgcuju6xXmff95yh2CSFfP46ijaJ8TNbtHNba1vjmyTxXb1X3LpSRVcqcmtqcUTeVF1IIQLSlHypk8o2QUkLaziU78qLYh1Uf24RhXerQoWcVgjwKydGlbi7jqFHj4PelUVIP8iCyAp68ehpKsir_8rNs8uNw6OHP6UuoOQPi42Iff6nyN-vQzZi8");'></div>
-</div>
-</div>
-<div class="order-1 lg:order-2 space-y-6">
-<h2 class="text-4xl md:text-5xl font-black uppercase italic leading-none">Equipamento Moderno, <br/>Dados <span class="text-primary">Precisos</span></h2>
-<p class="text-neutral-400">
-                            Nossa tecnologia se integra aos equipamentos mais modernos do mercado, permitindo uma leitura fiel de cada movimento executado.
-                        </p>
-<ul class="space-y-4 pt-4">
-<li class="flex items-center gap-4">
-<span class="material-symbols-outlined text-primary">analytics</span>
-<span class="text-xs font-bold uppercase tracking-widest">Análise de Torque e Vetores</span>
-</li>
-<li class="flex items-center gap-4">
-<span class="material-symbols-outlined text-primary">timer</span>
-<span class="text-xs font-bold uppercase tracking-widest">Controle de Cadência em Tempo Real</span>
-</li>
-<li class="flex items-center gap-4">
-<span class="material-symbols-outlined text-primary">history</span>
-<span class="text-xs font-bold uppercase tracking-widest">Histórico Vitalício de Cargas</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section class="px-6 md:px-20 py-24 bg-surface-dark" id="precos">
-<div class="mx-auto max-w-7xl">
-<div class="text-center mb-16 space-y-4">
-<h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Investimento em Você</h2>
-<h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Planos de Performance</h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="bg-background-dark border border-border-dark p-10 flex flex-col">
-<h4 class="text-xs font-black uppercase tracking-widest text-neutral-500 mb-2">Essential</h4>
-<div class="text-4xl font-black mb-8">R$ 49<span class="text-sm text-neutral-600">/mês</span></div>
-<ul class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-400">
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Registro de Treinos</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Análise Básica</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> App Mobile</li>
-<li class="flex items-center gap-2 text-neutral-700"><span class="material-symbols-outlined text-lg">close</span> Suporte Prioritário</li>
-</ul>
-<button class="w-full py-4 border border-white/20 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Assinar</button>
-</div>
-<div class="bg-background-dark border-2 border-primary p-10 flex flex-col relative scale-105 z-10">
-<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-1">Popular</div>
-<h4 class="text-xs font-black uppercase tracking-widest text-primary mb-2">High Performance</h4>
-<div class="text-4xl font-black mb-8">R$ 99<span class="text-sm text-neutral-600">/mês</span></div>
-<ul class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-300">
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Tudo do Essential</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Mapas de Calor Muscular</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Predição de Cargas</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Exportação de Dados</li>
-</ul>
-<button class="w-full py-4 bg-primary text-white text-xs font-black uppercase tracking-widest hover:brightness-110 transition-all">Assinar Agora</button>
-</div>
-<div class="bg-background-dark border border-border-dark p-10 flex flex-col">
-<h4 class="text-xs font-black uppercase tracking-widest text-neutral-500 mb-2">Elite Biohacking</h4>
-<div class="text-4xl font-black mb-8">R$ 199<span class="text-sm text-neutral-600">/mês</span></div>
-<ul class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-400">
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Tudo do Pro</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Concierge 24/7</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> IA Personal Trainer</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span> Testes de DNA Integração</li>
-</ul>
-<button class="w-full py-4 border border-white/20 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Assinar</button>
-</div>
-</div>
-</div>
-</section>
-</main>
-<footer class="px-6 md:px-20 py-20 border-t border-border-dark bg-background-dark">
-<div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-2 space-y-8">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-3xl font-bold">query_stats</span>
-<h2 class="text-2xl font-black uppercase tracking-tighter">Mike</h2>
-</div>
-<p class="text-neutral-500 max-w-sm text-sm leading-relaxed">
-                    Evolução constante através da análise rigorosa. Mike é a ferramenta definitiva para atletas que não aceitam estagnação. Transforme esforço em dados, e dados em resultados.
-                </p>
-</div>
-<div>
-<h5 class="font-black uppercase tracking-widest text-primary mb-8 text-xs">Navegação</h5>
-<ul class="space-y-4 text-[10px] font-black uppercase tracking-widest text-neutral-400">
-<li><a class="hover:text-primary transition-colors" href="#">Treinos</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Metodologia</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Suporte</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Privacidade</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-black uppercase tracking-widest text-primary mb-8 text-xs">Mantenha o Foco</h5>
-<div class="flex flex-col gap-4">
-<input class="w-full bg-surface-dark border border-border-dark px-4 py-3 text-xs font-bold uppercase tracking-widest focus:ring-1 focus:ring-primary focus:outline-none text-white" placeholder="Seu e-mail" type="email"/>
-<button class="bg-primary text-white text-[10px] font-black uppercase tracking-widest py-3 hover:brightness-110 transition-all">
-                        Assinar Newsletter
-                    </button>
-</div>
-</div>
-</div>
-<div class="mx-auto max-w-7xl pt-20 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-600 border-t border-border-dark/50 mt-12">
-<p>© 2024 Mike Performance Systems. Todos os direitos reservados.</p>
-<div class="flex gap-8">
-<a class="hover:text-white transition-colors" href="#">Instagram</a>
-<a class="hover:text-white transition-colors" href="#">Strava</a>
-</div>
-</div>
-</footer>
-</div>
-</body></html>
+                    </div>
+                    <div>
+                        <h5 class="font-black uppercase tracking-widest text-primary mb-8 text-xs">Navegação</h5>
+                        <ul class="space-y-4 text-[10px] font-black uppercase tracking-widest text-neutral-400">
+                            <li><a class="hover:text-primary transition-colors" href="#">Treinos</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Metodologia</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Suporte</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Privacidade</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-black uppercase tracking-widest text-primary mb-8 text-xs">Mantenha o Foco</h5>
+                        <div class="flex flex-col gap-4">
+                            <input
+                                class="w-full bg-surface-dark border border-border-dark px-4 py-3 text-xs font-bold uppercase tracking-widest focus:ring-1 focus:ring-primary focus:outline-none text-white"
+                                placeholder="Seu e-mail" type="email" />
+                            <button
+                                class="bg-primary text-white text-[10px] font-black uppercase tracking-widest py-3 hover:brightness-110 transition-all">
+                                Assinar Newsletter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="mx-auto max-w-7xl pt-20 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-600 border-t border-border-dark/50 mt-12">
+                    <p>© 2024 Mike Performance Systems. Todos os direitos reservados.</p>
+                    <div class="flex gap-8">
+                        <a class="hover:text-white transition-colors" href="#">Instagram</a>
+                        <a class="hover:text-white transition-colors" href="#">Strava</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+
+</html>
