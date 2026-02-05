@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class TrainingSession(models.Model):
@@ -34,8 +36,28 @@ class TrainingSession(models.Model):
 
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    slug = models.SlugField(max_length=120, unique=True)
+    name = models.CharField(max_length=120)
+    slug = models.SlugField(max_length=120, unique=True, blank=True)
+
+    def clean(self):
+        super().clean()
+
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        if not self.slug:
+            raise ValidationError({'name':'Nome inválido para gerar slug'})
+        
+        qs = Exercise.objects.filter(slug=self.slug)
+        if self.pk:
+            qs = qs.exclude(pk=self.pk)
+        
+        if qs.exists():
+            raise ValidationError({"name": "Já existe um exercício com esse nome (slug duplicado)."})
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()        
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.name)
@@ -66,6 +88,14 @@ class SessionExercise(models.Model):
         choices=VARIATIONS,
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['session', 'order'],
+                name='uniq_sessionexercise_order_per_session',
+            )
+        ]
+
 
 class ExerciseSet(models.Model):
     order = models.PositiveSmallIntegerField()
@@ -78,3 +108,23 @@ class ExerciseSet(models.Model):
     duration = models.PositiveSmallIntegerField(blank=True, null=True)
     weight = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     description = models.TextField(blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['session_exercise', 'order'],
+                name='uniq_exerciseset_order_per_session_exercise',
+            )
+        ]
+
+    def clean(self):
+        super().clean()
+        has_reps = self.reps is not None
+        has_duration = self.duration is not None
+        if has_reps == has_duration:
+            raise ValidationError('Preencha reps OU duration (apenas um).')
+        
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
