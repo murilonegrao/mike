@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessions</title>
+</head>
+<body>
+    <section>
+        {% for session in sessions %}
+            <ul>
+                <li>{{session.performed_at}} - {{session.session_type}}</li>
+            </ul>
+        {% endfor %}
+    </section>
+</body>
+</html>

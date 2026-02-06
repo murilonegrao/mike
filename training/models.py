@@ -96,6 +96,9 @@ class SessionExercise(models.Model):
             )
         ]
 
+    def __str__(self):
+        return f'{self.session} | {self.order}. {self.exercise} - {self.variation}'
+
 
 class ExerciseSet(models.Model):
     order = models.PositiveSmallIntegerField()
@@ -128,3 +131,14 @@ class ExerciseSet(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
+    
+    def __str__(self):
+        if self.reps is not None:
+            main = f'{self.reps} reps'
+        else:
+            main = f'{self.duration}s'
+
+        weight = f' @ {self.weight}kg' if self.weight is not None else ''
+        return f'{self.session_exercise} - Set {self.order}: {main}{weight}'
+
+
