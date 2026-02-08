@@ -9,7 +9,7 @@
     <section>
         {% for session in sessions %}
             <ul>
-                <li>{{session.performed_at}} - {{session.session_type}}</li>
+                <li><a href="{% url 'training_session' id=session.id %}">{{session.performed_at}} - {{session.session_type}}</a></li>
             </ul>
         {% endfor %}
     </section>

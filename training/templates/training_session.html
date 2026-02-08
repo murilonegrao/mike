@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Session</title>
+</head>
+<body>
+    <a href="/training">Ver Todas as Sessões</a>
+    <h1>{{ session }}</h1>
+
+    <ul>
+        {% for se in exercises %}
+            <h3>{{ se.order }}. {{ se.exercise.name }} ({{ se.variation }})</h3>
+            <ul>
+                {% for s in se.exercise_sets.all %}
+                    <li>{{ s }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+</body>
+</html>

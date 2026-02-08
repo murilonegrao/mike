@@ -139,6 +139,6 @@ class ExerciseSet(models.Model):
             main = f'{self.duration}s'
 
         weight = f' @ {self.weight}kg' if self.weight is not None else ''
-        return f'{self.session_exercise} - Set {self.order}: {main}{weight}'
+        return f'{self.order}: {main}{weight}'
 
 
