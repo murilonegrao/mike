@@ -6,7 +6,7 @@
     <title>Training Session</title>
 </head>
 <body>
-    <a href="/training">Ver Todas as Sessões</a>
+    <a href="{% url 'session_list' %}">Ver Todas as Sessões</a>
     <h1>{{ session }}</h1>
 
     <ul>
@@ -19,5 +19,12 @@
             </ul>
         {% endfor %}
     </ul>
+
+    <h2>Adicionar Exercício</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Adicionar</button>
+    </form>
 </body>
 </html>
