@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séries</title>
+</head>
+<body>
+    <p><a href="{% url 'training:training_session_detail' pk=se.session.pk %}">Voltar para a sessão</a></p>
+
+    <h1>{{ se.exercise.name }} ({{ se.variation }})</h1>
+    <h2>Séries</h2>
+
+    <ul>
+        {% for s in sets %}
+            <li>
+                {{ s.order }}:
+                {% if s.reps %}{{ s.reps }}{% else %}{{ s.duration }}{% endif %}
+                {% if s.weight %} @ {{ s.weight }}kg{% endif %}
+                {% if s.description %} - {{ s.description }}{% endif %}
+                <a href="{% url 'training:exercise_set_update' session_exercise_pk=se.pk pk=s.pk %}">
+                    Editar
+                </a>
+                <a href="{% url 'training:exercise_set_delete' session_exercise_pk=se.pk pk=s.pk %}">
+                    Deletar
+                </a>
+            </li>
+        {% empty %}
+            <li>Nenhuma série ainda.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Adicionar Série</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Sets</title>
+</head>
+<body>
+    <h1>Editar Set</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+
+    <p>
+        <a href="{% url 'training:session_exercise_detail' pk=session_exercise.pk %}">
+            Voltar
+        </a>
+    </p>
+</body>
+</html>

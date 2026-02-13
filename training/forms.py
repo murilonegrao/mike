@@ -17,3 +17,15 @@ class SessionExerciseForm(forms.ModelForm):
             'exercise',
             'variation',
         ]
+
+
+class ExerciseSetForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseSet
+        fields = [
+            'duration',
+            'reps',
+            'weight',
+            'description',
+        ]
+
