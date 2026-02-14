@@ -8,6 +8,8 @@
 <body>
     <a href="{% url 'training:training_session_list' %}">Ver Todas as Sessões</a>
     <h1>{{ session }}</h1>
+    <p><a href="{% url 'training:training_session_update' pk=session.pk %}">Editar Sessão</a></p>
+    <p><a href="{% url 'training:training_session_delete' pk=session.pk %}">Deletar Sessão</a></p>
 
     <ul>
         {% for se in exercises %}

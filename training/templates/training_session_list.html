@@ -9,7 +9,7 @@
     <section>
         {% for session in sessions %}
             <ul>
-                <li><a href="{% url 'training:training_session_detail' session.pk %}">{{session.performed_at}} - {{session.session_type}}</a>
+                <li><a href="{% url 'training:training_session_detail' pk=session.pk %}">{{session.performed_at}} - {{session.session_type}}</a>
                  - {{ session.exercise_count }} exercícios / {{ session.set_count }} séries</li>
             </ul>
         {% endfor %}

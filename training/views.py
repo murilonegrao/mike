@@ -5,10 +5,25 @@ from .models import TrainingSession, SessionExercise, ExerciseSet
 from .forms import TrainingSessionForm, SessionExerciseForm, ExerciseSetForm
 
 # Create your views here.
+@login_required
+def training_session_create(request):
+    if request.method =='POST':
+        form = TrainingSessionForm(request.POST)
+        if form.is_valid():
+            session = form.save(commit=False)
+            session.user = request.user
+            session.save()
+            return redirect('training:training_session_detail', pk=session.pk)
+    else:
+        form = TrainingSessionForm()
+
+    return render(request, 'training_session_form.html', {'form': form})
+
+@login_required
 def training_session_list(request):
     sessions = (
         TrainingSession.objects
-        .all()
+        .filter(user=request.user)
         .annotate(
             exercise_count=Count('session_exercises', distinct=True),
             set_count=Count('session_exercises__exercise_sets', distinct=True),
@@ -22,8 +37,13 @@ def training_session_list(request):
     return render(request, 'training_session_list.html', context)
 
 
+@login_required
 def training_session_detail(request, pk):
-    session = get_object_or_404(TrainingSession, pk=pk)
+    session = get_object_or_404(
+        TrainingSession,
+        pk=pk,
+        user=request.user,
+        )
     exercises_qs = (
         session.session_exercises
         .select_related('exercise')
@@ -38,7 +58,7 @@ def training_session_detail(request, pk):
             se.session = session
             se.order = exercises_qs.count() + 1
             se.save()
-            return redirect('training_session_detail', pk=session.pk)
+            return redirect('training:training_session_detail', pk=session.pk)
     else:
         form = SessionExerciseForm()
 
@@ -52,24 +72,55 @@ def training_session_detail(request, pk):
     return render(request, 'training_session_detail.html', context)
 
 
-def training_session_create(request):
-    if request.method =='POST':
-        form = TrainingSessionForm(request.POST)
+@login_required
+def training_session_update(request, pk):
+    session = get_object_or_404(
+        TrainingSession,
+        pk=pk,
+        user=request.user,
+    )
+
+    if request.method == 'POST':
+        form = TrainingSessionForm(request.POST, instance=session)
         if form.is_valid():
-            session = form.save(commit=False)
-            session.user = request.user
-            session.save()
-            return redirect('training_session_detail', pk=session.pk)
+            form.save()
+            return redirect('training:training_session_detail', pk=session.pk)
     else:
-        form = TrainingSessionForm()
+        form = TrainingSessionForm(instance=session)
+        
+    context = {
+        'form': form,
+        'session': session,
+    }
 
-    return render(request, 'training_session_form.html', {'form': form})
+    return render(request, 'training_session_form.html', context)
 
 
+@login_required
+def training_session_delete(request, pk):
+    session = get_object_or_404(
+        TrainingSession,
+        pk=pk,
+        user=request.user,
+    )
+
+    if request.method == 'POST':
+        session.delete()
+        return redirect('training:training_session_list')
+    
+    context = {
+        'session': session,
+    }
+
+    return render(request, 'training_session_confirm_delete.html', context)
+
+
+@login_required
 def session_exercise_detail(request, pk):
     se = get_object_or_404(
         SessionExercise.objects.select_related('session', 'exercise'),
-        pk=pk
+        pk=pk,
+        session__user=request.user,
     )
 
     sets_qs = se.exercise_sets.all().order_by('order')
@@ -97,7 +148,7 @@ def session_exercise_detail(request, pk):
 
 
 @login_required
-def session_exercise_update(request, session_exercise_pk, pk):
+def exercise_set_update(request, session_exercise_pk, pk):
     session_exercise = get_object_or_404(
         SessionExercise,
         pk=session_exercise_pk,
@@ -130,7 +181,7 @@ def session_exercise_update(request, session_exercise_pk, pk):
 
 
 @login_required
-def session_exercise_delete(request, session_exercise_pk, pk):
+def exercise_set_delete(request, session_exercise_pk, pk):
     session_exercise = get_object_or_404(
         SessionExercise,
         pk=session_exercise_pk,

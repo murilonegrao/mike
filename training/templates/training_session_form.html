@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Sessão</title>
+    <title>{% if session %}Editar Sessão{% else %}Nova Sessão{% endif %}</title>
 </head>
 <body>
-    <h1>Gravar Nova Sessão</h1>
+    <h1>{% if session %}Editar Sessão{% else %}Gravar Nova Sessão{% endif %}</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Salvar</button>
+        <button type="submit">
+            {% if session %}Salvar Alteraçõea{% else %}Salvar{% endif %}
+        </button>
     </form>
-    <p><a href="{% url 'training:training_session_list' %}">Voltar</a></p>
+    <p>
+        {% if session %}
+            <a href="{% url 'training:training_session_detail' pk=session.pk %}">Voltar</a>
+        {% else %}
+            <a href="{% url 'training:training_session_list' %}">Voltar</a>
+        {% endif %}
+    </p>
 </body>
 </html>

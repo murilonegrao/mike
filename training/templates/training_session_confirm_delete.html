@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Session</title>
+</head>
+<body>
+    <h1>Apagar Sessão</h1>
+    <h2>Confirma que deseja apagar a sessão?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Excluir Sessão</button>
+    </form>
+    <p><a href="{% url 'training:training_session_detail' pk=session.pk %}">Cancelar</a></p>
+</body>
+</html>
