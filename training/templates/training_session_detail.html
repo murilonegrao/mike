@@ -13,7 +13,7 @@
 
     <ul>
         {% for se in exercises %}
-            <h3>{{ se.order }}. {{ se.exercise.name }} ({{ se.variation }})</h3>
+            <h3>{{ se.order }}. {{ se.exercise.name }} ({{ se.variation }}) <a href="{% url 'training:session_exercise_update' pk=se.pk %}">Editar</a><a href="{% url 'training:session_exercise_delete' pk=se.pk %}">Deletar</a></h3>
             <ul>
                 {% for s in se.exercise_sets.all %}
                 <li>{{ s }}</li>

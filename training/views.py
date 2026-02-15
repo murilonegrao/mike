@@ -148,6 +148,61 @@ def session_exercise_detail(request, pk):
 
 
 @login_required
+def session_exercise_update(request, pk):
+    se = get_object_or_404(
+        SessionExercise.objects.select_related('session', 'exercise'),
+        pk=pk,
+        session__user=request.user,
+    )
+
+    if request.method == 'POST':
+        form = SessionExerciseForm(request.POST, instance=se)
+        if form.is_valid():
+            se = form.save()
+            
+            return redirect('training:training_session_detail', pk=se.session.pk)
+
+    else:
+        form = SessionExerciseForm(instance=se)
+
+    context = {
+        'form': form,
+        'se': se,
+    }
+
+    return render(request, 'session_exercise_form.html', context)
+    
+
+@login_required
+def session_exercise_delete(request, pk):
+    se = get_object_or_404(
+        SessionExercise.objects.select_related('session', 'exercise'),
+        pk=pk,
+        session__user=request.user,
+    )
+
+    session = se.session
+
+    if request.method == 'POST':
+        se.delete()
+
+        remaining = SessionExercise.objects.filter(session=session).order_by('order')
+        for idx, item in enumerate(remaining, start=1):
+            if item.order != idx:
+                item.order = idx
+                item.save(update_fields=['order'])
+        return redirect('training:training_session_detail', pk=session.pk)
+    
+    context = {
+        'session': session,
+        'se': se,
+    }
+    
+    return render(request, 'session_exercise_confirm_delete.html', context)
+
+
+
+@login_required
 def exercise_set_update(request, session_exercise_pk, pk):
     session_exercise = get_object_or_404(
         SessionExercise,
@@ -196,6 +251,7 @@ def exercise_set_delete(request, session_exercise_pk, pk):
 
     if request.method == 'POST':
         exercise_set.delete()
+
         remaining = ExerciseSet.objects.filter(session_exercise=session_exercise).order_by('order')
         for idx, s in enumerate(remaining, start=1):
             if s.order != idx:
