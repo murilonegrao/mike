@@ -17,7 +17,7 @@ def training_session_create(request):
     else:
         form = TrainingSessionForm()
 
-    return render(request, 'training_session_form.html', {'form': form})
+    return render(request, 'training/training_session_form.html', {'form': form})
 
 @login_required
 def training_session_list(request):
@@ -34,7 +34,7 @@ def training_session_list(request):
         'sessions': sessions,
         }
 
-    return render(request, 'training_session_list.html', context)
+    return render(request, 'training/training_session_list.html', context)
 
 
 @login_required
@@ -56,7 +56,8 @@ def training_session_detail(request, pk):
         if form.is_valid():
             se = form.save(commit=False)
             se.session = session
-            se.order = exercises_qs.count() + 1
+            max_order = session.session_exercises.aggregate(Max('order'))['order__max'] or 0
+            se.order = max_order + 1
             se.save()
             return redirect('training:training_session_detail', pk=session.pk)
     else:
@@ -69,7 +70,7 @@ def training_session_detail(request, pk):
         'form': form,
         }
 
-    return render(request, 'training_session_detail.html', context)
+    return render(request, 'training/training_session_detail.html', context)
 
 
 @login_required
@@ -93,7 +94,7 @@ def training_session_update(request, pk):
         'session': session,
     }
 
-    return render(request, 'training_session_form.html', context)
+    return render(request, 'training/training_session_form.html', context)
 
 
 @login_required
@@ -112,7 +113,7 @@ def training_session_delete(request, pk):
         'session': session,
     }
 
-    return render(request, 'training_session_confirm_delete.html', context)
+    return render(request, 'training/training_session_confirm_delete.html', context)
 
 
 @login_required
@@ -142,7 +143,7 @@ def session_exercise_detail(request, pk):
 
     return render(
         request,
-        'session_exercise_detail.html',
+        'training/session_exercise_detail.html',
         {'se': se, 'sets': sets_qs, 'form': form}
     )
 
@@ -170,7 +171,7 @@ def session_exercise_update(request, pk):
         'se': se,
     }
 
-    return render(request, 'session_exercise_form.html', context)
+    return render(request, 'training/session_exercise_form.html', context)
     
 
 @login_required
@@ -198,7 +199,7 @@ def session_exercise_delete(request, pk):
         'se': se,
     }
     
-    return render(request, 'session_exercise_confirm_delete.html', context)
+    return render(request, 'training/session_exercise_confirm_delete.html', context)
 
 
 
@@ -226,7 +227,7 @@ def exercise_set_update(request, session_exercise_pk, pk):
 
     return render(
         request,
-        'exercise_set_form.html',
+        'training/exercise_set_form.html',
         {
             'session_exercise': session_exercise,
             'exercise_set': exercise_set,
@@ -261,7 +262,7 @@ def exercise_set_delete(request, session_exercise_pk, pk):
 
     return render(
         request,
-        'exercise_set_confirm_delete.html',
+        'training/exercise_set_confirm_delete.html',
         {
             'session_exercise': session_exercise,
             'exercise_set': exercise_set,

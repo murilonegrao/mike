@@ -80,7 +80,7 @@ class SessionExercise(models.Model):
         )
     exercise = models.ForeignKey(
         Exercise,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='appearances'
         )
     variation = models.CharField(
