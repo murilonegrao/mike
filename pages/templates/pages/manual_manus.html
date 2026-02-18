@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIKE Design System - Manual Completo</title>
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Cores Primárias - Light Mode */
+            --color-mike-primary-light: #1A1A1A;
+            --color-mike-surface-light: #FFFFFF;
+            --color-mike-accent-light: #007BFF;
+
+            /* Cores Secundárias - Light Mode */
+            --color-mike-secondary-light: #4A4A4A;
+            --color-mike-border-light: #E0E0E0;
+            --color-mike-graph-light: #6C757D;
+
+            /* Neutros - Light Mode */
+            --color-text-primary-light: #1A1A1A;
+            --color-text-secondary-light: #4A4A4A;
+            --color-background-light: #F8F8F8;
+
+            /* Cores Semânticas - Light Mode */
+            --color-success-light: #28A745;
+            --color-warning-light: #FFC107;
+            --color-error-light: #DC3545;
+            --color-info-light: #17A2B8;
+
+            /* Tipografia */
+            --font-family-primary: 'Montserrat', sans-serif;
+            --font-family-secondary: 'Oswald', sans-serif;
+            --font-family-mono: 'Roboto Mono', monospace;
+
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --font-size-h1: 32px;
+            --font-size-h2: 24px;
+            --font-size-h3: 20px;
+            --font-size-h4: 18px;
+            --font-size-h5: 16px;
+            --font-size-h6: 14px;
+            --font-size-body: 16px;
+            --font-size-small: 12px;
+            --font-size-caption: 10px;
+            --font-size-numbers-large: 48px;
+
+            --line-height-h1: 1.2;
+            --line-height-h2: 1.3;
+            --line-height-h3: 1.4;
+            --line-height-h4: 1.5;
+            --line-height-h5: 1.5;
+            --line-height-h6: 1.6;
+            --line-height-body: 1.6;
+            --line-height-small: 1.6;
+            --line-height-caption: 1.6;
+            --line-height-numbers-large: 1;
+
+            /* Espaçamento */
+            --spacing-xxs: 4px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-xxl: 64px;
+
+            /* Raio de Borda */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --border-radius-circle: 50%;
+
+            /* Sombras */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+            /* Estados */
+            --state-hover-opacity: 0.8;
+            --state-focus-ring: 0 0 0 3px rgba(0, 123, 255, 0.5);
+            --state-disabled-opacity: 0.6;
+            --state-disabled-cursor: not-allowed;
+        }
+
+        [data-theme="dark"] {
+            /* Cores Primárias - Dark Mode */
+            --color-mike-primary-dark: #F0F0F0;
+            --color-mike-surface-dark: #121212;
+            --color-mike-accent-dark: #66B2FF;
+
+            /* Cores Secundárias - Dark Mode */
+            --color-mike-secondary-dark: #B0B0B0;
+            --color-mike-border-dark: #333333;
+            --color-mike-graph-dark: #888888;
+
+            /* Neutros - Dark Mode */
+            --color-text-primary-dark: #F0F0F0;
+            --color-text-secondary-dark: #B0B0B0;
+            --color-background-dark: #0A0A0A;
+
+            /* Cores Semânticas - Dark Mode */
+            --color-success-dark: #4CAF50;
+            --color-warning-dark: #FFD700;
+            --color-error-dark: #EF5350;
+            --color-info-dark: #2196F3;
+
+            /* Sombras Dark */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+
+            /* Estados Dark */
+            --state-focus-ring: 0 0 0 3px rgba(102, 178, 255, 0.5);
+        }
+
+        /* Estilos Base */
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-body);
+            line-height: var(--line-height-body);
+            color: var(--color-text-primary-light);
+            background-color: var(--color-background-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="dark"] body {
+            color: var(--color-text-primary-dark);
+            background-color: var(--color-background-dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-secondary);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-primary-light);
+        }
+
+        [data-theme="dark"] h1,
+        [data-theme="dark"] h2,
+        [data-theme="dark"] h3,
+        [data-theme="dark"] h4,
+        [data-theme="dark"] h5,
+        [data-theme="dark"] h6 {
+            color: var(--color-text-primary-dark);
+        }
+
+        h1 { font-size: var(--font-size-h1); line-height: var(--line-height-h1); }
+        h2 { font-size: var(--font-size-h2); line-height: var(--line-height-h2); }
+        h3 { font-size: var(--font-size-h3); line-height: var(--line-height-h3); }
+        h4 { font-size: var(--font-size-h4); line-height: var(--line-height-h4); }
+        h5 { font-size: var(--font-size-h5); line-height: var(--line-height-h5); }
+        h6 { font-size: var(--font-size-h6); line-height: var(--line-height-h6); }
+
+        .navbar {
+            background-color: var(--color-mike-surface-light);
+            border-bottom: 1px solid var(--color-mike-border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        [data-theme="dark"] .navbar {
+            background-color: var(--color-mike-surface-dark);
+            border-bottom-color: var(--color-mike-border-dark);
+        }
+
+        .navbar-brand {
+            font-family: var(--font-family-secondary);
+            font-size: var(--font-size-h4);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-mike-primary-light) !important;
+        }
+
+        [data-theme="dark"] .navbar-brand {
+            color: var(--color-mike-primary-dark) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--color-mike-accent-light);
+            border-color: var(--color-mike-accent-light);
+            color: white;
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--border-radius-md);
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: var(--state-hover-opacity);
+            background-color: var(--color-mike-accent-light);
+            border-color: var(--color-mike-accent-light);
+        }
+
+        .btn-primary:focus {
+            box-shadow: var(--state-focus-ring);
+        }
+
+        [data-theme="dark"] .btn-primary {
+            background-color: var(--color-mike-accent-dark);
+            border-color: var(--color-mike-accent-dark);
+        }
+
+        [data-theme="dark"] .btn-primary:hover {
+            background-color: var(--color-mike-accent-dark);
+            border-color: var(--color-mike-accent-dark);
+        }
+
+        [data-theme="dark"] .btn-primary:focus {
+            box-shadow: var(--state-focus-ring);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--color-mike-secondary-light);
+            color: var(--color-mike-secondary-light);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--border-radius-md);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-mike-secondary-light);
+            color: white;
+        }
+
+        [data-theme="dark"] .btn-secondary {
+            border-color: var(--color-mike-secondary-dark);
+            color: var(--color-mike-secondary-dark);
+        }
+
+        [data-theme="dark"] .btn-secondary:hover {
+            background-color: var(--color-mike-secondary-dark);
+            color: var(--color-mike-surface-dark);
+        }
+
+        .btn-danger {
+            background-color: var(--color-error-light);
+            border-color: var(--color-error-light);
+        }
+
+        [data-theme="dark"] .btn-danger {
+            background-color: var(--color-error-dark);
+            border-color: var(--color-error-dark);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            border: none;
+            color: var(--color-mike-secondary-light);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--color-mike-border-light);
+            color: var(--color-mike-primary-light);
+        }
+
+        [data-theme="dark"] .btn-ghost {
+            color: var(--color-mike-secondary-dark);
+        }
+
+        [data-theme="dark"] .btn-ghost:hover {
+            background-color: var(--color-mike-border-dark);
+            color: var(--color-mike-primary-dark);
+        }
+
+        .card {
+            background-color: var(--color-mike-surface-light);
+            border: 1px solid var(--color-mike-border-light);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        [data-theme="dark"] .card {
+            background-color: var(--color-mike-surface-dark);
+            border-color: var(--color-mike-border-dark);
+        }
+
+        .card-header {
+            background-color: var(--color-background-light);
+            border-bottom: 1px solid var(--color-mike-border-light);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        [data-theme="dark"] .card-header {
+            background-color: var(--color-background-dark);
+            border-bottom-color: var(--color-mike-border-dark);
+        }
+
+        .badge {
+            font-family: var(--font-family-primary);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            font-size: var(--font-size-small);
+        }
+
+        .badge-success {
+            background-color: var(--color-success-light);
+            color: white;
+        }
+
+        [data-theme="dark"] .badge-success {
+            background-color: var(--color-success-dark);
+        }
+
+        .badge-error {
+            background-color: var(--color-error-light);
+            color: white;
+        }
+
+        [data-theme="dark"] .badge-error {
+            background-color: var(--color-error-dark);
+        }
+
+        .badge-warning {
+            background-color: var(--color-warning-light);
+            color: white;
+        }
+
+        [data-theme="dark"] .badge-warning {
+            background-color: var(--color-warning-dark);
+        }
+
+        .badge-info {
+            background-color: var(--color-info-light);
+            color: white;
+        }
+
+        [data-theme="dark"] .badge-info {
+            background-color: var(--color-info-dark);
+        }
+
+        .form-control {
+            border: 1px solid var(--color-mike-border-light);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-family-primary);
+            color: var(--color-text-primary-light);
+            background-color: var(--color-mike-surface-light);
+        }
+
+        .form-control:focus {
+            border-color: var(--color-mike-accent-light);
+            box-shadow: var(--state-focus-ring);
+            background-color: var(--color-mike-surface-light);
+            color: var(--color-text-primary-light);
+        }
+
+        [data-theme="dark"] .form-control {
+            border-color: var(--color-mike-border-dark);
+            background-color: var(--color-mike-surface-dark);
+            color: var(--color-text-primary-dark);
+        }
+
+        [data-theme="dark"] .form-control:focus {
+            border-color: var(--color-mike-accent-dark);
+            box-shadow: var(--state-focus-ring);
+            background-color: var(--color-mike-surface-dark);
+            color: var(--color-text-primary-dark);
+        }
+
+        .table {
+            color: var(--color-text-primary-light);
+        }
+
+        [data-theme="dark"] .table {
+            color: var(--color-text-primary-dark);
+        }
+
+        .table thead th {
+            background-color: var(--color-background-light);
+            border-bottom: 2px solid var(--color-mike-border-light);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary-light);
+        }
+
+        [data-theme="dark"] .table thead th {
+            background-color: var(--color-background-dark);
+            border-bottom-color: var(--color-mike-border-dark);
+            color: var(--color-text-primary-dark);
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid var(--color-mike-border-light);
+        }
+
+        [data-theme="dark"] .table tbody tr {
+            border-bottom-color: var(--color-mike-border-dark);
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: var(--color-background-light);
+        }
+
+        [data-theme="dark"] .table tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-mike-border-light);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: var(--spacing-xs);
+            font-size: var(--font-size-caption);
+            font-weight: var(--font-weight-semibold);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .color-swatch {
+            border-color: var(--color-mike-border-dark);
+        }
+
+        .section {
+            padding: var(--spacing-lg) 0;
+            border-bottom: 1px solid var(--color-mike-border-light);
+        }
+
+        [data-theme="dark"] .section {
+            border-bottom-color: var(--color-mike-border-dark);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .number-display {
+            font-family: var(--font-family-secondary);
+            font-size: var(--font-size-numbers-large);
+            font-weight: var(--font-weight-bold);
+            line-height: var(--line-height-numbers-large);
+            color: var(--color-mike-accent-light);
+        }
+
+        [data-theme="dark"] .number-display {
+            color: var(--color-mike-accent-dark);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            z-index: 1000;
+            background-color: var(--color-mike-accent-light);
+            border: none;
+            color: white;
+            border-radius: var(--border-radius-circle);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            font-size: 24px;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background-color: var(--color-mike-accent-dark);
+        }
+
+        .theme-toggle:hover {
+            opacity: var(--state-hover-opacity);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-mike-primary-light) 0%, var(--color-mike-secondary-light) 100%);
+            color: white;
+            padding: var(--spacing-xxl) var(--spacing-lg);
+            text-align: center;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, var(--color-mike-primary-dark) 0%, var(--color-mike-secondary-dark) 100%);
+            color: var(--color-mike-surface-dark);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: var(--spacing-md);
+            color: white;
+        }
+
+        [data-theme="dark"] .hero h1 {
+            color: var(--color-mike-surface-dark);
+        }
+
+        .hero p {
+            font-size: var(--font-size-h5);
+            margin: 0;
+        }
+
+        .do-dont-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        @media (max-width: 768px) {
+            .do-dont-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .do-card {
+            border-left: 4px solid var(--color-success-light);
+        }
+
+        [data-theme="dark"] .do-card {
+            border-left-color: var(--color-success-dark);
+        }
+
+        .dont-card {
+            border-left: 4px solid var(--color-error-light);
+        }
+
+        [data-theme="dark"] .dont-card {
+            border-left-color: var(--color-error-dark);
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .checklist-item {
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            border-left: 3px solid var(--color-mike-accent-light);
+            background-color: var(--color-background-light);
+        }
+
+        [data-theme="dark"] .checklist-item {
+            border-left-color: var(--color-mike-accent-dark);
+            background-color: var(--color-background-dark);
+        }
+
+        .checklist-item.completed {
+            border-left-color: var(--color-success-light);
+            opacity: 0.7;
+        }
+
+        [data-theme="dark"] .checklist-item.completed {
+            border-left-color: var(--color-success-dark);
+        }
+
+        .mock-screen {
+            background-color: var(--color-mike-surface-light);
+            border: 1px solid var(--color-mike-border-light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        [data-theme="dark"] .mock-screen {
+            background-color: var(--color-mike-surface-dark);
+            border-color: var(--color-mike-border-dark);
+        }
+
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-mike-border-light);
+        }
+
+        [data-theme="dark"] .exercise-item {
+            border-bottom-color: var(--color-mike-border-dark);
+        }
+
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+
+        .progress-bar-custom {
+            height: 8px;
+            background-color: var(--color-mike-border-light);
+            border-radius: var(--border-radius-circle);
+            overflow: hidden;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        [data-theme="dark"] .progress-bar-custom {
+            background-color: var(--color-mike-border-dark);
+        }
+
+        .progress-bar-custom-fill {
+            height: 100%;
+            background-color: var(--color-mike-accent-light);
+            width: 65%;
+        }
+
+        [data-theme="dark"] .progress-bar-custom-fill {
+            background-color: var(--color-mike-accent-dark);
+        }
+
+        .chart-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: var(--spacing-xs);
+            height: 150px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .bar {
+            flex: 1;
+            background-color: var(--color-mike-accent-light);
+            border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+            min-height: 20px;
+            position: relative;
+        }
+
+        [data-theme="dark"] .bar {
+            background-color: var(--color-mike-accent-dark);
+        }
+
+        .bar.pr {
+            background-color: var(--color-success-light);
+        }
+
+        [data-theme="dark"] .bar.pr {
+            background-color: var(--color-success-dark);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: var(--font-size-caption);
+            color: var(--color-text-secondary-light);
+        }
+
+        [data-theme="dark"] .bar-label {
+            color: var(--color-text-secondary-dark);
+        }
+
+        .toc {
+            background-color: var(--color-background-light);
+            border: 1px solid var(--color-mike-border-light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        [data-theme="dark"] .toc {
+            background-color: var(--color-background-dark);
+            border-color: var(--color-mike-border-dark);
+        }
+
+        .toc a {
+            color: var(--color-mike-accent-light);
+            text-decoration: none;
+            display: block;
+            padding: var(--spacing-xs) 0;
+        }
+
+        [data-theme="dark"] .toc a {
+            color: var(--color-mike-accent-dark);
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar sticky-top">
+        <div class="container-fluid">
+            <span class="navbar-brand">MIKE Design System</span>
+            <span style="font-size: 12px; color: var(--color-text-secondary-light);">Manual Completo</span>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Alternar modo claro/escuro">
+        <i class="bi bi-moon-fill"></i>
+    </button>
+
+    <!-- Main Container -->
+    <div class="container-lg" style="padding-top: var(--spacing-lg); padding-bottom: var(--spacing-lg);">
+        
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>MIKE</h1>
+            <p>Disciplina implacável que transforma esforço em progresso mensurável</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h5>Índice</h5>
+            <a href="#brand-foundation">1. Brand Foundation</a>
+            <a href="#color-palette">2. Paleta de Cores</a>
+            <a href="#typography">3. Tipografia</a>
+            <a href="#components">4. Componentes</a>
+            <a href="#workout-screen">5. Tela de Treino (Mock)</a>
+            <a href="#progress-report">6. Relatório de Progresso (Mock)</a>
+            <a href="#iconography">7. Iconografia</a>
+            <a href="#do-dont">8. Do / Don't</a>
+            <a href="#implementation-checklist">9. Checklist de Implementação</a>
+        </div>
+
+        <!-- 1. Brand Foundation -->
+        <div class="section" id="brand-foundation">
+            <h2>1. Brand Foundation</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Essência da Marca</h4>
+                    <p><strong>MIKE é a disciplina implacável que transforma esforço em progresso mensurável.</strong></p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Personalidade</h4>
+                    <ul>
+                        <li><strong>Objetivo:</strong> Direto ao ponto, sem floreios.</li>
+                        <li><strong>Preciso:</strong> Cada dado é tratado com exatidão.</li>
+                        <li><strong>Motivador:</strong> Inspira a busca contínua por melhoria.</li>
+                        <li><strong>Disciplinado:</strong> Reflete a disciplina necessária para o treinamento Heavy Duty.</li>
+                    </ul>
+                </div>
+            </div>
+            <h4 style="margin-top: var(--spacing-lg);">Princípios de Design</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Foco no Essencial</div>
+                        <div class="card-body">
+                            <p>Eliminar qualquer elemento que não contribua diretamente para o registro ou análise do treino.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Clareza e Legibilidade</div>
+                        <div class="card-body">
+                            <p>As informações mais importantes devem ser imediatamente compreensíveis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Feedback Instantâneo</div>
+                        <div class="card-body">
+                            <p>Cada interação deve gerar uma resposta clara e imediata.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Consistência Previsível</div>
+                        <div class="card-body">
+                            <p>Elementos de interface devem ser consistentes em todo o app.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Color Palette -->
+        <div class="section" id="color-palette">
+            <h2>2. Paleta de Cores</h2>
+            
+            <h4>Cores Primárias</h4>
+            <div class="example-grid">
+                <div>
+                    <div class="color-swatch" style="background-color: #1A1A1A;">#1A1A1A</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>MIKE Primary</strong></p>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background-color: #FFFFFF; color: #1A1A1A; text-shadow: none;">#FFFFFF</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>MIKE Surface</strong></p>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background-color: #007BFF;">#007BFF</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>MIKE Accent</strong></p>
+                </div>
+            </div>
+
+            <h4>Cores Semânticas</h4>
+            <div class="example-grid">
+                <div>
+                    <div class="color-swatch" style="background-color: #28A745;">#28A745</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>Success</strong></p>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background-color: #FFC107; color: #1A1A1A; text-shadow: none;">#FFC107</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>Warning</strong></p>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background-color: #DC3545;">#DC3545</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>Error</strong></p>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background-color: #17A2B8;">#17A2B8</div>
+                    <p style="margin-top: var(--spacing-xs); font-size: var(--font-size-small);"><strong>Info</strong></p>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Regras de Contraste (WCAG AA)</h4>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Fundo</th>
+                        <th>Texto Claro</th>
+                        <th>Texto Escuro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="background-color: #1A1A1A; color: white;">MIKE Primary</td>
+                        <td>✅ Bom</td>
+                        <td>❌ Baixo</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #FFFFFF; color: #1A1A1A;">MIKE Surface</td>
+                        <td>❌ Baixo</td>
+                        <td>✅ Bom</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #007BFF; color: white;">MIKE Accent</td>
+                        <td>✅ Bom</td>
+                        <td>❌ Baixo</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #28A745; color: white;">Success</td>
+                        <td>✅ Bom</td>
+                        <td>❌ Baixo</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #DC3545; color: white;">Error</td>
+                        <td>✅ Bom</td>
+                        <td>❌ Baixo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. Typography -->
+        <div class="section" id="typography">
+            <h2>3. Tipografia</h2>
+            
+            <h4>Fontes Selecionadas</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Montserrat (Primária)</div>
+                        <div class="card-body">
+                            <p style="font-family: var(--font-family-primary); font-size: 18px;">Esta é a fonte primária usada para UI, textos de corpo e labels.</p>
+                            <p style="font-size: var(--font-size-small); color: var(--color-text-secondary-light);">Geométrica, robusta e moderna.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Oswald (Secundária)</div>
+                        <div class="card-body">
+                            <p style="font-family: var(--font-family-secondary); font-size: 24px; font-weight: 700;">TÍTULOS E NÚMEROS EM DESTAQUE</p>
+                            <p style="font-size: var(--font-size-small); color: var(--color-text-secondary-light);">Condensada, impactante e eficiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Escala Tipográfica</h4>
+            <div class="card">
+                <div class="card-body">
+                    <h1>H1 - Título Principal (32px)</h1>
+                    <h2>H2 - Título de Seção (24px)</h2>
+                    <h3>H3 - Subtítulo (20px)</h3>
+                    <h4>H4 - Título de Card (18px)</h4>
+                    <h5>H5 - Label (16px)</h5>
+                    <h6>H6 - Texto Secundário (14px)</h6>
+                    <p>Body - Texto de corpo principal (16px, line-height 1.6). Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p style="font-size: var(--font-size-small);">Small - Texto pequeno (12px). Usado para legendas e textos de apoio.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Components -->
+        <div class="section" id="components">
+            <h2>4. Componentes</h2>
+
+            <h4>Botões</h4>
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-primary" style="margin-right: var(--spacing-sm);">Primary</button>
+                    <button class="btn btn-secondary" style="margin-right: var(--spacing-sm);">Secondary</button>
+                    <button class="btn btn-ghost" style="margin-right: var(--spacing-sm);">Ghost</button>
+                    <button class="btn btn-danger">Danger</button>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Inputs</h4>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="textInput" class="form-label">Text Input</label>
+                        <input type="text" class="form-control" id="textInput" placeholder="Digite algo...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="numberInput" class="form-label">Number Input</label>
+                        <input type="number" class="form-control" id="numberInput" placeholder="0" value="50">
+                    </div>
+                    <div class="mb-3">
+                        <label for="selectInput" class="form-label">Select</label>
+                        <select class="form-control" id="selectInput">
+                            <option>Supino</option>
+                            <option>Agachamento</option>
+                            <option>Rosca Direta</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Badges</h4>
+            <div class="card">
+                <div class="card-body">
+                    <span class="badge badge-success" style="margin-right: var(--spacing-xs);">PR</span>
+                    <span class="badge badge-error" style="margin-right: var(--spacing-xs);">Falha</span>
+                    <span class="badge badge-warning" style="margin-right: var(--spacing-xs);">Deload</span>
+                    <span class="badge badge-info">Volume Alto</span>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Cards</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Supino Reto</div>
+                        <div class="card-body">
+                            <p><strong>Série 1:</strong> 10 reps @ 100kg</p>
+                            <p><strong>Série 2:</strong> 8 reps @ 110kg</p>
+                            <p><strong>Série 3:</strong> 6 reps @ 120kg <span class="badge badge-success">PR</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Rosca Direta</div>
+                        <div class="card-body">
+                            <p><strong>Série 1:</strong> 12 reps @ 30kg</p>
+                            <p><strong>Série 2:</strong> 10 reps @ 35kg</p>
+                            <p><strong>Série 3:</strong> 8 reps @ 40kg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Workout Screen Mock -->
+        <div class="section" id="workout-screen">
+            <h2>5. Tela de Treino (Mock UI)</h2>
+            <div class="mock-screen">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-mike-border-light);">
+                    <div>
+                        <h4 style="margin: 0;">Treino - Costas</h4>
+                        <p style="margin: 0; font-size: var(--font-size-small); color: var(--color-text-secondary-light);">Segunda-feira, 16 de fevereiro</p>
+                    </div>
+                    <span class="badge badge-info">Em Progresso</span>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-md);">
+                    <h5>Exercícios</h5>
+                    <div class="exercise-item">
+                        <div>
+                            <p style="margin: 0; font-weight: 600;">Barra Fixa</p>
+                            <p style="margin: 0; font-size: var(--font-size-small); color: var(--color-text-secondary-light);">3 séries x 10 reps</p>
+                        </div>
+                        <span class="badge badge-success">✓ Concluído</span>
+                    </div>
+                    <div class="exercise-item">
+                        <div>
+                            <p style="margin: 0; font-weight: 600;">Remada Curvada</p>
+                            <p style="margin: 0; font-size: var(--font-size-small); color: var(--color-text-secondary-light);">4 séries x 8 reps</p>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                    <div class="exercise-item">
+                        <div>
+                            <p style="margin: 0; font-weight: 600;">Encolhimento</p>
+                            <p style="margin: 0; font-size: var(--font-size-small); color: var(--color-text-secondary-light);">3 séries x 12 reps</p>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-sm);">
+                    <button class="btn btn-secondary">Duplicar Treino</button>
+                    <button class="btn btn-primary">Finalizar Treino</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Progress Report Mock -->
+        <div class="section" id="progress-report">
+            <h2>6. Relatório de Progresso (Mock UI)</h2>
+            <div class="mock-screen">
+                <h4>Seu Progresso - Fevereiro</h4>
+                
+                <div style="margin-bottom: var(--spacing-lg);">
+                    <h5>Treinos Completados</h5>
+                    <div style="display: flex; gap: var(--spacing-xs); margin-bottom: var(--spacing-sm);">
+                        <div class="number-display" style="font-size: 36px;">12</div>
+                        <div style="display: flex; flex-direction: column; justify-content: center;">
+                            <p style="margin: 0; font-weight: 600;">de 12 planejados</p>
+                            <p style="margin: 0; font-size: var(--font-size-small); color: var(--color-success-light);">100% de aderência</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-bar-custom-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-lg);">
+                    <h5>Recordes Pessoais (PRs)</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <p><strong>Supino Reto:</strong> 120kg <span class="badge badge-success">Novo PR!</span></p>
+                            <p><strong>Agachamento:</strong> 150kg</p>
+                            <p><strong>Rosca Direta:</strong> 40kg <span class="badge badge-success">Novo PR!</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h5>Volume de Treino (Últimas 4 Semanas)</h5>
+                    <div class="chart-bar">
+                        <div class="bar" style="height: 60%;"><span class="bar-label">Sem 1</span></div>
+                        <div class="bar" style="height: 75%;"><span class="bar-label">Sem 2</span></div>
+                        <div class="bar pr" style="height: 90%;"><span class="bar-label">Sem 3</span></div>
+                        <div class="bar" style="height: 85%;"><span class="bar-label">Sem 4</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Iconography -->
+        <div class="section" id="iconography">
+            <h2>7. Iconografia</h2>
+            <p>Ícones lineares com espessura consistente (2px) e cantos levemente arredondados (2px). Funcionam bem em tamanhos pequenos e mantêm clareza em modo claro e escuro.</p>
+            
+            <h4>Exemplos de Ícones (Bootstrap Icons)</h4>
+            <div class="example-grid" style="grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));">
+                <div style="text-align: center;">
+                    <i class="bi bi-dumbbell" style="font-size: 32px; color: var(--color-mike-accent-light); margin-bottom: var(--spacing-xs);"></i>
+                    <p style="font-size: var(--font-size-caption);">Exercício</p>
+                </div>
+                <div style="text-align: center;">
+                    <i class="bi bi-graph-up" style="font-size: 32px; color: var(--color-mike-accent-light); margin-bottom: var(--spacing-xs);"></i>
+                    <p style="font-size: var(--font-size-caption);">Progresso</p>
+                </div>
+                <div style="text-align: center;">
+                    <i class="bi bi-check-circle" style="font-size: 32px; color: var(--color-success-light); margin-bottom: var(--spacing-xs);"></i>
+                    <p style="font-size: var(--font-size-caption);">Concluído</p>
+                </div>
+                <div style="text-align: center;">
+                    <i class="bi bi-calendar" style="font-size: 32px; color: var(--color-mike-accent-light); margin-bottom: var(--spacing-xs);"></i>
+                    <p style="font-size: var(--font-size-caption);">Calendário</p>
+                </div>
+                <div style="text-align: center;">
+                    <i class="bi bi-bar-chart" style="font-size: 32px; color: var(--color-mike-accent-light); margin-bottom: var(--spacing-xs);"></i>
+                    <p style="font-size: var(--font-size-caption);">Análise</p>
+                </div>
+                <div style="text-align: center;">
+                    <i class="bi bi-award" style="font-size: 32px; color: var(--color-success-light); margin-bottom: var(--spacing-xs);"></i>
+                    <p style="font-size: var(--font-size-caption);">Conquista</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Do / Don't -->
+        <div class="section" id="do-dont">
+            <h2>8. Do / Don't</h2>
+            
+            <div class="do-dont-container">
+                <div class="card do-card">
+                    <div class="card-header" style="border-left: 4px solid var(--color-success-light); padding-left: var(--spacing-md);">
+                        <i class="bi bi-check-circle" style="color: var(--color-success-light);"></i> DO
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Use o MIKE Accent para destacar ações primárias e progresso.</strong> Mantém o foco e motiva o usuário.</p>
+                    </div>
+                </div>
+                <div class="card dont-card">
+                    <div class="card-header" style="border-left: 4px solid var(--color-error-light); padding-left: var(--spacing-md);">
+                        <i class="bi bi-x-circle" style="color: var(--color-error-light);"></i> DON'T
+                    </div>
+                    <div class="card-body">
+                        <p><strong>NÃO use cores de erro para indicar sucesso.</strong> Isso cria confusão e ansiedade.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="do-dont-container">
+                <div class="card do-card">
+                    <div class="card-header" style="border-left: 4px solid var(--color-success-light); padding-left: var(--spacing-md);">
+                        <i class="bi bi-check-circle" style="color: var(--color-success-light);"></i> DO
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Mantenha contraste mínimo de 4.5:1 para texto.</strong> Garante acessibilidade e legibilidade.</p>
+                    </div>
+                </div>
+                <div class="card dont-card">
+                    <div class="card-header" style="border-left: 4px solid var(--color-error-light); padding-left: var(--spacing-md);">
+                        <i class="bi bi-x-circle" style="color: var(--color-error-light);"></i> DON'T
+                    </div>
+                    <div class="card-body">
+                        <p><strong>NÃO use cores muito claras em fundos claros.</strong> Compromete a legibilidade.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="do-dont-container">
+                <div class="card do-card">
+                    <div class="card-header" style="border-left: 4px solid var(--color-success-light); padding-left: var(--spacing-md);">
+                        <i class="bi bi-check-circle" style="color: var(--color-success-light);"></i> DO
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Use Oswald para títulos e números grandes.</strong> Cria impacto e eficiência visual.</p>
+                    </div>
+                </div>
+                <div class="card dont-card">
+                    <div class="card-header" style="border-left: 4px solid var(--color-error-light); padding-left: var(--spacing-md);">
+                        <i class="bi bi-x-circle" style="color: var(--color-error-light);"></i> DON'T
+                    </div>
+                    <div class="card-body">
+                        <p><strong>NÃO use múltiplas fontes diferentes.</strong> Compromete a coesão visual.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. Implementation Checklist -->
+        <div class="section" id="implementation-checklist">
+            <h2>9. Checklist de Implementação</h2>
+            <p>Use este checklist para garantir que o design system está sendo implementado corretamente em todo o projeto.</p>
+            
+            <h4>Cores</h4>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Definir variáveis CSS para todas as cores (light e dark mode)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Validar contraste de todas as combinações de cor/texto (WCAG AA)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Implementar toggle de dark mode com localStorage
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Tipografia</h4>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Importar Google Fonts (Montserrat, Oswald, Roboto Mono)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Definir escala tipográfica (H1-H6, body, small, caption)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Aplicar line-heights corretos para legibilidade
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Componentes</h4>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Implementar botões (primary, secondary, ghost, danger)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Criar inputs com estados (focus, error, disabled)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Implementar cards com sombras e bordas
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Criar badges para status (success, error, warning, info)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Implementar tabelas com alternância de linhas
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Acessibilidade</h4>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Testar com ferramentas de contraste (ex: WebAIM)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Garantir focus rings visíveis em todos os elementos interativos
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Testar navegação por teclado
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Validar com screen readers
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Responsividade</h4>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Testar em breakpoints (mobile, tablet, desktop)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Garantir que ícones e imagens escalam corretamente
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Validar legibilidade de números em telas pequenas
+            </div>
+
+            <h4 style="margin-top: var(--spacing-lg);">Performance</h4>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Otimizar fontes do Google Fonts (usar font-display: swap)
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Minificar CSS e JavaScript
+            </div>
+            <div class="checklist-item">
+                <i class="bi bi-square"></i> Testar performance em conexões lentas
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: var(--spacing-lg) 0; border-top: 1px solid var(--color-mike-border-light); margin-top: var(--spacing-xxl);">
+            <p style="color: var(--color-text-secondary-light); font-size: var(--font-size-small);">MIKE Design System © 2026 | Manual Completo para Desenvolvimento</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const theme = htmlElement.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.classList.remove('bi-moon-fill');
+                icon.classList.add('bi-sun-fill');
+            } else {
+                icon.classList.remove('bi-sun-fill');
+                icon.classList.add('bi-moon-fill');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+:root{
+  --mike-bg: #0B0F14;        /* Graphite */
+  --mike-surface: #121A24;   /* Slate */
+  --mike-border: #2A3441;    /* Steel Gray */
+  --mike-text: #E6EDF5;      /* Mist */
+  --mike-muted: #A7B0BD;     /* Text Light Muted */
+  --mike-accent: #A3E635;    /* Signal Lime */
+  --mike-danger: #EF4444;
+}
+
+.mike-bg{
+  background: radial-gradient(1200px 800px at 20% 0%, rgba(163,230,53,0.08), transparent 55%),
+              radial-gradient(900px 600px at 90% 20%, rgba(59,130,246,0.08), transparent 55%),
+              var(--mike-bg);
+  color: var(--mike-text);
+}
+
+.mike-card{
+  background: rgba(18,26,36,0.92);
+  border: 1px solid rgba(42,52,65,0.9);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+}
+
+.mike-muted{ color: var(--mike-muted); }
+
+.mike-brand{
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.mike-input.form-control{
+  background-color: rgba(11,15,20,0.6);
+  border: 1px solid rgba(42,52,65,0.9);
+  color: var(--mike-text);
+}
+.mike-input.form-control:focus{
+  border-color: rgba(163,230,53,0.7);
+  box-shadow: 0 0 0 .25rem rgba(163,230,53,.15);
+}
+
+.btn-mike{
+  background: var(--mike-accent);
+  border: 1px solid rgba(163,230,53,0.65);
+  color: #0B0F14;
+  font-weight: 700;
+}
+.btn-mike:hover{
+  filter: brightness(1.03);
+}
+
+.mike-hud{
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(163,230,53,0.08) 1px, transparent 1px) 0 0/24px 24px,
+    linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px) 0 0/24px 24px;
+  mask: linear-gradient(#000, transparent 70%);
+  opacity: 0.45;
+}

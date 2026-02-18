@@ -1,398 +1,1426 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MIKE — Registro rigoroso. Progresso inevitável.</title>
 
-<html class="dark" lang="pt-br">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons (optional, lightweight) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-    <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>Mike | Evolução Baseada em Dados</title>
-        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap"
-            rel="stylesheet" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-            rel="stylesheet" />
-        <script
-            id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { primary: "#EA2831", "background-light": "#f8f6f6", "background-dark": "#211111", "surface-dark": "#171717", "border-dark": "#262626" }, fontFamily: { display: "Lexend" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" } } } };</script>
-        <style type="text/tailwindcss">
-            body {
-            font-family: 'Lexend', sans-serif;
-            @apply bg-background-dark text-white;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #262626;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff0000;
-        }
-        .hero-gradient {
-            background: linear-gradient(to top, rgba(10, 10, 10, 1) 0%, rgba(10, 10, 10, 0.6) 50%, rgba(10, 10, 10, 0.3) 100%);
-        }
-    </style>
-    </head>
+  <!-- Google Fonts (from MIKE system) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <body class="transition-colors duration-300">
-        <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-            <header
-                class="fixed top-0 z-50 w-full border-b border-border-dark bg-background-dark/90 backdrop-blur-xl px-6 md:px-20 py-4">
-                <div class="mx-auto flex max-w-7xl items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <div class="size-8 text-primary flex items-center justify-center">
-                            <span class="material-symbols-outlined text-3xl font-bold">query_stats</span>
-                        </div>
-                        <h2 class="text-2xl font-black uppercase tracking-tighter">Mike</h2>
-                    </div>
-                    <nav class="hidden flex-1 justify-end gap-10 md:flex items-center">
-                        <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
-                            href="#recursos">Recursos</a>
-                        <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
-                            href="#analise">Análise</a>
-                        <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
-                            href="#precos">Planos</a>
-                        <a href="{% url 'training:training_session_list' %}"
-                            class="bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 hover:brightness-110 transition-all border border-primary">
-                            Meus Treinos
-                        </a>
-                        <button
-                            class="bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 hover:brightness-110 transition-all border border-primary">
-                            Começar Agora
-                        </button>
-                    </nav>
-                </div>
-            </header>
-            <main class="pt-20">
-                <section class="px-6 md:px-20 py-12 md:py-24">
-                    <div class="mx-auto max-w-7xl">
-                        <div class="relative overflow-hidden rounded-lg bg-surface-dark border border-border-dark">
-                            <div class="flex min-h-[650px] flex-col justify-center p-8 md:p-20 bg-cover bg-center relative"
-                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCH7rD2WOkYlgEH9YRzg0DjaX9eFr1ihnhdwlkd7ozLzFdLfwzvhrCO9mB54Hu-bs1IemwGN-baIar1oRlqkZ1BwTgRgjuxTcfsKUpnQpEKk6tlUuMiHaxI1I-G6p6T_FTWrHrHMGo4C4s4CmQHtSTsUX5Mhgr1Xlg05q7zr6vh3SAc-6UmOrdQvwlxduD3RDtji_sfhz4tIQMfR7KNA9ULfsnIPcERWM4xqlweMcNQFrLdR8MdtnjUryO_SvGVQ-8X5CmLNaVeWbg");'>
-                                <div class="absolute inset-0 hero-gradient"></div>
-                                <div class="relative z-10 max-w-3xl space-y-8">
-                                    <div
-                                        class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-3 py-1 text-primary text-[10px] font-bold uppercase tracking-widest">
-                                        <span class="material-symbols-outlined text-sm">bolt</span> Alta Performance
-                                    </div>
-                                    <h1
-                                        class="text-5xl md:text-8xl font-black leading-none tracking-tighter uppercase italic">
-                                        Mike: Evolução <br /><span class="text-primary">Baseada em Dados</span>
-                                    </h1>
-                                    <p class="text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-xl">
-                                        Otimize cada repetição com inteligência analítica. Gestão de treinos de alta
-                                        intensidade para quem busca resultados mensuráveis e performance extrema.
-                                    </p>
-                                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                                        <button
-                                            class="flex items-center justify-center gap-3 bg-primary text-white px-10 py-5 text-sm font-black uppercase tracking-widest hover:brightness-110 transition-all">
-                                            Iniciar Jornada
-                                            <span class="material-symbols-outlined">trending_up</span>
-                                        </button>
-                                        <button
-                                            class="flex items-center justify-center gap-3 bg-transparent border border-white/20 text-white px-10 py-5 text-sm font-black uppercase tracking-widest hover:bg-white/10 transition-all">
-                                            Ver Demonstração
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="px-6 md:px-20 py-24 bg-background-dark" id="recursos">
-                    <div class="mx-auto max-w-7xl">
-                        <div class="flex flex-col gap-4 mb-16">
-                            <h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Ecossistema de
-                                Performance</h2>
-                            <h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">O Próximo
-                                Nível da Gestão</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
-                            <div
-                                class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
-                                <div class="mb-8 text-primary">
-                                    <span class="material-symbols-outlined text-5xl">fitness_center</span>
-                                </div>
-                                <h4 class="text-2xl font-black uppercase mb-4">Criação de Treinos</h4>
-                                <p class="text-neutral-500 leading-relaxed mb-6">
-                                    Monte rotinas personalizadas com algoritmos que priorizam a biomecânica e o tempo
-                                    sob tensão ideal para hipertrofia máxima.
-                                </p>
-                                <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
-                            </div>
-                            <div
-                                class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
-                                <div class="mb-8 text-primary">
-                                    <span class="material-symbols-outlined text-5xl">edit_note</span>
-                                </div>
-                                <h4 class="text-2xl font-black uppercase mb-4">Registro Simplificado</h4>
-                                <p class="text-neutral-500 leading-relaxed mb-6">
-                                    Log de treinos intuitivo. Registre cargas, reps e falhas em segundos, sem
-                                    interromper o fluxo da sua sessão de treino.
-                                </p>
-                                <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
-                            </div>
-                            <div
-                                class="group bg-surface-dark p-10 border border-border-dark hover:border-primary/50 transition-all duration-500">
-                                <div class="mb-8 text-primary">
-                                    <span class="material-symbols-outlined text-5xl">monitoring</span>
-                                </div>
-                                <h4 class="text-2xl font-black uppercase mb-4">Análise de Progresso Muscular</h4>
-                                <p class="text-neutral-500 leading-relaxed mb-6">
-                                    Visualize sua evolução através de mapas de calor musculares e gráficos de volume de
-                                    carga progressiva.
-                                </p>
-                                <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="px-6 md:px-20 py-24 bg-surface-dark border-y border-border-dark" id="analise">
-                    <div class="mx-auto max-w-7xl">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            <div class="space-y-8">
-                                <h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Inteligência de
-                                    Dados</h2>
-                                <h3
-                                    class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter leading-none">
-                                    Decisões Baseadas <br /><span class="text-neutral-500">em Evidências</span>
-                                </h3>
-                                <p class="text-neutral-400 text-lg leading-relaxed">
-                                    Nossa plataforma analisa seu histórico para prever períodos de overtraining e
-                                    sugerir o momento exato de aumentar a carga. Não é apenas sorte, é ciência aplicada
-                                    à sua musculatura.
-                                </p>
-                                <div class="grid grid-cols-2 gap-8 py-4">
-                                    <div>
-                                        <div class="text-primary font-black text-3xl mb-1">98%</div>
-                                        <div class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest">
-                                            Precisão de Volume</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-primary font-black text-3xl mb-1">-25%</div>
-                                        <div class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest">
-                                            Risco de Lesão</div>
-                                    </div>
-                                </div>
-                                <button
-                                    class="border-b-2 border-primary pb-1 text-xs font-black uppercase tracking-widest hover:text-primary transition-colors inline-flex items-center gap-2">
-                                    Conhecer a Metodologia <span
-                                        class="material-symbols-outlined text-sm">arrow_forward</span>
-                                </button>
-                            </div>
-                            <div class="relative">
-                                <div class="bg-background-dark p-6 rounded-lg border border-border-dark shadow-2xl">
-                                    <div class="flex justify-between items-center mb-8">
-                                        <h5 class="text-xs font-bold uppercase tracking-widest text-neutral-500">
-                                            Eficiência de Treino</h5>
-                                        <div
-                                            class="bg-primary/20 text-primary px-3 py-1 rounded-full text-[10px] font-bold">
-                                            +15.4%</div>
-                                    </div>
-                                    <svg class="w-full h-64" viewbox="0 0 400 150">
-                                        <defs>
-                                            <lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
-                                                <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.3"></stop>
-                                                <stop offset="100%" style="stop-color:#ff0000;stop-opacity:0"></stop>
-                                            </lineargradient>
-                                        </defs>
-                                        <path d="M0,120 Q50,110 80,60 T160,80 T240,30 T320,50 T400,10 L400,150 L0,150 Z"
-                                            fill="url(#grad)"></path>
-                                        <path d="M0,120 Q50,110 80,60 T160,80 T240,30 T320,50 T400,10" fill="none"
-                                            stroke="#ff0000" stroke-width="3"></path>
-                                        <circle cx="80" cy="60" fill="#ff0000" r="4"></circle>
-                                        <circle cx="240" cy="30" fill="#ff0000" r="4"></circle>
-                                        <circle cx="400" cy="10" fill="#ff0000" r="4"></circle>
-                                    </svg>
-                                    <div
-                                        class="grid grid-cols-4 mt-6 text-center text-[10px] font-bold text-neutral-600 uppercase">
-                                        <span>Seg</span><span>Qua</span><span>Sex</span><span>Dom</span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="absolute -bottom-6 -right-6 h-48 w-48 bg-primary/10 blur-[100px] rounded-full -z-10">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="px-6 md:px-20 py-24 bg-background-dark">
-                    <div class="mx-auto max-w-7xl">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                            <div class="order-2 lg:order-1">
-                                <div
-                                    class="aspect-video bg-neutral-900 rounded-lg overflow-hidden border border-border-dark group">
-                                    <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA3b1cclmL4NbGmFlBeSQyEez6IRN6alWdwyP3sy7wHIbL7G6y-kOE5SM-54CNdxDtuOfjduzzAJ961loyXMvDgcuju6xXmff95yh2CSFfP46ijaJ8TNbtHNba1vjmyTxXb1X3LpSRVcqcmtqcUTeVF1IIQLSlHypk8o2QUkLaziU78qLYh1Uf24RhXerQoWcVgjwKydGlbi7jqFHj4PelUVIP8iCyAp68ehpKsir_8rNs8uNw6OHP6UuoOQPi42Iff6nyN-vQzZi8");'>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="order-1 lg:order-2 space-y-6">
-                                <h2 class="text-4xl md:text-5xl font-black uppercase italic leading-none">Equipamento
-                                    Moderno, <br />Dados <span class="text-primary">Precisos</span></h2>
-                                <p class="text-neutral-400">
-                                    Nossa tecnologia se integra aos equipamentos mais modernos do mercado, permitindo
-                                    uma leitura fiel de cada movimento executado.
-                                </p>
-                                <ul class="space-y-4 pt-4">
-                                    <li class="flex items-center gap-4">
-                                        <span class="material-symbols-outlined text-primary">analytics</span>
-                                        <span class="text-xs font-bold uppercase tracking-widest">Análise de Torque e
-                                            Vetores</span>
-                                    </li>
-                                    <li class="flex items-center gap-4">
-                                        <span class="material-symbols-outlined text-primary">timer</span>
-                                        <span class="text-xs font-bold uppercase tracking-widest">Controle de Cadência
-                                            em Tempo Real</span>
-                                    </li>
-                                    <li class="flex items-center gap-4">
-                                        <span class="material-symbols-outlined text-primary">history</span>
-                                        <span class="text-xs font-bold uppercase tracking-widest">Histórico Vitalício de
-                                            Cargas</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="px-6 md:px-20 py-24 bg-surface-dark" id="precos">
-                    <div class="mx-auto max-w-7xl">
-                        <div class="text-center mb-16 space-y-4">
-                            <h2 class="text-primary text-xs font-black uppercase tracking-[0.4em]">Investimento em Você
-                            </h2>
-                            <h3 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Planos de
-                                Performance</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div class="bg-background-dark border border-border-dark p-10 flex flex-col">
-                                <h4 class="text-xs font-black uppercase tracking-widest text-neutral-500 mb-2">Essential
-                                </h4>
-                                <div class="text-4xl font-black mb-8">R$ 49<span
-                                        class="text-sm text-neutral-600">/mês</span></div>
-                                <ul
-                                    class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-400">
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Registro
-                                        de Treinos</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Análise
-                                        Básica</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> App
-                                        Mobile</li>
-                                    <li class="flex items-center gap-2 text-neutral-700"><span
-                                            class="material-symbols-outlined text-lg">close</span> Suporte Prioritário
-                                    </li>
-                                </ul>
-                                <button
-                                    class="w-full py-4 border border-white/20 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Assinar</button>
-                            </div>
-                            <div
-                                class="bg-background-dark border-2 border-primary p-10 flex flex-col relative scale-105 z-10">
-                                <div
-                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-1">
-                                    Popular</div>
-                                <h4 class="text-xs font-black uppercase tracking-widest text-primary mb-2">High
-                                    Performance</h4>
-                                <div class="text-4xl font-black mb-8">R$ 99<span
-                                        class="text-sm text-neutral-600">/mês</span></div>
-                                <ul
-                                    class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-300">
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Tudo do
-                                        Essential</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Mapas de
-                                        Calor Muscular</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Predição
-                                        de Cargas</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span>
-                                        Exportação de Dados</li>
-                                </ul>
-                                <button
-                                    class="w-full py-4 bg-primary text-white text-xs font-black uppercase tracking-widest hover:brightness-110 transition-all">Assinar
-                                    Agora</button>
-                            </div>
-                            <div class="bg-background-dark border border-border-dark p-10 flex flex-col">
-                                <h4 class="text-xs font-black uppercase tracking-widest text-neutral-500 mb-2">Elite
-                                    Biohacking</h4>
-                                <div class="text-4xl font-black mb-8">R$ 199<span
-                                        class="text-sm text-neutral-600">/mês</span></div>
-                                <ul
-                                    class="space-y-4 mb-10 flex-1 text-sm font-bold uppercase tracking-tight text-neutral-400">
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Tudo do
-                                        Pro</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span>
-                                        Concierge 24/7</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> IA
-                                        Personal Trainer</li>
-                                    <li class="flex items-center gap-2"><span
-                                            class="material-symbols-outlined text-primary text-lg">check</span> Testes
-                                        de DNA Integração</li>
-                                </ul>
-                                <button
-                                    class="w-full py-4 border border-white/20 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Assinar</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            <footer class="px-6 md:px-20 py-20 border-t border-border-dark bg-background-dark">
-                <div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
-                    <div class="col-span-1 md:col-span-2 space-y-8">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary text-3xl font-bold">query_stats</span>
-                            <h2 class="text-2xl font-black uppercase tracking-tighter">Mike</h2>
-                        </div>
-                        <p class="text-neutral-500 max-w-sm text-sm leading-relaxed">
-                            Evolução constante através da análise rigorosa. Mike é a ferramenta definitiva para atletas
-                            que não aceitam estagnação. Transforme esforço em dados, e dados em resultados.
-                        </p>
-                    </div>
-                    <div>
-                        <h5 class="font-black uppercase tracking-widest text-primary mb-8 text-xs">Navegação</h5>
-                        <ul class="space-y-4 text-[10px] font-black uppercase tracking-widest text-neutral-400">
-                            <li><a class="hover:text-primary transition-colors" href="#">Treinos</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Metodologia</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Suporte</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Privacidade</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5 class="font-black uppercase tracking-widest text-primary mb-8 text-xs">Mantenha o Foco</h5>
-                        <div class="flex flex-col gap-4">
-                            <input
-                                class="w-full bg-surface-dark border border-border-dark px-4 py-3 text-xs font-bold uppercase tracking-widest focus:ring-1 focus:ring-primary focus:outline-none text-white"
-                                placeholder="Seu e-mail" type="email" />
-                            <button
-                                class="bg-primary text-white text-[10px] font-black uppercase tracking-widest py-3 hover:brightness-110 transition-all">
-                                Assinar Newsletter
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="mx-auto max-w-7xl pt-20 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-600 border-t border-border-dark/50 mt-12">
-                    <p>© 2024 Mike Performance Systems. Todos os direitos reservados.</p>
-                    <div class="flex gap-8">
-                        <a class="hover:text-white transition-colors" href="#">Instagram</a>
-                        <a class="hover:text-white transition-colors" href="#">Strava</a>
-                    </div>
-                </div>
-            </footer>
+  <style>
+    /* =========================
+       MIKE TOKENS (Landing v1)
+       ========================= */
+    :root{
+      --font-ui: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --font-head: "Oswald", "Inter", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* 8px grid */
+      --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+      --s5: 24px; --s6: 32px; --s7: 40px; --s8: 48px;
+      --s9: 56px; --s10: 64px;
+
+      --radius-card: 14px;
+      --radius-input: 12px;
+      --radius-pill: 999px;
+
+      --shadow-xs: 0 2px 10px rgba(0,0,0,.14);
+      --shadow-sm: 0 10px 28px rgba(0,0,0,.18);
+
+      /* Dark-first colors (from MIKE manual) */
+      --bg: #0B0F14;           /* Graphite */
+      --surface: #121A24;      /* Slate */
+      --surface-2: #0F1620;
+      --border: #2A3441;       /* Steel Gray */
+      --text: #E6EDF5;         /* Text Light */
+      --text-muted: #A7B0BD;   /* Text Light Muted */
+
+      --accent: #A3E635;       /* Signal Lime */
+      --accent-2: #3B82F6;     /* Data Blue */
+
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --info: #3B82F6;
+
+      --focus-ring: 0 0 0 .25rem rgba(163,230,53,.35);
+
+      --gridline: rgba(231,237,245,0.12);
+      --chart-blue: rgba(59,130,246,.55);
+      --chart-blue-2: rgba(59,130,246,.22);
+      --chart-lime: rgba(163,230,53,.55);
+    }
+
+    html[data-theme="light"]{
+      --bg: #F5F7FA;          /* Ice */
+      --surface: #FFFFFF;
+      --surface-2: #EEF2F7;
+      --border: #D6DEE8;
+      --text: #0E1726;        /* Text Dark */
+      --text-muted: #5B6778;
+      --shadow-xs: 0 4px 14px rgba(14,23,38,.08);
+      --shadow-sm: 0 10px 28px rgba(14,23,38,.10);
+      --focus-ring: 0 0 0 .25rem rgba(59,130,246,.20);
+      --gridline: rgba(14,23,38,0.10);
+      --chart-blue: rgba(59,130,246,.60);
+      --chart-blue-2: rgba(59,130,246,.18);
+      --chart-lime: rgba(163,230,53,.55);
+    }
+
+    /* =========================
+       Base
+       ========================= */
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      letter-spacing: .1px;
+      overflow-x: hidden;
+    }
+    a{ color: var(--accent-2); }
+    a:hover{ opacity: .9; }
+
+    .container{ max-width: 1140px; }
+
+    .mike-title{
+      font-family: var(--font-head);
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+    .mono{
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+    .text-muted-mike{ color: var(--text-muted) !important; }
+
+    .surface{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-xs);
+    }
+    .surface.soft{ background: var(--surface-2); }
+    .divider{
+      height: 1px;
+      background: var(--border);
+      opacity: .8;
+    }
+
+    /* Focus accessibility */
+    .btn:focus, .form-control:focus, .form-select:focus, .accordion-button:focus{
+      box-shadow: var(--focus-ring) !important;
+      outline: none !important;
+    }
+
+    /* Buttons (consistent with MIKE DS) */
+    .btn-mike-primary{
+      background: var(--accent);
+      color: #0B0F14;
+      border: 1px solid rgba(0,0,0,.12);
+      font-weight: 800;
+      border-radius: 12px;
+      padding: .8rem 1.05rem;
+      min-height: 44px;
+    }
+    .btn-mike-primary:hover{ filter: brightness(.96); }
+
+    .btn-mike-secondary{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 700;
+      border-radius: 12px;
+      padding: .8rem 1.05rem;
+      min-height: 44px;
+    }
+    .btn-mike-secondary:hover{
+      background: rgba(163,230,53,.08);
+      border-color: rgba(163,230,53,.35);
+    }
+
+    .btn-mike-ghost{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid transparent;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: .8rem 1.05rem;
+      min-height: 44px;
+    }
+    .btn-mike-ghost:hover{
+      background: rgba(255,255,255,.06);
+    }
+    html[data-theme="light"] .btn-mike-ghost:hover{
+      background: rgba(14,23,38,.04);
+    }
+
+    /* Badges */
+    .badge-mike{
+      border-radius: var(--radius-pill);
+      padding: .35rem .6rem;
+      font-weight: 800;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      font-size: .72rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      display: inline-flex;
+      gap: .35rem;
+      align-items: center;
+    }
+    .badge-pr{
+      background: rgba(163,230,53,.16);
+      border-color: rgba(163,230,53,.35);
+    }
+    html[data-theme="light"] .badge-pr{ color: #0E1726; }
+    .badge-popular{
+      background: rgba(59,130,246,.14);
+      border-color: rgba(59,130,246,.35);
+    }
+
+    /* Navbar */
+    .navbar{
+      background: rgba(0,0,0,0);
+      padding: var(--s4) 0;
+    }
+    .nav-link{
+      color: var(--text-muted) !important;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .nav-link:hover{ color: var(--text) !important; }
+    .navbar-toggler{
+      border: 1px solid var(--border);
+    }
+    .theme-toggle{
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 12px;
+      padding: .55rem .8rem;
+      font-weight: 800;
+      min-height: 44px;
+    }
+    .theme-toggle:hover{
+      background: rgba(255,255,255,.04);
+    }
+    html[data-theme="light"] .theme-toggle:hover{
+      background: rgba(14,23,38,.04);
+    }
+
+    /* Hero */
+    .hero{
+      padding: var(--s8) 0 var(--s7);
+    }
+    .hero h1{
+      font-family: var(--font-head);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      line-height: 1.05;
+    }
+    .hero .lead{
+      color: var(--text-muted);
+      max-width: 56ch;
+      line-height: 1.5;
+    }
+
+    /* App preview (no external image) */
+    .app-preview{
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(163,230,53,.10) 0%, rgba(0,0,0,0) 40%);
+      box-shadow: var(--shadow-sm);
+    }
+    .app-topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: var(--s4);
+      background: rgba(255,255,255,.03);
+      border-bottom: 1px solid var(--border);
+    }
+    html[data-theme="light"] .app-topbar{
+      background: rgba(14,23,38,.03);
+    }
+    .app-body{
+      padding: var(--s4);
+      background: var(--surface);
+    }
+    .set-row{
+      display:grid;
+      grid-template-columns: 1.2fr .9fr .9fr 1fr auto;
+      gap: 10px;
+      align-items:center;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    html[data-theme="light"] .set-row{ background: rgba(14,23,38,.02); }
+    .mini{
+      font-size: .78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      font-weight: 800;
+    }
+    .val{ font-weight: 800; }
+    .actions .btn{
+      padding: .45rem .6rem;
+      min-height: 38px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    /* Section spacing */
+    section{
+      padding: var(--s8) 0;
+    }
+    .section-title{
+      font-family: var(--font-head);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    /* How it works */
+    .step{
+      display:flex;
+      gap: var(--s4);
+      align-items:flex-start;
+    }
+    .step-num{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: rgba(59,130,246,.14);
+      border: 1px solid rgba(59,130,246,.35);
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900;
+      font-family: var(--font-mono);
+    }
+    .step p{ margin-bottom: 0; color: var(--text-muted); }
+
+    /* Analytics cards and charts (CSS-only) */
+    .chart{
+      border: 1px solid var(--border);
+      background: transparent;
+      border-radius: var(--radius-card);
+      padding: var(--s4);
+      position: relative;
+      overflow: hidden;
+    }
+    .chart::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(
+          to top,
+          var(--gridline) 0px,
+          var(--gridline) 1px,
+          transparent 1px,
+          transparent 28px
+        );
+      pointer-events:none;
+    }
+    .chart-inner{ position: relative; z-index: 1; }
+    .bars{
+      display:flex;
+      gap: 10px;
+      align-items:flex-end;
+      height: 150px;
+      margin-top: var(--s3);
+    }
+    .bar{
+      width: 18%;
+      border-radius: 10px;
+      background: var(--chart-blue-2);
+      border: 1px solid rgba(59,130,246,.25);
+      position: relative;
+    }
+    .bar > span{
+      position:absolute; left:0; right:0; bottom:0;
+      border-radius: 10px;
+      background: var(--chart-blue);
+    }
+    .bar.pr > span{
+      background: var(--chart-lime);
+      border: 1px solid rgba(163,230,53,.35);
+    }
+    .line{
+      height: 150px;
+      margin-top: var(--s3);
+      position: relative;
+      border-radius: 12px;
+      border: 1px solid rgba(59,130,246,.25);
+      background: rgba(59,130,246,.06);
+      overflow: hidden;
+    }
+    .line svg{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+    }
+
+    /* Heavy Duty pillars */
+    .pillar-icon{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display:flex; align-items:center; justify-content:center;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      flex: 0 0 auto;
+    }
+
+    /* Pricing */
+    .price{
+      font-family: var(--font-mono);
+      font-weight: 900;
+    }
+    .plan{
+      position: relative;
+    }
+    .plan.popular{
+      border-color: rgba(59,130,246,.45);
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    }
+    html[data-theme="light"] .plan.popular{
+      box-shadow: 0 14px 40px rgba(14,23,38,.12);
+    }
+    .plan .ribbon{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+    }
+
+    /* FAQ (accordion) */
+    .accordion-item{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card) !important;
+      overflow: hidden;
+    }
+    .accordion-button{
+      background: transparent;
+      color: var(--text);
+      font-weight: 800;
+      padding: 1rem 1rem;
+    }
+    .accordion-button:not(.collapsed){
+      background: rgba(163,230,53,.08);
+      color: var(--text);
+      box-shadow: none;
+    }
+    html[data-theme="light"] .accordion-button:not(.collapsed){
+      color: #0E1726;
+    }
+    .accordion-body{
+      color: var(--text-muted);
+      padding: 1rem 1rem 1.1rem;
+    }
+
+    /* Footer */
+    footer{
+      padding: var(--s7) 0 var(--s6);
+      color: var(--text-muted);
+    }
+
+    /* Anchor offset for fixed nav */
+    :target{ scroll-margin-top: 90px; }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px){
+      .hero{ padding-top: var(--s7); }
+    }
+    @media (max-width: 768px){
+      .set-row{
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: auto;
+      }
+      .set-row .actions{ grid-column: 1 / -1; text-align: left !important; }
+      .hero h1{ font-size: 2.2rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Nav -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#top" style="text-decoration:none;">
+        <span class="badge-mike badge-pr"><i class="bi bi-check2-circle"></i> APP</span>
+        <span class="mike-title fs-4 mb-0" style="color:var(--text);">MIKE</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
+              aria-controls="nav" aria-expanded="false" aria-label="Abrir navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto me-lg-3 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#como-funciona">Como funciona</a></li>
+          <li class="nav-item"><a class="nav-link" href="#relatorios">Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#planos">Planos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        </ul>
+
+        <div class="d-flex gap-2 align-items-center mt-3 mt-lg-0">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema">
+            <i class="bi bi-moon-stars me-1"></i>
+            Tema
+          </button>
+          <a class="btn btn-mike-secondary" href="{% url 'login' %}" role="button">Entrar</a>
+          <a class="btn btn-mike-primary" href="#criar-conta" role="button">Criar conta</a>
         </div>
-    </body>
+      </div>
+    </div>
+  </nav>
 
+  <!-- Hero -->
+  <header id="top" class="hero">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <span class="badge-mike"><i class="bi bi-graph-up"></i> Performance + dados</span>
+            <span class="badge-mike"><i class="bi bi-shield-check"></i> Registro confiável</span>
+            <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> PR real</span>
+          </div>
+
+          <h1 class="display-4 mb-3">
+            Registre com precisão.<br />
+            Evolua sem ruído.
+          </h1>
+
+          <p class="lead mb-4">
+            MIKE é o app de treino para quem quer progresso mensurável: registro rápido, dados limpos e relatórios objetivos.
+            Sem confusão. Só o que move o ponteiro.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <a class="btn btn-mike-primary" href="#criar-conta">
+              <i class="bi bi-lightning-charge me-2"></i>Começar agora
+            </a>
+            <a class="btn btn-mike-secondary" href="#como-funciona">
+              <i class="bi bi-play-circle me-2"></i>Ver como funciona
+            </a>
+          </div>
+
+          <div class="surface soft p-3">
+            <div class="row g-2">
+              <div class="col-12 col-sm-4">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-arrow-repeat" style="color:var(--accent-2)"></i>
+                  <div>
+                    <div class="fw-bold">Registro rápido</div>
+                    <div class="text-muted-mike small">Auto-preenche com o último treino</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-trophy" style="color:var(--accent)"></i>
+                  <div>
+                    <div class="fw-bold">Progresso claro</div>
+                    <div class="text-muted-mike small">PRs, volume, consistência</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-bar-chart" style="color:var(--accent-2)"></i>
+                  <div>
+                    <div class="fw-bold">Relatórios objetivos</div>
+                    <div class="text-muted-mike small">Sem poluição visual</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 text-muted-mike small">
+            “Seu progresso vira dados — e dados viram decisões.”
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <!-- App preview (HTML/CSS) -->
+          <div class="app-preview">
+            <div class="app-topbar">
+              <div>
+                <div class="mini mb-1">Sessão</div>
+                <div class="fw-bold">Treino A • Peito/Tríceps</div>
+                <div class="text-muted-mike small">Registro mais rápido que pensar.</div>
+              </div>
+              <span class="badge-mike badge-pr"><i class="bi bi-check2-circle"></i> PR</span>
+            </div>
+
+            <div class="app-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-bold">Supino reto</div>
+                <div class="d-flex gap-2 align-items-center">
+                  <span class="badge-mike">09:00</span>
+                  <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> PR possível</span>
+                </div>
+              </div>
+
+              <div class="divider my-3"></div>
+
+              <div class="d-grid gap-2">
+                <div class="set-row">
+                  <div>
+                    <div class="mini">Set 1</div>
+                    <div class="val">Trabalho</div>
+                  </div>
+                  <div>
+                    <div class="mini">Carga</div>
+                    <div class="val mono">90.0 kg</div>
+                  </div>
+                  <div>
+                    <div class="mini">Reps</div>
+                    <div class="val mono">6</div>
+                  </div>
+                  <div>
+                    <div class="mini">RPE/RIR</div>
+                    <div class="val mono">RPE 9</div>
+                  </div>
+                  <div class="actions text-end">
+                    <button class="btn btn-mike-secondary btn-sm" type="button"><i class="bi bi-copy me-1"></i>Duplicar</button>
+                  </div>
+                </div>
+
+                <div class="set-row">
+                  <div>
+                    <div class="mini">Set 2</div>
+                    <div class="val">Trabalho</div>
+                  </div>
+                  <div>
+                    <div class="mini">Carga</div>
+                    <div class="val mono">92.5 kg</div>
+                  </div>
+                  <div>
+                    <div class="mini">Reps</div>
+                    <div class="val mono">6</div>
+                  </div>
+                  <div>
+                    <div class="mini">RPE/RIR</div>
+                    <div class="val mono">RPE 10</div>
+                  </div>
+                  <div class="actions text-end">
+                    <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> PR</span>
+                  </div>
+                </div>
+
+                <button class="btn btn-mike-primary w-100" type="button">
+                  <i class="bi bi-plus-circle me-2"></i>Adicionar série (autopreencher)
+                </button>
+              </div>
+
+              <div class="divider my-3"></div>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted-mike small">Comparação automática</div>
+                <div class="mono fw-bold">+2.5kg vs última sessão</div>
+              </div>
+
+              <div class="mt-3 surface soft p-3">
+                <div class="text-muted-mike small text-uppercase fw-bold">Resumo</div>
+                <div class="d-flex justify-content-between mt-1">
+                  <div>Volume</div>
+                  <div class="mono fw-bold">555</div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div>Consistência (7d)</div>
+                  <div class="mono fw-bold">5/6</div>
+                </div>
+              </div>
+
+              <div class="mt-2 text-muted-mike small">
+                * Preview ilustrativo (HTML). Integração real via app.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Recursos -->
+  <section id="recursos">
+    <div class="container">
+      <div class="row g-4 align-items-end mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">Recursos que reduzem fricção</h2>
+          <p class="text-muted-mike mb-0">
+            Menos digitação. Mais consistência. MIKE foi desenhado para registrar no ritmo do treino — e analisar com confiança depois.
+          </p>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <a class="btn btn-mike-primary" href="#criar-conta"><i class="bi bi-person-plus me-2"></i>Criar conta</a>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex gap-3">
+              <div class="pillar-icon"><i class="bi bi-arrow-repeat fs-5" style="color:var(--accent-2)"></i></div>
+              <div>
+                <div class="fw-bold">Auto-preenchimento</div>
+                <div class="text-muted-mike">
+                  Comece do último treino: carga, reps e variações sugeridas automaticamente.
+                </div>
+              </div>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small">
+              <b>Por quê:</b> defaults reduzem esforço e aumentam adesão.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex gap-3">
+              <div class="pillar-icon"><i class="bi bi-clipboard-check fs-5" style="color:var(--accent)"></i></div>
+              <div>
+                <div class="fw-bold">Dados limpos</div>
+                <div class="text-muted-mike">
+                  Validações claras (ex.: reps OU tempo) para histórico confiável e comparável.
+                </div>
+              </div>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small">
+              <b>Por quê:</b> rigor evita erro e aumenta confiança nos relatórios.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex gap-3">
+              <div class="pillar-icon"><i class="bi bi-trophy fs-5" style="color:var(--accent)"></i></div>
+              <div>
+                <div class="fw-bold">Progresso visível</div>
+                <div class="text-muted-mike">
+                  PRs e comparativos “vs última sessão” para decisões simples no próximo treino.
+                </div>
+              </div>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small">
+              <b>Por quê:</b> saliência de progresso reforça consistência sem infantilizar.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como funciona -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title mb-2">Como funciona (3 passos)</h2>
+          <p class="text-muted-mike mb-4">
+            O fluxo foi desenhado para ser direto: criar, registrar, finalizar. Sem etapas extras. Sem distração.
+          </p>
+
+          <div class="d-grid gap-3">
+            <div class="surface p-4">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div>
+                  <div class="fw-bold">Crie a sessão e adicione exercícios</div>
+                  <p>Use variações recentes e templates para começar rápido.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="surface p-4">
+              <div class="step">
+                <div class="step-num">2</div>
+                <div>
+                  <div class="fw-bold">Registre sets no ritmo do treino</div>
+                  <p>Quick-add, duplicar set e auto-preencher reduzem digitação.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="surface p-4">
+              <div class="step">
+                <div class="step-num">3</div>
+                <div>
+                  <div class="fw-bold">Finalize e veja decisões prontas</div>
+                  <p>Seu progresso vira dados — e dados viram decisões.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 text-muted-mike small">
+            Regra de ouro: <b>registro tem que ser mais rápido que pensar</b>.
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="surface p-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="mini mb-1">Microcopy de foco</div>
+                <div class="fw-bold">Sem distrações. Sem confusão.</div>
+                <div class="text-muted-mike">Só o que move o ponteiro.</div>
+              </div>
+              <span class="badge-mike"><i class="bi bi-bullseye"></i> foco</span>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="surface soft p-3 h-100">
+                  <div class="mini">Atalho</div>
+                  <div class="fw-bold">Duplicar treino anterior</div>
+                  <div class="text-muted-mike small">Compromisso leve, execução forte.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="surface soft p-3 h-100">
+                  <div class="mini">Sugestão</div>
+                  <div class="fw-bold">+1 rep ou +1.25kg</div>
+                  <div class="text-muted-mike small">Progressão mínima, objetiva.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="text-muted-mike small">
+              <b>Por quê:</b> defaults e metas mínimas reduzem overchoice e aumentam aderência.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relatórios / Analytics -->
+  <section id="relatorios">
+    <div class="container">
+      <div class="row g-4 align-items-end mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">O que você acompanha (analytics)</h2>
+          <p class="text-muted-mike mb-0">
+            Relatórios feitos para decidir o próximo treino: progressão, volume, PRs e consistência — com contexto e sem poluição.
+          </p>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <a class="btn btn-mike-secondary" href="#planos"><i class="bi bi-box-arrow-in-right me-2"></i>Ver planos</a>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="mini">PRs (30d)</div>
+                <div class="mono display-6 fw-bold">3</div>
+                <div class="text-muted-mike">Recompensa rara e crível.</div>
+              </div>
+              <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> PR</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small">
+              <b>Por quê:</b> saliência do progresso aumenta motivação sem gamificação infantil.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="mini">Consistência</div>
+                <div class="mono display-6 fw-bold">82%</div>
+                <div class="text-muted-mike">Visível. Mensurável. Ajustável.</div>
+              </div>
+              <span class="badge-mike"><i class="bi bi-calendar-check"></i> semanal</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small">
+              <b>Como aplicar:</b> acompanhe semanas ativas e mantenha a meta simples.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="mini">Volume (semana)</div>
+                <div class="mono display-6 fw-bold">12.4k</div>
+                <div class="text-muted-mike">Contexto sem excesso.</div>
+              </div>
+              <span class="badge-mike"><i class="bi bi-activity"></i> volume</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small">
+              <b>Por quê:</b> números essenciais, sem ruído — decisão rápida.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-1">
+        <div class="col-lg-7">
+          <div class="chart">
+            <div class="chart-inner">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <div class="mini">Tendência • Supino reto</div>
+                  <div class="fw-bold">Carga máxima (top set)</div>
+                </div>
+                <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> PR</span>
+              </div>
+
+              <div class="bars">
+                <div class="bar"><span style="height:55%"></span></div>
+                <div class="bar"><span style="height:58%"></span></div>
+                <div class="bar"><span style="height:60%"></span></div>
+                <div class="bar"><span style="height:62%"></span></div>
+                <div class="bar pr"><span style="height:68%"></span></div>
+              </div>
+
+              <div class="d-flex justify-content-between mt-3">
+                <div class="text-muted-mike small">Comparativo</div>
+                <div class="mono fw-bold">+2.5kg vs última sessão</div>
+              </div>
+            </div>
+          </div>
+          <div class="text-muted-mike small mt-2">
+            Regra do MIKE: 1 cor principal (Data Blue) + Lime só para evento (PR).
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="chart h-100">
+            <div class="chart-inner">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <div class="mini">Progressão (linha)</div>
+                  <div class="fw-bold">Últimas 6 sessões</div>
+                </div>
+                <span class="badge-mike badge-popular"><i class="bi bi-graph-up"></i> claro</span>
+              </div>
+
+              <div class="line">
+                <svg viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M0,38 L20,36 L40,34 L60,31 L80,25 L100,27"
+                        fill="none" stroke="rgba(59,130,246,.85)" stroke-width="2"/>
+                  <circle cx="80" cy="25" r="2.8" fill="rgba(163,230,53,.85)"/>
+                </svg>
+              </div>
+
+              <div class="mt-3 surface soft p-3">
+                <div class="mini">Insight</div>
+                <div class="fw-bold">Progressão mínima recomendada</div>
+                <div class="text-muted-mike small">+1 rep ou +1.25kg no próximo treino.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Heavy Duty / foco no essencial -->
+  <section id="heavy-duty">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title mb-2">Feito para Heavy Duty — foco no essencial</h2>
+          <p class="text-muted-mike mb-3">
+            Disciplina, controle e simplicidade. MIKE mantém o treino no centro: registrar rápido, analisar depois, melhorar sempre.
+          </p>
+          <div class="surface soft p-3">
+            <div class="fw-bold">Sem distrações. Sem confusão. Só o que move o ponteiro.</div>
+            <div class="text-muted-mike">Você não precisa de mais opções. Precisa de mais clareza.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="surface p-4 h-100">
+                <div class="pillar-icon mb-3"><i class="bi bi-lightning-charge fs-5" style="color:var(--accent)"></i></div>
+                <div class="fw-bold">Intensidade</div>
+                <div class="text-muted-mike small">Treino é execução. A UI acompanha.</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="surface p-4 h-100">
+                <div class="pillar-icon mb-3"><i class="bi bi-journal-check fs-5" style="color:var(--accent-2)"></i></div>
+                <div class="fw-bold">Registro</div>
+                <div class="text-muted-mike small">Rigor nos dados. Confiança no histórico.</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="surface p-4 h-100">
+                <div class="pillar-icon mb-3"><i class="bi bi-graph-up-arrow fs-5" style="color:var(--accent-2)"></i></div>
+                <div class="fw-bold">Progresso</div>
+                <div class="text-muted-mike small">PRs e comparativos com contexto.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 text-muted-mike small">
+            <b>Por quê funciona:</b> menos fricção + mais saliência de progresso = mais consistência.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Depoimentos -->
+  <section id="depoimentos">
+    <div class="container">
+      <div class="row g-4 align-items-end mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">Prova social (placeholders)</h2>
+          <p class="text-muted-mike mb-0">
+            Resultados aparecem quando o registro é consistente. Substitua estes cards por depoimentos reais quando tiver.
+          </p>
+        </div>
+        <div class="col-lg-5 text-lg-end text-muted-mike small">
+          <!-- Placeholder note for devs -->
+          <!-- TODO: Replace names/results with real testimonials -->
+          * Placeholders no código (substituir depois).
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge-mike"><i class="bi bi-person"></i> Rafael</span>
+              <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> +12%</span>
+            </div>
+            <div class="fw-bold">“Parei de adivinhar. Agora eu comparo.”</div>
+            <p class="text-muted-mike mt-2 mb-0">
+              “Em 8 semanas, aumentei a carga com consistência porque o MIKE deixa claro o próximo passo.”
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge-mike"><i class="bi bi-person"></i> Camila</span>
+              <span class="badge-mike badge-popular"><i class="bi bi-calendar-check"></i> 5/6</span>
+            </div>
+            <div class="fw-bold">“Registro rápido. Relatório limpo.”</div>
+            <p class="text-muted-mike mt-2 mb-0">
+              “Eu odiava app confuso. Aqui eu registro no treino e analiso depois, sem ruído.”
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge-mike"><i class="bi bi-person"></i> Diego</span>
+              <span class="badge-mike"><i class="bi bi-graph-up"></i> volume</span>
+            </div>
+            <div class="fw-bold">“Os dados finalmente fazem sentido.”</div>
+            <p class="text-muted-mike mt-2 mb-0">
+              “Consigo ver volume, PRs e consistência sem precisar exportar nada. Decisão direta.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planos -->
+  <section id="planos">
+    <div class="container">
+      <div class="row g-4 align-items-end mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">Planos e preços</h2>
+          <p class="text-muted-mike mb-0">
+            Comece no Free. Assine o Pro quando quiser relatórios completos. Coach é para múltiplos atletas (futuro).
+          </p>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <span class="badge-mike"><i class="bi bi-shield-check"></i> cancele quando quiser</span>
+        </div>
+      </div>
+
+      <div class="row g-3 align-items-stretch">
+        <!-- Free -->
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100 plan">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div class="mini">Plano</div>
+                <div class="fw-bold fs-4">Free</div>
+              </div>
+              <span class="badge-mike"><i class="bi bi-unlock"></i> começar</span>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="price mono display-6">R$ 0</div>
+            <div class="text-muted-mike">Para registrar sem fricção.</div>
+
+            <ul class="mt-3 text-muted-mike">
+              <li>Registro básico (sessões, exercícios, sets)</li>
+              <li>Histórico curto</li>
+              <li>Comparativo simples</li>
+            </ul>
+
+            <a class="btn btn-mike-primary w-100 mt-2" href="#criar-conta">
+              <i class="bi bi-person-plus me-2"></i>Começar Free
+            </a>
+
+            <div class="text-muted-mike small mt-2">
+              <b>Compromisso leve:</b> experimente antes de assinar.
+            </div>
+          </div>
+        </div>
+
+        <!-- Pro (popular) -->
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100 plan popular">
+            <div class="ribbon">
+              <span class="badge-mike badge-popular"><i class="bi bi-star-fill"></i> Mais popular</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div class="mini">Plano</div>
+                <div class="fw-bold fs-4">Pro</div>
+              </div>
+              <span class="badge-mike badge-pr"><i class="bi bi-trophy"></i> progresso</span>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="price mono display-6">R$ 19</div>
+            <div class="text-muted-mike">Relatórios completos para decisões melhores.</div>
+
+            <ul class="mt-3 text-muted-mike">
+              <li>Relatórios completos (progressão, volume, consistência)</li>
+              <li>Comparativos “vs última sessão” avançados</li>
+              <li>Export (CSV) e backups</li>
+            </ul>
+
+            <a class="btn btn-mike-primary w-100 mt-2" href="#assinar">
+              <i class="bi bi-check2-circle me-2"></i>Assinar Pro
+            </a>
+
+            <div class="text-muted-mike small mt-2">
+              <b>Por quê funciona:</b> saliência de progresso + clareza = aderência.
+            </div>
+          </div>
+        </div>
+
+        <!-- Coach (future) -->
+        <div class="col-lg-4">
+          <div class="surface p-4 h-100 plan">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div class="mini">Plano</div>
+                <div class="fw-bold fs-4">Coach</div>
+              </div>
+              <span class="badge-mike"><i class="bi bi-people"></i> futuro</span>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="price mono display-6">R$ 49</div>
+            <div class="text-muted-mike">Para múltiplos atletas/perfis (roadmap).</div>
+
+            <ul class="mt-3 text-muted-mike">
+              <li>Múltiplos perfis/atletas</li>
+              <li>Comparativos por aluno</li>
+              <li>Biblioteca de templates</li>
+            </ul>
+
+            <a class="btn btn-mike-secondary w-100 mt-2" href="#criar-conta">
+              <i class="bi bi-bell me-2"></i>Entrar na lista
+            </a>
+
+            <div class="text-muted-mike small mt-2">
+              <b>Nota:</b> este plano é roadmap. Ajuste quando lançar.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 surface soft p-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+          <div class="fw-bold">Garantia simples</div>
+          <div class="text-muted-mike small">Cancele quando quiser. Seus dados continuam seus.</div>
+        </div>
+        <a class="btn btn-mike-secondary" href="#faq"><i class="bi bi-question-circle me-2"></i>Tirar dúvidas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="row g-4 align-items-end mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">FAQ (objeções)</h2>
+          <p class="text-muted-mike mb-0">
+            Respostas diretas. Sem rodeio. Para você decidir rápido.
+          </p>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <a class="btn btn-mike-primary" href="#criar-conta"><i class="bi bi-person-plus me-2"></i>Criar conta</a>
+        </div>
+      </div>
+
+      <div class="accordion" id="faqAcc">
+        <div class="accordion-item mb-2">
+          <h2 class="accordion-header" id="q1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a1"
+                    aria-expanded="false" aria-controls="a1">
+              É só musculação?
+            </button>
+          </h2>
+          <div id="a1" class="accordion-collapse collapse" aria-labelledby="q1" data-bs-parent="#faqAcc">
+            <div class="accordion-body">
+              Hoje o MIKE foca em musculação (registro e progresso). No roadmap: nutrição, cardio, sono e medidas corporais —
+              sem quebrar a identidade do sistema.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item mb-2">
+          <h2 class="accordion-header" id="q2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2"
+                    aria-expanded="false" aria-controls="a2">
+              Funciona offline?
+            </button>
+          </h2>
+          <div id="a2" class="accordion-collapse collapse" aria-labelledby="q2" data-bs-parent="#faqAcc">
+            <div class="accordion-body">
+              Offline completo pode entrar como roadmap. A ideia é manter o registro rápido mesmo com conexão instável,
+              sincronizando quando possível.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item mb-2">
+          <h2 class="accordion-header" id="q3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3"
+                    aria-expanded="false" aria-controls="a3">
+              Preciso assinar?
+            </button>
+          </h2>
+          <div id="a3" class="accordion-collapse collapse" aria-labelledby="q3" data-bs-parent="#faqAcc">
+            <div class="accordion-body">
+              Não. Você pode começar no Free. O Pro libera relatórios completos, comparativos avançados e export.
+              Assine quando fizer sentido para sua rotina.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item mb-2">
+          <h2 class="accordion-header" id="q4">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4"
+                    aria-expanded="false" aria-controls="a4">
+              E meus dados?
+            </button>
+          </h2>
+          <div id="a4" class="accordion-collapse collapse" aria-labelledby="q4" data-bs-parent="#faqAcc">
+            <div class="accordion-body">
+              Seus dados são seus. Transparência e controle: export (no Pro) e políticas claras de privacidade (placeholder nesta landing).
+              MIKE existe para te dar clareza, não para te prender.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 surface soft p-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <div>
+            <div class="fw-bold">Pronto para registrar o próximo treino com clareza?</div>
+            <div class="text-muted-mike small">Comece no Free. Evolua para o Pro quando quiser.</div>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <a class="btn btn-mike-secondary" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right me-2"></i>Entrar</a>
+            <a class="btn btn-mike-primary" href="#criar-conta"><i class="bi bi-person-plus me-2"></i>Criar conta</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversion anchors (simulate sections for CTAs) -->
+  <section id="criar-conta">
+    <div class="container">
+      <div class="surface p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <h2 class="section-title mb-2">Criar conta</h2>
+            <p class="text-muted-mike mb-0">
+              Comece no Free e registre seu próximo treino em minutos. Sem setup complicado.
+            </p>
+            <div class="mt-3 d-flex flex-wrap gap-2">
+              <a class="btn btn-mike-primary" href="#" role="button"><i class="bi bi-person-plus me-2"></i>Criar conta agora</a>
+              <a class="btn btn-mike-secondary" href="#planos" role="button"><i class="bi bi-star me-2"></i>Ver Pro</a>
+            </div>
+            <div class="text-muted-mike small mt-2">
+              <b>Nota:</b> Substitua o <code>href="#"</code> pela rota real de registro.
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="surface soft p-3">
+              <div class="mini">O que você ganha hoje</div>
+              <ul class="text-muted-mike mb-0 mt-2">
+                <li>Registro rápido com auto-preenchimento</li>
+                <li>Histórico e comparativos básicos</li>
+                <li>Base sólida para progressão objetiva</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="entrar">
+    <div class="container">
+      <div class="surface p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <h2 class="section-title mb-2">Entrar</h2>
+            <p class="text-muted-mike mb-0">
+              Já tem conta? Volte ao que importa: registrar e evoluir.
+            </p>
+            <div class="mt-3 d-flex flex-wrap gap-2">
+              <a class="btn btn-mike-secondary" href="{% url 'login' %}" role="button"><i class="bi bi-box-arrow-in-right me-2"></i>Entrar</a>
+              <a class="btn btn-mike-primary" href="#criar-conta" role="button"><i class="bi bi-person-plus me-2"></i>Criar conta</a>
+            </div>
+            <div class="text-muted-mike small mt-2">
+              <b>Nota:</b> Substitua o <code>href="#"</code> pela rota real de login.
+            </div>
+          </div>
+
+          <div class="col-lg-5" id="assinar">
+            <div class="surface soft p-3">
+              <div class="mini">Quer relatórios completos?</div>
+              <div class="fw-bold mt-1">Assine o Pro</div>
+              <div class="text-muted-mike small">Progressão, volume, consistência e export.</div>
+              <a class="btn btn-mike-primary w-100 mt-3" href="#" role="button">
+                <i class="bi bi-check2-circle me-2"></i>Assinar Pro
+              </a>
+              <div class="text-muted-mike small mt-2">
+                <b>Nota:</b> Substitua o <code>href="#"</code> pela rota real de assinatura.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="mike-title fs-4">MIKE</span>
+            <span class="badge-mike"><i class="bi bi-graph-up"></i> progresso</span>
+          </div>
+          <div class="text-muted-mike">
+            Registro rigoroso para progresso inevitável.
+          </div>
+          <div class="text-muted-mike small mt-2">
+            * Privacidade/termos: placeholders (adicione links reais).
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="mini mb-2">Links</div>
+          <div class="d-grid gap-1">
+            <a href="#recursos">Recursos</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#relatorios">Relatórios</a>
+            <a href="#planos">Planos</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="mini mb-2">Ações</div>
+          <div class="d-grid gap-2">
+            <a class="btn btn-mike-secondary" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right me-2"></i>Entrar</a>
+            <a class="btn btn-mike-primary" href="#criar-conta"><i class="bi bi-person-plus me-2"></i>Criar conta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-4"></div>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 text-muted-mike small">
+        <div>© <span id="year"></span> MIKE. Todos os direitos reservados.</div>
+        <div class="d-flex gap-3">
+          <a href="#" aria-label="Privacidade">Privacidade</a>
+          <a href="#" aria-label="Termos">Termos</a>
+          <a href="#" aria-label="Contato">Contato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle (simple and local)
+    const html = document.documentElement;
+    const btn = document.getElementById("themeToggle");
+
+    function iconForTheme(theme){
+      return theme === "dark" ? "bi-moon-stars" : "bi-sun";
+    }
+    function setTheme(theme){
+      html.setAttribute("data-theme", theme);
+      btn.innerHTML = `<i class="bi ${iconForTheme(theme)} me-1"></i> Tema`;
+      localStorage.setItem("mike_theme_lp", theme);
+    }
+
+    const saved = localStorage.getItem("mike_theme_lp");
+    if(saved){ setTheme(saved); }
+    else{ setTheme(html.getAttribute("data-theme") || "dark"); }
+
+    btn.addEventListener("click", () => {
+      const current = html.getAttribute("data-theme");
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

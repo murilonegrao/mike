@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIKE — Progresso é registro</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fonts (Inter, Oswald, JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --mike-bg:#0B0F14;
+      --mike-surface:#121A24;
+      --mike-border:#2A3441;
+      --mike-text:#E6EDF5;
+      --mike-muted:#A7B0BD;
+      --mike-lime:#A3E635;   /* Signal Lime */
+      --mike-blue:#3B82F6;   /* Data Blue */
+
+      --radius-lg: 18px;
+      --radius-xl: 22px;
+    }
+
+    html{ scroll-behavior:smooth; }
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background:
+        radial-gradient(900px 500px at 8% -8%, rgba(163,230,53,.12), transparent 62%),
+        radial-gradient(900px 520px at 100% 0%, rgba(59,130,246,.10), transparent 64%),
+        var(--mike-bg);
+      color: var(--mike-text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Links */
+    a{ color: var(--mike-text); text-decoration: none; }
+    a:hover{ color: #ffffff; }
+    .text-muted-mike{ color: rgba(230,237,245,.72) !important; }
+    .text-subtle{ color: var(--mike-muted) !important; }
+
+    /* Focus */
+    a:focus-visible, button:focus-visible, input:focus-visible, .accordion-button:focus-visible{
+      outline: 2px solid var(--mike-lime);
+      outline-offset: 2px;
+      box-shadow: none !important;
+      border-radius: 12px;
+    }
+
+    /* Navbar */
+    .mike-navbar{
+      background: rgba(18,26,36,.72);
+      border-bottom: 1px solid rgba(42,52,65,.65);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+    }
+    .brand-mark{
+      width: 28px; height: 28px; border-radius: 11px;
+      background: linear-gradient(145deg, rgba(163,230,53,.92), rgba(59,130,246,.35));
+      border: 1px solid rgba(163,230,53,.28);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
+      display: inline-block; flex: 0 0 28px;
+    }
+    .nav-link{
+      color: rgba(230,237,245,.78) !important;
+      font-weight: 500;
+      letter-spacing: .2px;
+    }
+    .nav-link:hover{ color: rgba(255,255,255,.95) !important; }
+    .nav-link.active{ color: rgba(255,255,255,.98) !important; }
+
+    /* Buttons */
+    .btn-mike{
+      min-height: 44px;
+      background: var(--mike-lime);
+      color: var(--mike-bg);
+      border: 1px solid rgba(163,230,53,.65);
+      font-weight: 700;
+      transition: transform .12s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .btn-mike:hover{
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 44px rgba(163,230,53,.14);
+      color: var(--mike-bg);
+    }
+    .btn-mike-outline{
+      min-height: 44px;
+      background: transparent;
+      color: var(--mike-text);
+      border: 1px solid rgba(42,52,65,.92);
+      font-weight: 600;
+      transition: background-color .18s ease, border-color .18s ease;
+    }
+    .btn-mike-outline:hover{
+      background: rgba(18,26,36,.55);
+      border-color: rgba(163,230,53,.28);
+      color: var(--mike-text);
+    }
+
+    /* Surfaces */
+    .mike-card{
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(18,26,36,.62);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .mike-card-strong{
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(18,26,36,.72);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Typo */
+    .kicker{
+      color: rgba(167,176,189,.95);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    h1{
+      font-family: Oswald, Inter, system-ui, sans-serif;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 4.6vw, 3.7rem);
+    }
+    h2{
+      font-family: Oswald, Inter, system-ui, sans-serif;
+      letter-spacing: -0.01em;
+      font-weight: 700;
+    }
+    .mono{
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding: clamp(2.5rem, 6vw, 5rem) 0;
+    }
+    .hero-shell{
+      border: 1px solid rgba(42,52,65,.72);
+      background:
+        radial-gradient(900px 460px at 22% 0%, rgba(163,230,53,.10), transparent 55%),
+        radial-gradient(900px 520px at 88% 0%, rgba(59,130,246,.10), transparent 55%),
+        rgba(18,26,36,.42);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-shell::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(11,15,20,.72) 0%, rgba(11,15,20,.30) 55%, rgba(11,15,20,.08) 100%);
+      pointer-events:none;
+    }
+    .hero-inner{ position: relative; z-index: 1; }
+    .hero-lead{
+      max-width: 52ch;
+      color: rgba(230,237,245,.76);
+      font-size: 1.08rem;
+    }
+
+    /* HUD (hero + demo feel) */
+    .hud{
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(11,15,20,.30);
+      border-radius: 18px;
+      padding: 14px 14px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .hud-line{
+      height: 1px;
+      background: rgba(230,237,245,.10);
+      margin: 10px 0;
+    }
+    .hud-pill{
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(167,176,189,.95);
+      font-weight: 700;
+    }
+    .dot{
+      width: .45rem; height: .45rem; border-radius: 999px;
+      background: rgba(163,230,53,.95);
+      box-shadow: 0 0 0 3px rgba(163,230,53,.14);
+      display:inline-block;
+    }
+    .hud-pr{
+      color: var(--mike-lime);
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: .82rem;
+    }
+    .hud-delta{
+      color: rgba(59,130,246,.95);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    /* Proof strip */
+    .proof-strip{
+      border-top: 1px solid rgba(42,52,65,.55);
+      border-bottom: 1px solid rgba(42,52,65,.55);
+      background: rgba(18,26,36,.35);
+    }
+    .proof-item{
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(18,26,36,.55);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px;
+      height: 100%;
+    }
+    .proof-label{
+      color: rgba(167,176,189,.95);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      margin-bottom: .35rem;
+    }
+    .proof-label::before{
+      content:"";
+      width:.45rem; height:.45rem; border-radius:999px;
+      background: rgba(163,230,53,.95);
+      box-shadow: 0 0 0 3px rgba(163,230,53,.12);
+    }
+    .proof-value{
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      margin: 0 0 .35rem 0;
+    }
+
+    /* How it works */
+    .step-card{
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(18,26,36,.55);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px;
+      height: 100%;
+      position: relative;
+    }
+    .step-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(42,52,65,.85);
+      background: rgba(11,15,20,.28);
+      color: rgba(230,237,245,.92);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .step-title{ font-weight: 800; margin: 10px 0 6px; }
+    .step-desc{ color: rgba(230,237,245,.72); margin: 0; }
+
+    /* Progress section (no JS chart) */
+    .plot{
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(18,26,36,.62);
+      padding: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+    .plot-grid{
+      border-radius: 16px;
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(11,15,20,.22);
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+    .plot-grid::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to right, rgba(230,237,245,.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(230,237,245,.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: .55;
+      pointer-events:none;
+    }
+    .plot-line{
+      position:absolute;
+      left: 12px; right: 12px; bottom: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(59,130,246,.0), rgba(59,130,246,.92), rgba(59,130,246,.0));
+      transform: rotate(-10deg);
+      transform-origin: left center;
+      opacity: .9;
+    }
+    .plot-points{
+      position:absolute;
+      inset: 0;
+      display:flex;
+      align-items:flex-end;
+      gap: 10px;
+      padding: 18px 14px 18px 14px;
+    }
+    .bar{
+      width: 12px;
+      border-radius: 999px;
+      background: rgba(59,130,246,.28);
+      border: 1px solid rgba(59,130,246,.26);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .bar.pr{
+      background: rgba(163,230,53,.42);
+      border-color: rgba(163,230,53,.35);
+    }
+    .pr-badge{
+      position:absolute;
+      right: 16px; top: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap: .45rem;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid rgba(163,230,53,.30);
+      background: rgba(11,15,20,.30);
+      color: rgba(230,237,245,.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: .82rem;
+      font-weight: 800;
+    }
+    .pr-badge .tag{
+      color: var(--mike-lime);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+
+    /* Audience */
+    .aud-card{
+      border: 1px solid rgba(42,52,65,.72);
+      background: rgba(18,26,36,.55);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      height:100%;
+    }
+    .aud-sub{
+      color: var(--mike-lime);
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+    .not-for-you{
+      border: 1px dashed rgba(42,52,65,.85);
+      background: rgba(11,15,20,.18);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      color: rgba(230,237,245,.72);
+    }
+
+    /* FAQ */
+    .accordion-item{
+      background: rgba(18,26,36,.55);
+      border: 1px solid rgba(42,52,65,.72);
+      border-radius: var(--radius-lg) !important;
+      overflow:hidden;
+    }
+    .accordion-button{
+      background: rgba(18,26,36,.55) !important;
+      color: rgba(230,237,245,.92) !important;
+      font-weight: 700;
+    }
+    .accordion-button:not(.collapsed){
+      color: rgba(255,255,255,.98) !important;
+      box-shadow:none !important;
+    }
+    .accordion-body{
+      color: rgba(230,237,245,.72);
+    }
+
+    /* Final CTA */
+    .final-cta{
+      border: 1px solid rgba(42,52,65,.72);
+      border-radius: 28px;
+      background:
+        radial-gradient(900px 520px at 15% 0%, rgba(163,230,53,.16), transparent 60%),
+        radial-gradient(900px 520px at 85% 0%, rgba(59,130,246,.14), transparent 60%),
+        rgba(18,26,36,.45);
+      overflow:hidden;
+      position:relative;
+    }
+    .final-cta::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(11,15,20,.55), rgba(11,15,20,.18));
+      pointer-events:none;
+    }
+    .final-cta > *{ position:relative; z-index:1; }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid rgba(42,52,65,.55);
+      background: rgba(11,15,20,.40);
+    }
+    .footer-link{
+      color: rgba(230,237,245,.72);
+    }
+    .footer-link:hover{
+      color: rgba(230,237,245,.95);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Section spacing helpers */
+    .py-lg-6{ padding-top: 4.5rem !important; padding-bottom: 4.5rem !important; }
+    @media (max-width: 991.98px){
+      .hero-shell::after{ background: rgba(11,15,20,.52); }
+      .py-lg-6{ padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg mike-navbar sticky-top" aria-label="Navegação principal">
+    <div class="container py-2">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#hero">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="fw-semibold">MIKE</span>
+      </a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mikeNavbar"
+              aria-controls="mikeNavbar" aria-expanded="false" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mikeNavbar">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#como-funciona">Como funciona</a></li>
+          <li class="nav-item"><a class="nav-link" href="#progresso">Progresso</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        </ul>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-mike-outline btn-sm px-3" href="#hero">Entrar</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO (clean, sem “template”) -->
+    <section id="hero" class="hero">
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-inner p-4 p-lg-5">
+            <div class="row align-items-center g-4 g-lg-5">
+              <div class="col-lg-7">
+                <div class="kicker mb-3">Clareza • Consistência • Progressão</div>
+                <h1 class="mb-3">Progresso não é feeling.<br class="d-none d-md-block"> É registro.</h1>
+                <p class="hero-lead mb-4">Registre rápido → compare com a última sessão → progrida com clareza.</p>
+
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                  <a class="btn btn-mike btn-lg px-4" href="#como-funciona">Começar agora</a>
+                  <a class="btn btn-mike-outline btn-lg px-4" href="#progresso">Ver exemplo</a>
+                </div>
+
+                <div class="mt-3 text-muted-mike small">
+                  Sem firula. Só o que vira decisão no treino.
+                </div>
+              </div>
+
+              <div class="col-lg-5">
+                <div class="hud">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="hud-pill"><span class="dot" aria-hidden="true"></span> SET 2</span>
+                    <span class="hud-pr">PR</span>
+                  </div>
+
+                  <div class="hud-line" aria-hidden="true"></div>
+
+                  <div class="d-flex justify-content-between align-items-end">
+                    <div>
+                      <div class="text-subtle small fw-semibold">Supino reto</div>
+                      <div class="text-muted-mike small">Última sessão: <span class="mono">90 kg</span></div>
+                      <div class="hud-delta mt-1">vs última: <span class="mono">+1 rep</span></div>
+                    </div>
+
+                    <div class="text-end">
+                      <div class="mono" style="font-size:1.6rem;font-weight:800;letter-spacing:-.02em;">
+                        92.5 <span class="text-subtle">kg</span>
+                      </div>
+                      <div class="text-subtle small">top set</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-3 text-subtle small">
+                  PR = personal record (seu melhor resultado).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF STRIP (curto) -->
+    <section id="proof" class="proof-strip py-4" aria-label="Evidências rápidas">
+      <div class="container">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="proof-item">
+              <div class="proof-label">PRs detectados</div>
+              <div class="proof-value">3 PRs</div>
+              <div class="text-muted-mike">Quando acontece, você vê na hora.</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="proof-item">
+              <div class="proof-label">Consistência</div>
+              <div class="proof-value">6 semanas</div>
+              <div class="text-muted-mike">Semanas ativas e streak visíveis.</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="proof-item">
+              <div class="proof-label">Vs. última sessão</div>
+              <div class="proof-value">+1 rep</div>
+              <div class="text-muted-mike">Comparação automática por exercício.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section id="como-funciona" class="py-5 py-lg-6">
+      <div class="container">
+        <div class="mb-4">
+          <div class="kicker mb-2">Zero fricção</div>
+          <h2 class="mb-2">Como funciona</h2>
+          <div class="text-muted-mike">O mínimo necessário para registrar, comparar e progredir.</div>
+        </div>
+
+        <div class="row g-3 g-lg-4">
+          <div class="col-md-4">
+            <div class="step-card">
+              <div class="step-badge">01</div>
+              <div class="step-title">Crie a sessão</div>
+              <p class="step-desc">Data, tipo e uma nota rápida. Pronto.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="step-card">
+              <div class="step-badge">02</div>
+              <div class="step-title">Adicione exercícios (com variações)</div>
+              <p class="step-desc">Escolha do catálogo e ajuste a variação quando precisar.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="step-card">
+              <div class="step-badge">03</div>
+              <div class="step-title">Registre séries</div>
+              <p class="step-desc">Puxa o último set e você só confirma o que mudou.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-center text-muted-mike">
+          <span class="fw-semibold" style="color: var(--mike-lime);">Registro</span> tem que ser mais rápido que pensar.
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRESSO (AHA) -->
+    <section id="progresso" class="py-5 py-lg-6">
+      <div class="container">
+        <div class="mb-4">
+          <div class="kicker mb-2">Momento aha</div>
+          <h2 class="mb-2">Progresso visível</h2>
+          <div class="text-muted-mike">Tendência, PR real e o próximo passo — em segundos.</div>
+        </div>
+
+        <div class="row g-3 g-lg-4 align-items-stretch">
+          <div class="col-lg-7">
+            <div class="plot h-100">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <div class="fw-semibold">Tendência (6 semanas)</div>
+                  <div class="text-subtle small">Azul = carga/volume • Verde = PR</div>
+                </div>
+                <div class="pr-badge">
+                  <span class="tag">PR</span>
+                  <span class="mono">92.5 kg</span>
+                </div>
+              </div>
+
+              <div class="plot-grid">
+                <div class="plot-line" aria-hidden="true"></div>
+
+                <!-- “barras” simples simulando evolução -->
+                <div class="plot-points" aria-hidden="true">
+                  <div class="bar" style="height: 26%;"></div>
+                  <div class="bar" style="height: 32%;"></div>
+                  <div class="bar" style="height: 38%;"></div>
+                  <div class="bar" style="height: 44%;"></div>
+                  <div class="bar pr" style="height: 58%;"></div>
+                  <div class="bar" style="height: 52%;"></div>
+                  <div class="bar" style="height: 63%;"></div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-3 mt-3">
+                <div class="hud-pill"><span class="dot" aria-hidden="true"></span> vs última: <span class="mono">+1 rep</span></div>
+                <div class="hud-pill" style="color: rgba(59,130,246,.92);">
+                  <span class="dot" style="background: rgba(59,130,246,.95); box-shadow:0 0 0 3px rgba(59,130,246,.14);" aria-hidden="true"></span>
+                  tendência: <span class="mono">↑</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="d-grid gap-3 h-100">
+              <div class="mike-card p-3">
+                <div class="fw-semibold mb-1">Tendência clara</div>
+                <div class="text-muted-mike">Você vê se está subindo carga/volume ou só repetindo.</div>
+              </div>
+
+              <div class="mike-card p-3">
+                <div class="fw-semibold mb-1">PR quando é PR</div>
+                <div class="text-muted-mike">Marcado só quando passa de verdade.</div>
+              </div>
+
+              <div class="mike-card p-3">
+                <div class="fw-semibold mb-1">Próximo passo sugerido</div>
+                <div class="text-muted-mike"><span class="mono">+1 rep</span> ou <span class="mono">+1.25 kg</span> — o mínimo que move a agulha.</div>
+              </div>
+
+              <div class="mike-card-strong p-3">
+                <div class="kicker mb-2">Resumo</div>
+                <div class="fw-semibold">Menos dúvida no treino.</div>
+                <div class="text-muted-mike">Mais clareza na progressão.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARA QUEM É -->
+    <section id="para-quem" class="py-5 py-lg-6">
+      <div class="container">
+        <div class="mb-4">
+          <div class="kicker mb-2">Qualificação rápida</div>
+          <h2 class="mb-2">Para quem é</h2>
+          <div class="text-muted-mike">Se você quer clareza, registro e progressão — é aqui.</div>
+        </div>
+
+        <div class="row g-3 g-lg-4">
+          <div class="col-md-4">
+            <div class="aud-card">
+              <div class="fw-semibold mb-1">Iniciante</div>
+              <div class="aud-sub mb-2">aprende consistência</div>
+              <div class="text-muted-mike">Registre o básico e entenda o que realmente está funcionando.</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="aud-card">
+              <div class="fw-semibold mb-1">Intermediário</div>
+              <div class="aud-sub mb-2">progressão mínima previsível</div>
+              <div class="text-muted-mike">Compare com a última sessão e avance com o mínimo que move a agulha.</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="aud-card">
+              <div class="fw-semibold mb-1">Avançado</div>
+              <div class="aud-sub mb-2">rigor e histórico limpo</div>
+              <div class="text-muted-mike">Histórico organizado por exercício e decisões rápidas no treino.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 not-for-you">
+          <div class="fw-semibold mb-1">Não é pra você se…</div>
+          <div>se quer app cheio de firula/gamificação, não é aqui.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-5 py-lg-6">
+      <div class="container">
+        <div class="mb-4">
+          <div class="kicker mb-2">Objeções comuns</div>
+          <h2 class="mb-2">FAQ</h2>
+          <div class="text-muted-mike">Respostas rápidas pra você começar sem fricção.</div>
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item mb-3">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq1"
+                      aria-expanded="false" aria-controls="faq1">
+                O que é PR?
+              </button>
+            </h3>
+            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PR é <strong>Personal Record</strong> — seu melhor resultado pessoal (carga, reps ou volume). No MIKE, ele é marcado só quando você realmente supera seu melhor.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item mb-3">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq2"
+                      aria-expanded="false" aria-controls="faq2">
+                Preciso registrar tudo?
+              </button>
+            </h3>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Não. Comece pelo essencial: exercício, carga e reps. O objetivo é manter o registro <em>mais rápido que pensar</em>.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item mb-3">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq3"
+                      aria-expanded="false" aria-controls="faq3">
+                Posso editar depois?
+              </button>
+            </h3>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Sim — o registro precisa ser prático: editar e corrigir faz parte do fluxo.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL (bem simples) -->
+    <section class="py-5 py-lg-6">
+      <div class="container">
+        <div class="final-cta p-4 p-lg-5">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <div class="kicker mb-2">Comece pequeno. Progrida sempre.</div>
+              <h2 class="mb-2">Clareza hoje. Progresso amanhã.</h2>
+              <div class="text-muted-mike">O registro certo elimina o chute e revela o próximo passo.</div>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <a class="btn btn-mike btn-lg px-4 w-100 w-lg-auto" href="#como-funciona">Começar agora</a>
+              <div class="text-subtle small mt-2">Leva menos de 1 minuto pra começar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="brand-mark" aria-hidden="true"></span>
+              <span class="fw-semibold">MIKE</span>
+            </div>
+            <div class="text-muted-mike">Registro rigoroso para progresso inevitável.</div>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <div class="fw-semibold mb-2">Seções</div>
+            <div class="d-grid gap-1">
+              <a class="footer-link" href="#como-funciona">Como funciona</a>
+              <a class="footer-link" href="#progresso">Progresso</a>
+              <a class="footer-link" href="#faq">FAQ</a>
+            </div>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <div class="fw-semibold mb-2">Contato</div>
+            <div class="text-muted-mike">contato@mike.app</div>
+            <div class="text-muted-mike">Instagram: @mike</div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="fw-semibold mb-2">Legal</div>
+            <div class="d-grid gap-1">
+              <a class="footer-link" href="#">Privacidade</a>
+              <a class="footer-link" href="#">Termos</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mt-4 pt-3"
+             style="border-top:1px solid rgba(42,52,65,.55);">
+          <div class="text-subtle small">
+            © <span id="year"></span> MIKE
+          </div>
+          <div class="text-subtle small">
+            MIKE — Registro rigoroso para progresso inevitável.
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Ano no footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Active nav link on scroll (bem leve)
+    const navLinks = Array.from(document.querySelectorAll('.navbar .nav-link'));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    const setActive = () => {
+      const y = window.scrollY + 120;
+      let current = null;
+      for (const s of sections) if (s.offsetTop <= y) current = s;
+      navLinks.forEach(a => a.classList.remove('active'));
+      if (current) {
+        const active = navLinks.find(a => a.getAttribute('href') === `#${current.id}`);
+        if (active) active.classList.add('active');
+      }
+    };
+
+    window.addEventListener('scroll', setActive, { passive: true });
+    window.addEventListener('load', setActive);
+  </script>
+</body>
+</html>

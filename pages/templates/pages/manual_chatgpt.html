@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MIKE — Mini Design System</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================
+       MIKE TOKENS (CSS Vars)
+       ========================= */
+    :root{
+      --mike-font-ui: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --mike-font-head: "Oswald", "Inter", system-ui, sans-serif;
+      --mike-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --mike-radius-card: 14px;
+      --mike-radius-input: 12px;
+      --mike-radius-pill: 999px;
+
+      --mike-shadow-sm: 0 6px 18px rgba(0,0,0,.18);
+      --mike-shadow-xs: 0 2px 10px rgba(0,0,0,.14);
+
+      /* Spacing (8px grid) */
+      --s-1: 4px;
+      --s-2: 8px;
+      --s-3: 12px;
+      --s-4: 16px;
+      --s-5: 24px;
+      --s-6: 32px;
+      --s-7: 40px;
+      --s-8: 48px;
+
+      /* Semantic colors (defaults for DARK because dark-first) */
+      --bg: #0B0F14;            /* MIKE Core / Graphite */
+      --surface: #121A24;       /* MIKE Surface / Slate */
+      --surface-2: #0F1620;
+      --border: #2A3441;        /* Steel Gray */
+      --text: #E6EDF5;          /* Text Light */
+      --text-muted: #A7B0BD;    /* Text Light Muted */
+
+      --accent: #A3E635;        /* Signal Lime */
+      --accent-2: #3B82F6;      /* Data Blue */
+
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger:  #EF4444;
+      --info:    #3B82F6;
+
+      --focus-ring: 0 0 0 .25rem rgba(163,230,53,.35);
+
+      --chart-grid: rgba(231, 237, 245, 0.12);
+      --chart-bar: rgba(59,130,246,.55);
+      --chart-bar-2: rgba(59,130,246,.25);
+    }
+
+    /* LIGHT THEME overrides */
+    html[data-theme="light"]{
+      --bg: #F5F7FA;            /* Ice */
+      --surface: #FFFFFF;
+      --surface-2: #EEF2F7;
+      --border: #D6DEE8;
+      --text: #0E1726;          /* Text Dark */
+      --text-muted: #5B6778;
+      --chart-grid: rgba(14, 23, 38, 0.10);
+      --chart-bar: rgba(59,130,246,.60);
+      --chart-bar-2: rgba(59,130,246,.18);
+      --mike-shadow-sm: 0 10px 28px rgba(14,23,38,.10);
+      --mike-shadow-xs: 0 4px 14px rgba(14,23,38,.08);
+      --focus-ring: 0 0 0 .25rem rgba(59,130,246,.20);
+    }
+
+    /* =========================
+       Base
+       ========================= */
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mike-font-ui);
+      letter-spacing: .1px;
+    }
+    .container{
+      max-width: 1100px;
+    }
+
+    .mike-surface{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--mike-radius-card);
+      box-shadow: var(--mike-shadow-xs);
+    }
+    .mike-surface.soft{
+      background: var(--surface-2);
+    }
+
+    .mike-title{
+      font-family: var(--mike-font-head);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+    .mike-mono{
+      font-family: var(--mike-font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+    .text-muted-mike{ color: var(--text-muted) !important; }
+
+    .divider{
+      height: 1px;
+      background: var(--border);
+      opacity: .8;
+    }
+
+    /* Buttons */
+    .btn-mike-primary{
+      background: var(--accent);
+      color: #0B0F14;
+      border: 1px solid rgba(0,0,0,.12);
+      font-weight: 700;
+      border-radius: 12px;
+      padding: .65rem 1rem;
+    }
+    .btn-mike-primary:hover{ filter: brightness(.96); }
+    .btn-mike-secondary{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      border-radius: 12px;
+      padding: .65rem 1rem;
+    }
+    .btn-mike-secondary:hover{ background: rgba(163,230,53,.08); border-color: rgba(163,230,53,.35); }
+    .btn-mike-ghost{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: .65rem 1rem;
+      font-weight: 600;
+    }
+    .btn-mike-ghost:hover{ background: rgba(255,255,255,.06); }
+
+    .btn-mike-danger{
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid rgba(239,68,68,.35);
+      font-weight: 700;
+      border-radius: 12px;
+      padding: .65rem 1rem;
+    }
+    .btn-mike-danger:hover{ background: rgba(239,68,68,.10); }
+
+    /* Focus */
+    .btn:focus, .form-control:focus, .form-select:focus, .form-check-input:focus{
+      box-shadow: var(--focus-ring) !important;
+      border-color: rgba(163,230,53,.55) !important;
+      outline: none;
+    }
+
+    /* Inputs */
+    .form-control, .form-select{
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--mike-radius-input);
+      padding: .65rem .9rem;
+    }
+    .form-control::placeholder{ color: rgba(167,176,189,.8); }
+    html[data-theme="light"] .form-control::placeholder{ color: rgba(91,103,120,.70); }
+
+    .input-group-text{
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: var(--mike-radius-input);
+    }
+
+    /* Badges */
+    .badge-mike{
+      border-radius: var(--mike-radius-pill);
+      padding: .35rem .55rem;
+      font-weight: 700;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      font-size: .72rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+    .badge-pr{
+      background: rgba(163,230,53,.16);
+      border-color: rgba(163,230,53,.35);
+      color: var(--text);
+    }
+    html[data-theme="light"] .badge-pr{ color: #0E1726; }
+    .badge-failure{
+      background: rgba(245,158,11,.16);
+      border-color: rgba(245,158,11,.35);
+    }
+    .badge-deload{
+      background: rgba(59,130,246,.14);
+      border-color: rgba(59,130,246,.35);
+    }
+    .badge-danger{
+      background: rgba(239,68,68,.14);
+      border-color: rgba(239,68,68,.35);
+    }
+
+    /* Tabs */
+    .nav-pills .nav-link{
+      color: var(--text-muted);
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      font-size: .82rem;
+      padding: .55rem .8rem;
+    }
+    .nav-pills .nav-link.active{
+      background: rgba(163,230,53,.18);
+      color: var(--text);
+      border: 1px solid rgba(163,230,53,.35);
+    }
+    html[data-theme="light"] .nav-pills .nav-link.active{ color: #0E1726; }
+
+    /* Table */
+    .table-mike{
+      --bs-table-bg: transparent;
+      --bs-table-color: var(--text);
+      border-color: var(--border);
+      margin-bottom: 0;
+    }
+    .table-mike thead th{
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      font-size: .78rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-mike tbody tr{
+      border-bottom: 1px solid var(--border);
+    }
+    .table-mike tbody tr:nth-child(even){
+      background: rgba(255,255,255,.03);
+    }
+    html[data-theme="light"] .table-mike tbody tr:nth-child(even){
+      background: rgba(14,23,38,.03);
+    }
+
+    /* Cards */
+    .mike-card-header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: var(--s-3);
+    }
+
+    /* Mini chart (HTML/CSS) */
+    .chart{
+      border: 1px solid var(--border);
+      background: linear-gradient(to bottom, transparent 0%, transparent 100%);
+      border-radius: var(--mike-radius-card);
+      padding: var(--s-4);
+      position: relative;
+      overflow: hidden;
+    }
+    .chart::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(
+          to top,
+          var(--chart-grid) 0px,
+          var(--chart-grid) 1px,
+          transparent 1px,
+          transparent 28px
+        );
+      pointer-events:none;
+    }
+    .bars{
+      display:flex; gap: 10px; align-items:flex-end;
+      height: 180px;
+      position: relative;
+      z-index: 2;
+    }
+    .bar{
+      width: 16%;
+      border-radius: 10px;
+      background: var(--chart-bar-2);
+      border: 1px solid rgba(59,130,246,.25);
+      position: relative;
+    }
+    .bar > span{
+      position:absolute; left:0; right:0; bottom:0;
+      border-radius: 10px;
+      background: var(--chart-bar);
+    }
+    .bar.pr > span{
+      background: rgba(163,230,53,.55);
+      border: 1px solid rgba(163,230,53,.35);
+    }
+    .bar-labels{
+      display:flex; gap: 10px;
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: .82rem;
+    }
+    .bar-labels div{ width: 16%; text-align:center; }
+
+    /* Toggle */
+    .theme-toggle{
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 12px;
+      padding: .55rem .85rem;
+      font-weight: 700;
+    }
+    .theme-toggle:hover{ background: rgba(255,255,255,.04); }
+    html[data-theme="light"] .theme-toggle:hover{ background: rgba(14,23,38,.04); }
+
+    /* Don't examples */
+    .dont{
+      border: 1px dashed rgba(239,68,68,.45);
+      background: rgba(239,68,68,.10);
+    }
+    .do{
+      border: 1px dashed rgba(34,197,94,.45);
+      background: rgba(34,197,94,.10);
+    }
+
+    /* App mock: set row */
+    .set-row{
+      display:grid;
+      grid-template-columns: 1.2fr .9fr .9fr 1fr auto;
+      gap: 10px;
+      align-items:center;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    html[data-theme="light"] .set-row{ background: rgba(14,23,38,.02); }
+    .set-row .mini{
+      font-size: .78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      font-weight: 800;
+    }
+    .set-row .val{ font-weight: 800; }
+    .set-row .val.mono{ font-family: var(--mike-font-mono); }
+
+    @media (max-width: 768px){
+      .set-row{
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: auto;
+      }
+      .set-row .actions{ grid-column: 1 / -1; }
+      .bars{ height: 140px; }
+      .bar{ width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-4 py-md-5">
+
+    <!-- Top bar -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge-mike badge-pr"><i class="bi bi-check2-circle me-1"></i> MINI DESIGN SYSTEM</span>
+          <span class="badge-mike"><i class="bi bi-graph-up me-1"></i> Heavy Duty • Precision</span>
+        </div>
+        <h1 class="mike-title mt-3 mb-1">MIKE</h1>
+        <p class="text-muted-mike mb-0">Registro rigoroso para progresso inevitável.</p>
+      </div>
+
+      <button class="theme-toggle" id="themeToggle" type="button">
+        <i class="bi bi-moon-stars me-2"></i> Alternar tema
+      </button>
+    </div>
+
+    <!-- 1) Capa -->
+    <section class="mike-surface p-4 p-md-5 mb-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <h2 class="mike-title mb-2">Manual de Identidade + UI</h2>
+          <p class="text-muted-mike mb-3">
+            MIKE foi desenhado para registrar treinos com o mínimo de fricção e o máximo de rigor.
+            Sem firula. Sem ruído. Só dados que viram decisão.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-mike-primary"><i class="bi bi-plus-circle me-2"></i>Registrar série</button>
+            <button class="btn btn-mike-secondary"><i class="bi bi-arrow-repeat me-2"></i>Duplicar treino</button>
+            <button class="btn btn-mike-ghost"><i class="bi bi-bar-chart me-2"></i>Ver progresso</button>
+          </div>
+
+          <div class="divider my-4"></div>
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="mike-surface soft p-3">
+                <div class="mini text-muted-mike">Diferencial</div>
+                <div class="fw-bold">Controle do progresso</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mike-surface soft p-3">
+                <div class="mini text-muted-mike">Tom</div>
+                <div class="fw-bold">Sério, direto, motivador</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mike-surface soft p-3">
+                <div class="mini text-muted-mike">Estilo</div>
+                <div class="fw-bold">Fitness + Analytics</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="mike-surface soft p-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="mike-title">Snapshot</div>
+              <span class="badge-mike badge-pr">PR</span>
+            </div>
+            <div class="display-5 mike-mono fw-bold mb-1">+2.5kg</div>
+            <div class="text-muted-mike">Supino reto • vs última sessão</div>
+            <div class="mt-3">
+              <div class="d-flex justify-content-between text-muted-mike small">
+                <span>Consistência (7d)</span><span class="mike-mono">5/6</span>
+              </div>
+              <div class="progress mt-2" style="height:10px; background: rgba(255,255,255,.08); border-radius: 999px;">
+                <div class="progress-bar" style="width:83%; background: var(--accent);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) Brand foundation -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Brand foundation</h3>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3 h-100">
+            <div class="text-muted-mike small text-uppercase fw-bold">Essência</div>
+            <div class="fs-5 fw-bold mt-1">Registro rigoroso para progresso inevitável.</div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small text-uppercase fw-bold">Personalidade</div>
+            <ul class="mb-0">
+              <li><b>Disciplinado</b>: escolhas mínimas por padrão.</li>
+              <li><b>Preciso</b>: dados confiáveis e comparáveis.</li>
+              <li><b>Implacável</b>: foco no próximo passo.</li>
+              <li><b>Moderno</b>: dark mode e leitura rápida.</li>
+              <li><b>Motivador por evidência</b>: PRs e consistência.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3 h-100">
+            <div class="text-muted-mike small text-uppercase fw-bold">Microcopy (exemplos)</div>
+            <div class="row g-2 mt-2">
+              <div class="col-sm-6">
+                <div class="p-3 mike-surface">
+                  <div class="text-muted-mike small fw-bold">Sucesso</div>
+                  <div>“Série registrada. +1 passo.”</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 mike-surface">
+                  <div class="text-muted-mike small fw-bold">Erro</div>
+                  <div>“Reps OU tempo (não ambos).”</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 mike-surface">
+                  <div class="text-muted-mike small fw-bold">Empty state</div>
+                  <div>“Comece: registre o primeiro treino.”</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 mike-surface">
+                  <div class="text-muted-mike small fw-bold">Ação</div>
+                  <div>“Duplicar treino anterior”</div>
+                </div>
+              </div>
+            </div>
+            <div class="divider my-3"></div>
+            <div class="text-muted-mike small text-uppercase fw-bold">Princípios</div>
+            <div class="d-flex flex-wrap gap-2 mt-2">
+              <span class="badge-mike">Clareza</span>
+              <span class="badge-mike">Fricção mínima</span>
+              <span class="badge-mike">Progresso visível</span>
+              <span class="badge-mike">Consistência</span>
+              <span class="badge-mike">Escalabilidade</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) Paleta -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Paleta de cores</h3>
+
+      <div class="row g-3">
+        <div class="col-md-3">
+          <div class="mike-surface soft p-3">
+            <div class="fw-bold">Core / Graphite</div>
+            <div class="text-muted-mike small">#0B0F14</div>
+            <div class="mt-2 rounded-3" style="height:46px;background:#0B0F14;border:1px solid var(--border)"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mike-surface soft p-3">
+            <div class="fw-bold">Surface / Slate</div>
+            <div class="text-muted-mike small">#121A24</div>
+            <div class="mt-2 rounded-3" style="height:46px;background:#121A24;border:1px solid var(--border)"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mike-surface soft p-3">
+            <div class="fw-bold">Accent / Signal Lime</div>
+            <div class="text-muted-mike small">#A3E635</div>
+            <div class="mt-2 rounded-3" style="height:46px;background:#A3E635;border:1px solid rgba(0,0,0,.15)"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mike-surface soft p-3">
+            <div class="fw-bold">Info / Data Blue</div>
+            <div class="text-muted-mike small">#3B82F6</div>
+            <div class="mt-2 rounded-3" style="height:46px;background:#3B82F6;border:1px solid rgba(0,0,0,.12)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-4"></div>
+
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Combinações recomendadas (contraste)</div>
+            <div class="table-responsive mt-2">
+              <table class="table table-mike align-middle">
+                <thead>
+                  <tr>
+                    <th>Fundo</th><th>Texto</th><th>Uso</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mike-mono">Graphite</td>
+                    <td class="mike-mono">Text Light</td>
+                    <td>Dark mode base, leitura confortável</td>
+                  </tr>
+                  <tr>
+                    <td class="mike-mono">Signal Lime</td>
+                    <td class="mike-mono">Text Dark</td>
+                    <td>CTA, PR, highlights (não para parágrafos longos)</td>
+                  </tr>
+                  <tr>
+                    <td class="mike-mono">White/Ice</td>
+                    <td class="mike-mono">Text Dark</td>
+                    <td>Light mode</td>
+                  </tr>
+                  <tr>
+                    <td class="mike-mono">Surface</td>
+                    <td class="mike-mono">Muted</td>
+                    <td>Títulos secundários, metadados</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-muted-mike small mt-2">
+              Regra: evite Lime como texto em fundo branco. Use Lime como “sinal” (fundo/ícone/linha).
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Do / Don’t</div>
+            <div class="row g-2 mt-2">
+              <div class="col-12">
+                <div class="p-3 do rounded-4">
+                  <div class="fw-bold"><i class="bi bi-check2-circle me-2"></i>DO</div>
+                  <div class="text-muted-mike small">Use Lime para PR, CTA e progresso (com parcimônia).</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="p-3 dont rounded-4">
+                  <div class="fw-bold"><i class="bi bi-x-circle me-2"></i>DON’T</div>
+                  <div class="text-muted-mike small">Não use vermelho como “destaque positivo” ou CTA padrão.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="p-3 dont rounded-4">
+                  <div class="fw-bold"><i class="bi bi-x-circle me-2"></i>DON’T</div>
+                  <div class="text-muted-mike small">Não use 2 acentos vibrantes simultâneos (polui e reduz foco).</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) Tipografia -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Tipografia</h3>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Títulos (Oswald)</div>
+            <div class="mike-title display-6 mt-2">Treino A — Alta Intensidade</div>
+            <div class="mike-title fs-3">Progressão objetiva</div>
+            <div class="text-muted-mike small">Uso: headlines, seções, chamadas.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">UI (Inter) + Dados (JetBrains Mono)</div>
+            <p class="mt-2 mb-2">
+              Inter maximiza legibilidade e leitura rápida. Para números, use mono para alinhar e comparar.
+            </p>
+            <div class="d-flex gap-3 align-items-end flex-wrap">
+              <div>
+                <div class="text-muted-mike small">Carga</div>
+                <div class="mike-mono fs-1 fw-bold">92.5</div>
+              </div>
+              <div>
+                <div class="text-muted-mike small">Reps</div>
+                <div class="mike-mono fs-1 fw-bold">6</div>
+              </div>
+              <div>
+                <div class="text-muted-mike small">Volume</div>
+                <div class="mike-mono fs-1 fw-bold">555</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) Componentes -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Componentes</h3>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3 h-100">
+            <div class="text-muted-mike small text-uppercase fw-bold mb-2">Botões</div>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-mike-primary"><i class="bi bi-check2 me-2"></i>Salvar</button>
+              <button class="btn btn-mike-secondary"><i class="bi bi-plus me-2"></i>Adicionar</button>
+              <button class="btn btn-mike-ghost"><i class="bi bi-sliders me-2"></i>Avançado</button>
+              <button class="btn btn-mike-danger"><i class="bi bi-trash me-2"></i>Excluir</button>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="text-muted-mike small text-uppercase fw-bold mb-2">Badges</div>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge-mike badge-pr"><i class="bi bi-trophy me-1"></i>PR</span>
+              <span class="badge-mike badge-failure"><i class="bi bi-lightning me-1"></i>Falha</span>
+              <span class="badge-mike badge-deload"><i class="bi bi-arrow-down-circle me-1"></i>Deload</span>
+              <span class="badge-mike badge-danger"><i class="bi bi-exclamation-triangle me-1"></i>Erro</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3 h-100">
+            <div class="text-muted-mike small text-uppercase fw-bold mb-2">Inputs</div>
+
+            <div class="row g-2">
+              <div class="col-sm-6">
+                <label class="form-label text-muted-mike small fw-bold">Exercício</label>
+                <input class="form-control" placeholder="Supino reto" />
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label text-muted-mike small fw-bold">Variação</label>
+                <select class="form-select">
+                  <option>Barra</option>
+                  <option>Halteres</option>
+                  <option>Máquina</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label text-muted-mike small fw-bold">Carga</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="92.5" />
+                  <span class="input-group-text">kg</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label text-muted-mike small fw-bold">Reps</label>
+                <input class="form-control" placeholder="6" />
+              </div>
+              <div class="col-12">
+                <label class="form-label text-muted-mike small fw-bold">Observações</label>
+                <textarea class="form-control" rows="2" placeholder="RPE 9 • foco em controle na descida"></textarea>
+              </div>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="text-muted-mike small text-uppercase fw-bold mb-2">Tabs</div>
+            <ul class="nav nav-pills gap-2">
+              <li class="nav-item"><a class="nav-link active" href="#">Treino</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Histórico</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Relatórios</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-4"></div>
+
+      <div class="mike-surface soft p-3">
+        <div class="text-muted-mike small text-uppercase fw-bold mb-2">Tabela (histórico)</div>
+        <div class="table-responsive">
+          <table class="table table-mike align-middle">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Exercício</th>
+                <th class="text-end">Carga</th>
+                <th class="text-end">Reps</th>
+                <th class="text-end">Volume</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-muted-mike">2026-02-16</td>
+                <td>Supino reto</td>
+                <td class="text-end mike-mono">92.5</td>
+                <td class="text-end mike-mono">6</td>
+                <td class="text-end mike-mono">555</td>
+                <td><span class="badge-mike badge-pr">PR</span></td>
+              </tr>
+              <tr>
+                <td class="text-muted-mike">2026-02-09</td>
+                <td>Supino reto</td>
+                <td class="text-end mike-mono">90.0</td>
+                <td class="text-end mike-mono">6</td>
+                <td class="text-end mike-mono">540</td>
+                <td><span class="badge-mike">OK</span></td>
+              </tr>
+              <tr>
+                <td class="text-muted-mike">2026-02-02</td>
+                <td>Supino reto</td>
+                <td class="text-end mike-mono">90.0</td>
+                <td class="text-end mike-mono">5</td>
+                <td class="text-end mike-mono">450</td>
+                <td><span class="badge-mike badge-failure">Falha</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6) Exemplo de Tela de treino -->
+    <section class="mike-surface p-4 mb-4">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+        <h3 class="mike-title mb-0">Mock — Tela de treino</h3>
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-mike-secondary"><i class="bi bi-arrow-repeat me-2"></i>Usar último treino</button>
+          <button class="btn btn-mike-primary"><i class="bi bi-check2-circle me-2"></i>Salvar treino</button>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="mike-surface soft p-3">
+            <div class="mike-card-header">
+              <div>
+                <div class="text-muted-mike small text-uppercase fw-bold">Sessão</div>
+                <div class="fw-bold fs-5">Treino A • Peito / Tríceps</div>
+                <div class="text-muted-mike">Objetivo: progressão mínima com rigor.</div>
+              </div>
+              <span class="badge-mike">09:00</span>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="fw-bold">Supino reto</div>
+              <div class="d-flex gap-2">
+                <span class="badge-mike badge-pr">PR possível</span>
+                <button class="btn btn-mike-ghost btn-sm"><i class="bi bi-pencil"></i></button>
+              </div>
+            </div>
+
+            <div class="mt-3 d-grid gap-2">
+              <div class="set-row">
+                <div>
+                  <div class="mini">Set 1</div>
+                  <div class="val">Trabalho</div>
+                </div>
+                <div>
+                  <div class="mini">Carga</div>
+                  <div class="val mono">90.0 kg</div>
+                </div>
+                <div>
+                  <div class="mini">Reps</div>
+                  <div class="val mono">6</div>
+                </div>
+                <div>
+                  <div class="mini">RPE/RIR</div>
+                  <div class="val mono">RPE 9</div>
+                </div>
+                <div class="actions text-end">
+                  <button class="btn btn-mike-secondary btn-sm"><i class="bi bi-copy me-1"></i>Duplicar</button>
+                </div>
+              </div>
+
+              <div class="set-row">
+                <div>
+                  <div class="mini">Set 2</div>
+                  <div class="val">Trabalho</div>
+                </div>
+                <div>
+                  <div class="mini">Carga</div>
+                  <div class="val mono">92.5 kg</div>
+                </div>
+                <div>
+                  <div class="mini">Reps</div>
+                  <div class="val mono">6</div>
+                </div>
+                <div>
+                  <div class="mini">RPE/RIR</div>
+                  <div class="val mono">RPE 10</div>
+                </div>
+                <div class="actions text-end">
+                  <span class="badge-mike badge-pr"><i class="bi bi-trophy me-1"></i>PR</span>
+                </div>
+              </div>
+
+              <button class="btn btn-mike-primary w-100">
+                <i class="bi bi-plus-circle me-2"></i>Adicionar série (autopreencher)
+              </button>
+            </div>
+
+            <div class="divider my-3"></div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="text-muted-mike small">Comparação automática</div>
+              <div class="mike-mono fw-bold">+2.5kg vs última sessão</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="mike-surface soft p-3 mb-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Atalhos (redução de fricção)</div>
+            <div class="d-grid gap-2 mt-2">
+              <button class="btn btn-mike-secondary"><i class="bi bi-stars me-2"></i>Aplicar “progressão mínima”</button>
+              <button class="btn btn-mike-secondary"><i class="bi bi-clipboard-check me-2"></i>Checklist do treino</button>
+              <button class="btn btn-mike-secondary"><i class="bi bi-activity me-2"></i>Ver tendência do exercício</button>
+            </div>
+          </div>
+
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Notas</div>
+            <p class="mb-2">Regra de rigor: reps <b>OU</b> tempo. Dados limpos = progressão confiável.</p>
+            <div class="text-muted-mike small">
+              “Sem dados suficientes” deve orientar o próximo passo: mais 2 sessões.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7) Exemplo de Relatório -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Mock — Relatório de progresso</h3>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">PRs (30d)</div>
+            <div class="mike-mono display-6 fw-bold">3</div>
+            <div class="text-muted-mike">Recompensa rara e crível.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Consistência</div>
+            <div class="mike-mono display-6 fw-bold">82%</div>
+            <div class="text-muted-mike">Viés do progresso aplicado.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Volume (semana)</div>
+            <div class="mike-mono display-6 fw-bold">12.4k</div>
+            <div class="text-muted-mike">Contexto sem excesso de números.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-4"></div>
+
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="chart">
+            <div class="d-flex align-items-center justify-content-between mb-2 position-relative" style="z-index:2">
+              <div>
+                <div class="text-muted-mike small text-uppercase fw-bold">Tendência • Supino reto</div>
+                <div class="fw-bold">Carga máxima (top set)</div>
+              </div>
+              <span class="badge-mike badge-pr">PR</span>
+            </div>
+
+            <div class="bars">
+              <div class="bar"><span style="height:55%"></span></div>
+              <div class="bar"><span style="height:58%"></span></div>
+              <div class="bar"><span style="height:60%"></span></div>
+              <div class="bar"><span style="height:62%"></span></div>
+              <div class="bar pr"><span style="height:68%"></span></div>
+              <div class="bar"><span style="height:66%"></span></div>
+            </div>
+            <div class="bar-labels">
+              <div>S1</div><div>S2</div><div>S3</div><div>S4</div><div class="fw-bold">S5</div><div>S6</div>
+            </div>
+          </div>
+          <div class="text-muted-mike small mt-2">
+            Regra de gráfico: 1 cor principal + neutros. Lime apenas para “evento” (PR).
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold mb-2">Insights (comportamento)</div>
+            <ul class="mb-0">
+              <li><b>Saliência:</b> destaque do PR aumenta percepção de progresso.</li>
+              <li><b>Comparação próxima:</b> “vs última sessão” orienta decisão.</li>
+              <li><b>Anti-overchoice:</b> mostrar só o essencial por padrão.</li>
+            </ul>
+          </div>
+
+          <div class="mike-surface soft p-3 mt-3">
+            <div class="text-muted-mike small text-uppercase fw-bold mb-2">Próximo passo sugerido</div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="fw-bold">+1 rep ou +1.25kg</div>
+                <div class="text-muted-mike small">progressão mínima</div>
+              </div>
+              <button class="btn btn-mike-primary btn-sm"><i class="bi bi-check2 me-1"></i>Aplicar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8) Iconografia -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Iconografia e estilo</h3>
+      <div class="row g-3">
+        <div class="col-md-8">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Regras</div>
+            <ul class="mb-0">
+              <li>Outline consistente, visual limpo, sem “cartoon”.</li>
+              <li>Ícones como suporte à leitura (não decoração).</li>
+              <li>Preferir ícones: check, trophy, graph, plus, history, copy.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mike-surface soft p-3">
+            <div class="text-muted-mike small text-uppercase fw-bold">Amostra</div>
+            <div class="d-flex flex-wrap gap-3 fs-4 mt-2">
+              <i class="bi bi-plus-circle"></i>
+              <i class="bi bi-check2-circle"></i>
+              <i class="bi bi-trophy"></i>
+              <i class="bi bi-graph-up"></i>
+              <i class="bi bi-clock-history"></i>
+              <i class="bi bi-clipboard-check"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9) Do/Don't -->
+    <section class="mike-surface p-4 mb-4">
+      <h3 class="mike-title mb-3">Regras Do / Don’t</h3>
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="p-4 do rounded-4">
+            <div class="fw-bold mb-2"><i class="bi bi-check2-circle me-2"></i>DO</div>
+            <ul class="mb-0">
+              <li>1 CTA principal por tela (reduz overchoice).</li>
+              <li>Dados em mono quando comparáveis.</li>
+              <li>PR como evento raro (credibilidade).</li>
+              <li>Feedback imediato em ações críticas (toasts).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="p-4 dont rounded-4">
+            <div class="fw-bold mb-2"><i class="bi bi-x-circle me-2"></i>DON’T</div>
+            <ul class="mb-0">
+              <li>Não use vermelho como “positivo”.</li>
+              <li>Não exagere em gradientes/neon (vira gamer/caricatura).</li>
+              <li>Não esconda validações (erros precisam ser claros).</li>
+              <li>Não mostre opções avançadas antes da hora.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10) Checklist dev -->
+    <section class="mike-surface p-4">
+      <h3 class="mike-title mb-3">Checklist de implementação (dev)</h3>
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3 h-100">
+            <div class="text-muted-mike small text-uppercase fw-bold">Tokens</div>
+            <ul class="mb-0">
+              <li>Usar variáveis CSS (cores, radius, sombras).</li>
+              <li>Dark mode por <span class="mike-mono">data-theme</span> no <span class="mike-mono">html</span>.</li>
+              <li>Grid de spacing baseado em 8px.</li>
+              <li>Focus ring visível (acessibilidade).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="mike-surface soft p-3 h-100">
+            <div class="text-muted-mike small text-uppercase fw-bold">UX</div>
+            <ul class="mb-0">
+              <li>Autopreencher último treino (carga/reps/variação).</li>
+              <li>Quick-add set e duplicar set.</li>
+              <li>Comparação “vs última sessão” em cards de exercício.</li>
+              <li>PR destacado (badge) e registrado no relatório.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-4"></div>
+      <p class="text-muted-mike mb-0">
+        MIKE é disciplina em forma de interface: reduza ruído, aumente precisão, e deixe o progresso falar.
+      </p>
+    </section>
+
+    <footer class="py-4 text-center text-muted-mike small">
+      MIKE • Mini Design System • Heavy Duty / Precision • v1
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle (simple and local)
+    const html = document.documentElement;
+    const btn = document.getElementById("themeToggle");
+
+    function iconForTheme(theme){
+      return theme === "dark" ? "bi-moon-stars" : "bi-sun";
+    }
+
+    function setTheme(theme){
+      html.setAttribute("data-theme", theme);
+      btn.innerHTML = `<i class="bi ${iconForTheme(theme)} me-2"></i> Alternar tema`;
+      localStorage.setItem("mike_theme", theme);
+    }
+
+    const saved = localStorage.getItem("mike_theme");
+    if(saved){ setTheme(saved); }
+    else{ setTheme(html.getAttribute("data-theme") || "dark"); }
+
+    btn.addEventListener("click", () => {
+      const current = html.getAttribute("data-theme");
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

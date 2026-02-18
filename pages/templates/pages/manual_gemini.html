@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIKE - Design System Manual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            /* Color Tokens */
+            --mike-bg: #0B0C0E;
+            --mike-surface: #181A1F;
+            --mike-surface-light: #25282F;
+            --mike-accent: #D1FF26; /* Lima Ácido */
+            --mike-accent-hover: #b8e61e;
+            --mike-text-main: #FFFFFF;
+            --mike-text-muted: #8E929B;
+            --mike-success: #26FF8C;
+            --mike-danger: #FF4545;
+            --mike-border: #31353D;
+
+            /* Typography */
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Spacing & Radius */
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: var(--mike-bg);
+            color: var(--mike-text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .display-font { font-family: var(--font-display); letter-spacing: 1px; }
+
+        /* Custom Components */
+        .btn-mike-primary {
+            background-color: var(--mike-accent);
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+        .btn-mike-primary:hover { background-color: var(--mike-accent-hover); transform: translateY(-2px); }
+
+        .mike-card {
+            background: var(--mike-surface);
+            border: 1px solid var(--mike-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .badge-pr {
+            background: rgba(209, 255, 38, 0.1);
+            color: var(--mike-accent);
+            border: 1px solid var(--mike-accent);
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .form-control-mike {
+            background: var(--mike-surface-light);
+            border: 1px solid var(--mike-border);
+            color: white;
+            border-radius: var(--radius-md);
+        }
+        .form-control-mike:focus {
+            background: var(--mike-surface-light);
+            border-color: var(--mike-accent);
+            box-shadow: 0 0 0 0.25rem rgba(209, 255, 38, 0.25);
+            color: white;
+        }
+
+        .progress-bar-mike {
+            height: 8px;
+            background: var(--mike-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--mike-accent);
+        }
+
+        /* Nav Sidebar Style */
+        .sidebar { border-right: 1px solid var(--mike-border); height: 100vh; position: sticky; top: 0; }
+        .nav-link { color: var(--mike-text-muted); padding: 15px 20px; font-weight: 600; }
+        .nav-link.active { color: var(--mike-accent); background: rgba(209, 255, 38, 0.05); border-right: 3px solid var(--mike-accent); }
+
+        /* Fake Chart Styles */
+        .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 100px; }
+        .bar { width: 30px; background: var(--mike-accent); border-radius: 4px 4px 0 0; opacity: 0.6; }
+        .bar.active { opacity: 1; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar p-0">
+            <div class="p-4">
+                <h2 class="m-0 text-white" style="letter-spacing: 4px;">MIKE</h2>
+                <small class="text-muted text-uppercase" style="font-size: 0.6rem;">Heavy Duty System</small>
+            </div>
+            <div class="nav flex-column mt-4">
+                <a class="nav-link active" href="#"><i class="bi bi-grid-1x2-fill me-2"></i> Brand Foundation</a>
+                <a class="nav-link" href="#"><i class="bi bi-palette-fill me-2"></i> Paleta & Estilo</a>
+                <a class="nav-link" href="#"><i class="bi bi-box-seam-fill me-2"></i> Componentes UI</a>
+                <a class="nav-link" href="#"><i class="bi bi-graph-up me-2"></i> Analytics Preview</a>
+            </div>
+        </nav>
+
+        <main class="col-md-10 p-5">
+            <section id="brand" class="mb-5">
+                <h1 class="display-4 text-white">Brand Foundation</h1>
+                <p class="lead text-muted">MIKE é uma ferramenta de precisão. O design deve respirar eficácia e força.</p>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="mike-card text-center">
+                            <h3 class="text-accent" style="color: var(--mike-accent);">INTENSIDADE</h3>
+                            <p class="small m-0">Esforço máximo em cada interação.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mike-card text-center">
+                            <h3 class="text-accent" style="color: var(--mike-accent);">CLAREZA</h3>
+                            <p class="small m-0">Zero ruído visual entre você e o dado.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mike-card text-center">
+                            <h3 class="text-accent" style="color: var(--mike-accent);">PROGRESSÃO</h3>
+                            <p class="small m-0">Sempre um passo à frente do anterior.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="my-5 border-secondary">
+
+            <section id="colors" class="mb-5">
+                <h2 class="mb-4">Paleta de Cores</h2>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark" style="background-color: var(--mike-accent);">
+                            <strong>MIKE Accent</strong><br>#D1FF26
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white border" style="background-color: var(--mike-bg);">
+                            <strong>MIKE Surface</strong><br>#0B0C0E
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white" style="background-color: var(--mike-success);">
+                            <strong>Success</strong><br>#26FF8C
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white" style="background-color: var(--mike-danger);">
+                            <strong>Danger/Fail</strong><br>#FF4545
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="components" class="mb-5">
+                <h2 class="mb-4">Componentes do Sistema</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mike-card">
+                            <h5 class="mb-3 text-muted text-uppercase small">Botões & Inputs</h5>
+                            <button class="btn btn-mike-primary w-100 mb-3">Iniciar Treino</button>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Carga (kg)</label>
+                                <input type="number" class="form-control form-control-mike" placeholder="ex: 100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mike-card">
+                            <h5 class="mb-3 text-muted text-uppercase small">Badges de Status</h5>
+                            <span class="badge-pr me-2">NOVO PR</span>
+                            <span class="badge rounded-pill bg-secondary me-2">SET 1</span>
+                            <span class="badge rounded-pill bg-danger me-2">FALHA</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ui-preview" class="mb-5">
+                <h2 class="mb-4">Preview da UI: Log de Treino</h2>
+                <div class="mike-card mx-auto" style="max-width: 450px; background: #000;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="m-0">LEG PRESS 45º</h3>
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </div>
+                    
+                    <div class="row g-2 mb-3 text-center text-muted small fw-bold">
+                        <div class="col-2">SET</div>
+                        <div class="col-3">KG</div>
+                        <div class="col-3">REPS</div>
+                        <div class="col-4">STATUS</div>
+                    </div>
+
+                    <div class="row g-2 mb-2 align-items-center">
+                        <div class="col-2 text-center display-font fs-5">1</div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-mike text-center p-1" value="280">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-mike text-center p-1" value="8">
+                        </div>
+                        <div class="col-4 text-center">
+                            <span class="badge-pr w-100">+2kg vs last</span>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-2 align-items-center p-2 rounded" style="background: rgba(209, 255, 38, 0.05); border: 1px dashed var(--mike-accent);">
+                        <div class="col-2 text-center display-font fs-5 text-accent" style="color: var(--mike-accent);">2</div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-mike text-center p-1" placeholder="280">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-mike text-center p-1" placeholder="--">
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-mike-primary btn-sm w-100" style="padding: 4px; font-size: 0.7rem;">LOG SET</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analytics" class="mb-5">
+                <h2 class="mb-4">Analytics de Progressão</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mike-card">
+                            <span class="text-muted small">Volume Total (Semana)</span>
+                            <div class="d-flex align-items-end justify-content-between mt-2">
+                                <h2 class="m-0">12.450 <small class="fs-6">KG</small></h2>
+                                <span class="text-success small"><i class="bi bi-arrow-up"></i> 12%</span>
+                            </div>
+                            <div class="bar-chart mt-3">
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar active" style="height: 85%;"></div>
+                                <div class="bar" style="height: 30%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-dark p-4 rounded-3 border-start border-4 border-warning mb-5">
+                <h5 class="text-warning"><i class="bi bi-exclamation-triangle-fill"></i> Checklist de Implementação</h5>
+                <ul class="small mb-0 mt-2">
+                    <li>Utilize <strong>padding de 16px</strong> em todos os containers mobile.</li>
+                    <li>Números em fontes <strong>JetBrains Mono</strong> para evitar saltos de layout em contadores.</li>
+                    <li>Feedback tátil (Haptic) em cada "Log Set" finalizado.</li>
+                    <li>Acessibilidade: Garantir contraste 4.5:1 para textos em cinza sobre fundo escuro.</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
