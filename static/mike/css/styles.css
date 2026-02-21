@@ -1,63 +1,711 @@
-:root{
-  --mike-bg: #0B0F14;        /* Graphite */
-  --mike-surface: #121A24;   /* Slate */
-  --mike-border: #2A3441;    /* Steel Gray */
-  --mike-text: #E6EDF5;      /* Mist */
-  --mike-muted: #A7B0BD;     /* Text Light Muted */
-  --mike-accent: #A3E635;    /* Signal Lime */
+:root {
+  /* =========================
+     MIKE TOKENS (canônico)
+     ========================= */
+  --mike-font-ui: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --mike-font-head: "Oswald", "Inter", system-ui, sans-serif;
+  --mike-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --mike-radius-card: 14px;
+  --mike-radius-input: 12px;
+  --mike-radius-pill: 999px;
+
+  --mike-shadow-sm: 0 6px 18px rgba(0, 0, 0, .18);
+  --mike-shadow-xs: 0 2px 10px rgba(0, 0, 0, .14);
+
+  /* Spacing (8px grid) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 40px;
+  --s-8: 48px;
+
+  /* Base colors (DARK default) */
+  --mike-bg: #0B0F14;
+  /* Graphite */
+  --mike-surface: #121A24;
+  /* Slate */
+  --mike-surface-2: #0F1620;
+  /* camada suave */
+  --mike-border: #2A3441;
+  /* Steel Gray */
+  --mike-text: #E6EDF5;
+  /* Text Light */
+  --mike-text-muted: #A7B0BD;
+  /* Text Light Muted */
+
+  --mike-accent: #A3E635;
+  /* Signal Lime */
+  --mike-info: #3B82F6;
+  /* Data Blue */
+  --mike-success: #22C55E;
+  --mike-warning: #F59E0B;
   --mike-danger: #EF4444;
+
+  --mike-focus-ring: 0 0 0 .25rem rgba(163, 230, 53, .35);
 }
 
-.mike-bg{
-  background: radial-gradient(1200px 800px at 20% 0%, rgba(163,230,53,0.08), transparent 55%),
-              radial-gradient(900px 600px at 90% 20%, rgba(59,130,246,0.08), transparent 55%),
-              var(--mike-bg);
+/* LIGHT THEME overrides */
+html[data-theme="light"] {
+  --mike-bg: #F5F7FA;
+  /* Ice */
+  --mike-surface: #FFFFFF;
+  --mike-surface-2: #EEF2F7;
+  --mike-border: #D6DEE8;
+  --mike-text: #0E1726;
+  /* Text Dark */
+  --mike-text-muted: #5B6778;
+  --mike-shadow-sm: 0 10px 28px rgba(14, 23, 38, .10);
+  --mike-shadow-xs: 0 4px 14px rgba(14, 23, 38, .08);
+  --mike-focus-ring: 0 0 0 .25rem rgba(59, 130, 246, .20);
+}
+
+/* =========================
+   Base / Resets
+   ========================= */
+html,
+body {
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.m-page {
   color: var(--mike-text);
+  font-family: var(--mike-font-ui);
+  letter-spacing: .1px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(163, 230, 53, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 90% 20%, rgba(59, 130, 246, 0.08), transparent 55%),
+    var(--mike-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.mike-card{
-  background: rgba(18,26,36,0.92);
-  border: 1px solid rgba(42,52,65,0.9);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
+/* content wrapper (não mexe no .container do Bootstrap) */
+.m-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: var(--s-4);
+  padding-right: var(--s-4);
 }
 
-.mike-muted{ color: var(--mike-muted); }
+.m-text-muted {
+  color: var(--mike-text-muted) !important;
+}
 
-.mike-brand{
-  letter-spacing: 0.08em;
+.m-divider {
+  height: 1px;
+  background: var(--mike-border);
+  opacity: .85;
+}
+
+.m-title {
+  font-family: var(--mike-font-head);
+  letter-spacing: .6px;
+  text-transform: uppercase;
+}
+
+.m-mono {
+  font-family: var(--mike-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.m-label {
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+.m-kpi {
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+/* =========================
+   Surfaces / Cards
+   ========================= */
+.m-card {
+  background: var(--mike-surface);
+  border: 1px solid var(--mike-border);
+  border-radius: var(--mike-radius-card);
+  box-shadow: var(--mike-shadow-xs);
+}
+
+.m-card--muted {
+  background: var(--mike-surface-2);
+}
+
+/* compat: classes antigas (alias real) */
+.mike-card {
+  background: var(--mike-surface);
+  border: 1px solid var(--mike-border);
+  border-radius: var(--mike-radius-card);
+  box-shadow: var(--mike-shadow-xs);
+}
+
+/* =========================
+   Buttons (MIKE)
+   ========================= */
+.m-btn-primary,
+.m-btn-secondary,
+.m-btn-ghost,
+.m-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  /* touch target */
+  padding: .65rem 1rem;
+  border-radius: var(--mike-radius-input);
   font-weight: 700;
-}
-
-.mike-input.form-control{
-  background-color: rgba(11,15,20,0.6);
-  border: 1px solid rgba(42,52,65,0.9);
+  text-decoration: none;
+  user-select: none;
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--mike-text);
 }
-.mike-input.form-control:focus{
-  border-color: rgba(163,230,53,0.7);
-  box-shadow: 0 0 0 .25rem rgba(163,230,53,.15);
+
+.m-btn-primary {
+  background: var(--mike-accent);
+  color: #0B0F14;
+  border-color: rgba(0, 0, 0, .12);
 }
 
-.btn-mike{
+.m-btn-primary:hover {
+  filter: brightness(.97);
+  color: #0B0F14;
+}
+
+.m-btn-secondary {
+  border-color: var(--mike-border);
+}
+
+.m-btn-secondary:hover {
+  background: rgba(163, 230, 53, .08);
+  border-color: rgba(163, 230, 53, .35);
+  color: var(--mike-text);
+}
+
+.m-btn-ghost:hover {
+  background: rgba(255, 255, 255, .06);
+  color: var(--mike-text);
+}
+
+html[data-theme="light"] .m-btn-ghost:hover {
+  background: rgba(14, 23, 38, .04);
+}
+
+.m-btn-danger {
+  color: var(--mike-danger);
+  border-color: rgba(239, 68, 68, .35);
+}
+
+.m-btn-danger:hover {
+  background: rgba(239, 68, 68, .10);
+  color: var(--mike-danger);
+}
+
+/* compat: botões antigos */
+.btn-mike {
   background: var(--mike-accent);
-  border: 1px solid rgba(163,230,53,0.65);
+  border: 1px solid rgba(163, 230, 53, 0.65);
   color: #0B0F14;
   font-weight: 700;
 }
-.btn-mike:hover{
+
+.btn-mike:hover {
   filter: brightness(1.03);
 }
 
-.mike-hud{
-  position: absolute;
-  inset: -1px;
-  border-radius: 16px;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(163,230,53,0.08) 1px, transparent 1px) 0 0/24px 24px,
-    linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px) 0 0/24px 24px;
-  mask: linear-gradient(#000, transparent 70%);
-  opacity: 0.45;
+/* =========================
+   Focus ring (global)
+   ========================= */
+.m-btn-primary:focus,
+.m-btn-secondary:focus,
+.m-btn-ghost:focus,
+.m-btn-danger:focus,
+.btn:focus,
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  box-shadow: var(--mike-focus-ring) !important;
+  outline: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: rgba(163, 230, 53, .55) !important;
+}
+
+html[data-theme="light"] .form-control:focus,
+html[data-theme="light"] .form-select:focus {
+  border-color: rgba(59, 130, 246, .45) !important;
+}
+
+/* =========================
+   Inputs
+   ========================= */
+.m-input,
+.form-control.m-input,
+.form-select.m-input {
+  background: var(--mike-surface-2);
+  color: var(--mike-text);
+  border: 1px solid var(--mike-border);
+  border-radius: var(--mike-radius-input);
+  padding: .65rem .9rem;
+}
+
+.m-input::placeholder {
+  color: rgba(167, 176, 189, .80);
+}
+
+html[data-theme="light"] .m-input::placeholder {
+  color: rgba(91, 103, 120, .70);
+}
+
+.m-input-group-text {
+  background: transparent;
+  border: 1px solid var(--mike-border);
+  color: var(--mike-text-muted);
+  border-radius: var(--mike-radius-input);
+}
+
+.m-form-label {
+  display: block;
+  margin-bottom: .35rem;
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: var(--mike-text-muted);
+}
+
+.m-form-hint {
+  margin-top: .35rem;
+  font-size: .85rem;
+  color: var(--mike-text-muted);
+}
+
+.m-form-error {
+  margin-top: .35rem;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--mike-danger);
+}
+
+/* compat: input antigo */
+.mike-input.form-control {
+  background: var(--mike-surface-2);
+  border: 1px solid var(--mike-border);
+  color: var(--mike-text);
+}
+
+.mike-input.form-control:focus {
+  border-color: rgba(163, 230, 53, 0.7);
+  box-shadow: var(--mike-focus-ring);
+}
+
+/* =========================
+   Badges
+   ========================= */
+.m-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  border-radius: var(--mike-radius-pill);
+  padding: .35rem .55rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  font-size: .72rem;
+  border: 1px solid var(--mike-border);
+  background: rgba(255, 255, 255, .04);
+  color: var(--mike-text);
+}
+
+.m-badge--pr {
+  background: rgba(163, 230, 53, .16);
+  border-color: rgba(163, 230, 53, .35);
+}
+
+html[data-theme="light"] .m-badge--pr {
+  color: #0E1726;
+}
+
+.m-badge--warning {
+  background: rgba(245, 158, 11, .16);
+  border-color: rgba(245, 158, 11, .35);
+}
+
+.m-badge--info {
+  background: rgba(59, 130, 246, .14);
+  border-color: rgba(59, 130, 246, .35);
+}
+
+.m-badge--danger {
+  background: rgba(239, 68, 68, .14);
+  border-color: rgba(239, 68, 68, .35);
+}
+
+/* =========================
+   Tabs / Pills (Bootstrap)
+   ========================= */
+.m-tabs .nav-link {
+  color: var(--mike-text-muted);
+  border-radius: var(--mike-radius-input);
+  border: 1px solid transparent;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  font-size: .82rem;
+  padding: .55rem .8rem;
+}
+
+.m-tabs .nav-link.active {
+  background: rgba(163, 230, 53, .18);
+  color: var(--mike-text);
+  border: 1px solid rgba(163, 230, 53, .35);
+}
+
+html[data-theme="light"] .m-tabs .nav-link.active {
+  color: #0E1726;
+}
+
+/* =========================
+   Table
+   ========================= */
+.m-table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--mike-text);
+  border-color: var(--mike-border);
+  margin-bottom: 0;
+}
+
+.m-table thead th {
+  color: var(--mike-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  font-size: .78rem;
+  border-bottom: 1px solid var(--mike-border);
+}
+
+.m-table tbody tr {
+  border-bottom: 1px solid var(--mike-border);
+}
+
+.m-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, .03);
+}
+
+html[data-theme="light"] .m-table tbody tr:nth-child(even) {
+  background: rgba(14, 23, 38, .03);
+}
+
+/* =========================
+   Progress (Bootstrap)
+   ========================= */
+.m-progress {
+  height: 10px;
+  background: rgba(255, 255, 255, .08);
+  border-radius: var(--mike-radius-pill);
+}
+
+html[data-theme="light"] .m-progress {
+  background: rgba(14, 23, 38, .06);
+}
+
+.m-progress__bar {
+  background: var(--mike-accent);
+}
+
+/* =========================
+   App shell (mobile-first)
+   ========================= */
+.app-shell,
+.m-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.app-topbar,
+.m-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(10, 14, 18, .65);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+
+html[data-theme="light"] .app-topbar,
+html[data-theme="light"] .m-topbar {
+  background: rgba(245, 247, 250, .78);
+  border-bottom: 1px solid rgba(14, 23, 38, .08);
+}
+
+.mike-brand,
+.mike-brand-sm {
+  letter-spacing: .14em;
+  font-weight: 800;
+  font-size: .85rem;
+  opacity: .95;
+}
+
+.app-section {
+  font-size: .85rem;
+  opacity: .7;
+}
+
+.app-main,
+.m-main {
+  padding-top: 6px;
+  padding-bottom: 94px;
+  /* espaço para bottom nav */
+}
+
+/* ---------- Lista de sessões (compat + canônico) ---------- */
+.session-list {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+
+.session-card {
+  position: relative;
+  border-radius: var(--mike-radius-card);
+  padding: 14px;
+  background: rgba(18, 26, 34, .75);
+  border: 1px solid rgba(255, 255, 255, .08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .22);
+}
+
+html[data-theme="light"] .session-card {
+  background: rgba(255, 255, 255, .85);
+  border: 1px solid rgba(14, 23, 38, .10);
+  box-shadow: var(--mike-shadow-xs);
+}
+
+.session-date {
+  font-size: .8rem;
+  opacity: .7;
+}
+
+.session-type {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: .02em;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.session-metrics {
+  margin-top: 6px;
+  font-size: .9rem;
+  opacity: .95;
+}
+
+.mike-accent {
+  color: var(--mike-accent);
+}
+
+.session-desc {
+  margin-top: 8px;
+  font-size: .9rem;
+  opacity: .75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 28ch;
+}
+
+.session-cta {
+  font-size: .85rem;
+  opacity: .75;
+  padding-top: 4px;
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+  border: 1px dashed rgba(255, 255, 255, .14);
+  border-radius: var(--mike-radius-card);
+  padding: 18px;
+  background: rgba(18, 26, 34, .35);
+}
+
+html[data-theme="light"] .empty-state {
+  border-color: rgba(14, 23, 38, .18);
+  background: rgba(14, 23, 38, .02);
+}
+
+/* ---------- Bottom Nav (Wahoo style) ---------- */
+.bottom-nav,
+.m-bottomnav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 10px 0 14px;
+  background: rgba(10, 14, 18, .78);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, .06);
+}
+
+html[data-theme="light"] .bottom-nav,
+html[data-theme="light"] .m-bottomnav {
+  background: rgba(245, 247, 250, .90);
+  border-top: 1px solid rgba(14, 23, 38, .10);
+}
+
+.bottom-nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 10px;
+}
+
+.bn-item {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, .72);
+  padding: 10px 0;
+  /* melhora toque */
+  min-height: 44px;
+  /* touch target */
+}
+
+html[data-theme="light"] .bn-item {
+  color: rgba(14, 23, 38, .70);
+}
+
+.bn-item.is-active {
+  color: #fff;
+}
+
+html[data-theme="light"] .bn-item.is-active {
+  color: #0E1726;
+}
+
+.bn-ico {
+  font-size: 18px;
+  line-height: 1;
+  opacity: .95;
+}
+
+.bn-txt {
+  font-size: 12px;
+  opacity: .85;
+}
+
+.bn-fab {
+  width: 62px;
+  height: 62px;
+  border-radius: var(--mike-radius-pill);
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  background: var(--mike-accent);
+  color: #0B0F12;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .45);
+  transform: translateY(-16px);
+  border: 1px solid rgba(0, 0, 0, .25);
+}
+
+.bn-fab-plus {
+  font-size: 34px;
+  line-height: 1;
+  margin-top: -2px;
+}
+
+/* =========================
+   Detail: Exercícios / Sets
+   ========================= */
+.m-exercise-list { display: grid; gap: 12px; }
+
+.m-exercise-card {
+  border-radius: var(--mike-radius-card);
+  background: rgba(18, 26, 34, .55);
+  border: 1px solid rgba(255, 255, 255, .08);
+  padding: 14px;
+}
+html[data-theme="light"] .m-exercise-card {
+  background: rgba(255, 255, 255, .80);
+  border: 1px solid rgba(14, 23, 38, .10);
+}
+
+.m-set-list { display: grid; gap: 8px; }
+
+.m-set-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+html[data-theme="light"] .m-set-row {
+  background: rgba(14, 23, 38, .03);
+  border: 1px solid rgba(14, 23, 38, .08);
+}
+
+/* Botão pequeno (compat com m-btn-ghost) */
+.m-btn-sm { min-height: 36px; padding: .4rem .65rem; font-size: .9rem; }
+
+/* =========================
+   Django form.as_p (scaffold MIKE)
+   ========================= */
+.m-form p{
+  margin: 0 0 var(--s-3);
+}
+
+.m-form p label{
+  display: block;
+  margin-bottom: .35rem;
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: var(--mike-text-muted);
+}
+
+.m-form p input,
+.m-form p select,
+.m-form p textarea{
+  width: 100%;
+  background: var(--mike-surface-2);
+  color: var(--mike-text);
+  border: 1px solid var(--mike-border);
+  border-radius: var(--mike-radius-input);
+  padding: .65rem .9rem;
+}
+
+.m-form p textarea{ min-height: 96px; resize: vertical; }
+
+.m-form p input:focus,
+.m-form p select:focus,
+.m-form p textarea:focus{
+  box-shadow: var(--mike-focus-ring);
+  outline: none;
+  border-color: rgba(163, 230, 53, .55);
+}
+
+html[data-theme="light"] .m-form p input:focus,
+html[data-theme="light"] .m-form p select:focus,
+html[data-theme="light"] .m-form p textarea:focus{
+  border-color: rgba(59, 130, 246, .45);
 }

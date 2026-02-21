@@ -1,25 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if session %}Editar Sessão{% else %}Nova Sessão{% endif %}</title>
-</head>
-<body>
-    <h1>{% if session %}Editar Sessão{% else %}Gravar Nova Sessão{% endif %}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">
-            {% if session %}Salvar Alteraçõea{% else %}Salvar{% endif %}
-        </button>
-    </form>
-    <p>
+{% extends "base.html" %}
+{% block title %}{% if session %}Editar sessão — MIKE{% else %}Nova sessão — MIKE{% endif %}{% endblock %}
+{% block section %}{% if session %}Editar{% else %}Nova sessão{% endif %}{% endblock %}
+
+{% block content %}
+  <div class="d-flex align-items-end justify-content-between pt-2 pb-3">
+    <div>
+      <h1 class="h3 mb-1">{% if session %}Editar sessão{% else %}Gravar nova sessão{% endif %}</h1>
+      <div class="text-secondary small">
+        Preencha o essencial. O resto você registra dentro do treino.
+      </div>
+    </div>
+  </div>
+
+  <section class="m-card p-3 p-md-4">
+    <form method="post" class="m-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <div class="m-divider my-3"></div>
+
+      <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end">
         {% if session %}
-            <a href="{% url 'training:training_session_detail' pk=session.pk %}">Voltar</a>
+          <a class="m-btn-secondary" href="{% url 'training:training_session_detail' pk=session.pk %}">
+            Voltar
+          </a>
         {% else %}
-            <a href="{% url 'training:training_session_list' %}">Voltar</a>
+          <a class="m-btn-secondary" href="{% url 'training:training_session_list' %}">
+            Voltar
+          </a>
         {% endif %}
-    </p>
-</body>
-</html>
+
+        <button type="submit" class="m-btn-primary">
+          {% if session %}Salvar alterações{% else %}Salvar{% endif %}
+        </button>
+      </div>
+    </form>
+  </section>
+{% endblock %}

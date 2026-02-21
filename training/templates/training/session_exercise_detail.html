@@ -1,40 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Séries</title>
-</head>
-<body>
-    <p><a href="{% url 'training:training_session_detail' pk=se.session.pk %}">Voltar para a sessão</a></p>
+{% extends "base.html" %}
 
-    <h1>{{ se.exercise.name }} ({{ se.variation }})</h1>
-    <h2>Séries</h2>
+{% block title %}Séries — MIKE{% endblock %}
+{% block section %}Séries{% endblock %}
 
-    <ul>
+{% block content %}
+  <!-- Top actions -->
+  <div class="d-flex align-items-start justify-content-between gap-3 pt-2 pb-3">
+    <div class="flex-grow-1">
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <a class="m-btn-ghost" href="{% url 'training:training_session_detail' pk=se.session.pk %}">
+          ← Sessão
+        </a>
+
+        <a class="m-btn-ghost" href="{% url 'training:training_session_list' %}">
+          Histórico
+        </a>
+
+        <a class="m-btn-secondary" href="{% url 'training:training_session_detail' pk=se.session.pk %}#add-exercise">
+          + Outro exercício
+        </a>
+      </div>
+
+      <h1 class="h4 m-title mt-3 mb-1">
+        {{ se.exercise.name }}
+        <span class="m-text-muted">({{ se.variation }})</span>
+      </h1>
+
+      <div class="m-text-muted small">
+        {{ sets|length }} série{{ sets|length|pluralize }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de séries -->
+  <div class="m-card p-3">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="m-title">Séries</div>
+      <span class="m-text-muted small">Editar apenas quando necessário</span>
+    </div>
+
+    <div class="m-divider my-3"></div>
+
+    {% if sets %}
+      <div class="d-grid gap-2">
         {% for s in sets %}
-            <li>
-                {{ s.order }}:
-                {% if s.reps %}{{ s.reps }}{% else %}{{ s.duration }}{% endif %}
-                {% if s.weight %} @ {{ s.weight }}kg{% endif %}
-                {% if s.description %} - {{ s.description }}{% endif %}
-                <a href="{% url 'training:exercise_set_update' session_exercise_pk=se.pk pk=s.pk %}">
-                    Editar
-                </a>
-                <a href="{% url 'training:exercise_set_delete' session_exercise_pk=se.pk pk=s.pk %}">
-                    Deletar
-                </a>
-            </li>
-        {% empty %}
-            <li>Nenhuma série ainda.</li>
-        {% endfor %}
-    </ul>
+          <div class="d-flex align-items-center justify-content-between gap-2 p-2"
+               style="border:1px solid var(--mike-border); border-radius: var(--mike-radius-card); background: rgba(255,255,255,.03);">
+            <div>
+              <div class="m-text-muted small">Série {{ s.order }}</div>
+              <div class="m-mono fw-bold">
+                {% if s.reps %}{{ s.reps }} reps{% else %}{{ s.duration }}s{% endif %}
+                {% if s.weight %} • {{ s.weight }} kg{% endif %}
+                {% if s.description %}<span class="m-text-muted"> • {{ s.description }}</span>{% endif %}
+              </div>
+            </div>
 
-    <h2>Adicionar Série</h2>
+            <div class="d-flex gap-2">
+              <a class="m-btn-ghost" href="{% url 'training:exercise_set_update' session_exercise_pk=se.pk pk=s.pk %}">
+                Editar
+              </a>
+              <a class="m-btn-ghost" href="{% url 'training:exercise_set_delete' session_exercise_pk=se.pk pk=s.pk %}">
+                Deletar
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="m-text-muted">
+        Nenhuma série ainda. Comece abaixo.
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Adicionar série (CTA principal) -->
+  <div class="m-card p-3 mt-3">
+    <div class="m-title">Adicionar série</div>
+    <div class="m-divider my-3"></div>
+
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Adicionar</button>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="m-btn-primary w-100 mt-2" type="submit">Adicionar</button>
     </form>
-</body>
-</html>
+  </div>
+
+  <!-- Próximo passo (nudge final) -->
+  <div class="m-card p-3 mt-3">
+    <div class="m-title">Próximo passo</div>
+    <div class="m-divider my-3"></div>
+
+    <div class="d-grid gap-2">
+      <a class="m-btn-secondary w-100" href="{% url 'training:training_session_detail' pk=se.session.pk %}#add-exercise">
+        + Adicionar outro exercício
+      </a>
+      <a class="m-btn-ghost w-100" href="{% url 'training:training_session_list' %}">
+        Concluir e ir para o histórico
+      </a>
+    </div>
+
+    <div class="m-text-muted small mt-2">
+      Dica: manter o fluxo reduz fricção e aumenta consistência.
+    </div>
+  </div>
+{% endblock %}

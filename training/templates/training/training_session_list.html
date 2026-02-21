@@ -1,24 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sessions</title>
-</head>
-<body>
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Sair</button>
-    </form>
-    <section>
-        {% for session in sessions %}
-            <ul>
-                <li><a href="{% url 'training:training_session_detail' pk=session.pk %}">{{session.performed_at}} - {{session.session_type}}</a>
-                 - {{ session.exercise_count }} exercícios / {{ session.set_count }} séries</li>
-            </ul>
-        {% endfor %}
+{% extends "base.html" %}
+{% block title %}Histórico — MIKE{% endblock %}
+{% block section %}Histórico{% endblock %}
+{% block nav_history_active %}is-active{% endblock %}
 
-        <a href="{% url 'training:training_session_create' %}">Nova Sessão</a>
-    </section>
-</body>
-</html>
+{% block content %}
+<div class="d-flex align-items-end justify-content-between pt-2 pb-3">
+    <div>
+        <h1 class="h3 m-title mb-1">Treinos</h1>
+        <div class="m-text-muted small">
+            {{ sessions|length }} registro{{ sessions|length|pluralize }}
+        </div>
+    </div>
+
+    <a class="m-btn-secondary" href="{% url 'training:training_session_create' %}"
+        aria-label="Criar nova sessão de treino">
+        Nova Sessão
+    </a>
+</div>
+
+<div class="session-list">
+    {% for session in sessions %}
+    <article class="session-card">
+        <a class="session-link stretched-link" href="{% url 'training:training_session_detail' pk=session.pk %}"
+            aria-label="Ver treino {{ session.session_type }} em {{ session.performed_at|date:'d/m/Y' }}">
+        </a>
+
+        <div class="d-flex align-items-start justify-content-between gap-3">
+            <div class="flex-grow-1">
+                <div class="session-date">
+                    {{ session.performed_at|date:"d/m/Y" }}
+                </div>
+
+                <div class="session-type">
+                    {{ session.session_type }}
+                </div>
+
+                <div class="session-metrics">
+                    <span>Exercícios: <strong class="mike-accent">{{ session.exercise_count }}</strong></span>
+                    <span class="mx-2">•</span>
+                    <span>Séries: <strong class="mike-accent">{{ session.set_count }}</strong></span>
+                </div>
+
+                <div class="session-desc">
+                    {% if session.description %}
+                    {{ session.description }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="session-cta">Ver</div>
+        </div>
+    </article>
+    {% empty %}
+    <div class="empty-state">
+        <div class="h5 mb-1">Sem treinos ainda</div>
+        <div class="m-text-muted">
+            Toque no <strong>+</strong> para registrar seu primeiro treino.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

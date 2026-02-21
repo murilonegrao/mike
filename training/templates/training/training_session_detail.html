@@ -1,35 +1,233 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Session</title>
-</head>
-<body>
-    <a href="{% url 'training:training_session_list' %}">Ver Todas as Sessões</a>
-    <h1>{{ session }}</h1>
-    <p><a href="{% url 'training:training_session_update' pk=session.pk %}">Editar Sessão</a></p>
-    <p><a href="{% url 'training:training_session_delete' pk=session.pk %}">Deletar Sessão</a></p>
+{% extends "base.html" %}
 
-    <ul>
+{% block title %}Sessão — MIKE{% endblock %}
+{% block section %}Sessão{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-start justify-content-between gap-3 pt-2 pb-3">
+    <div class="flex-grow-1">
+        <a class="text-decoration-none m-text-muted small" href="{% url 'training:training_session_list' %}">
+            ← Ver todas as sessões
+        </a>
+
+        <h1 class="h4 m-title mt-2 mb-1">{{ session }}</h1>
+        <div class="m-text-muted small">
+            {{ exercises|length }} exercício{{ exercises|length|pluralize }}
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap justify-content-end">
+        <!-- <a class="m-btn-secondary" href="{% url 'training:training_session_update' pk=session.pk %}">Editar</a>
+        <a class="m-btn-danger" href="{% url 'training:training_session_delete' pk=session.pk %}">Deletar</a> -->
+        <!-- Editar (modal via iframe) -->
+        <button type="button" class="m-btn-secondary" data-bs-toggle="modal" data-bs-target="#sessionEditModal"
+            data-url="{% url 'training:training_session_update' pk=session.pk %}?modal=1">
+            Editar
+        </button>
+
+        <button type="button" class="m-btn-danger" data-bs-toggle="modal" data-bs-target="#sessionDeleteModal"
+            data-url="{% url 'training:training_session_delete' pk=session.pk %}?modal=1">
+            Deletar
+        </button>
+    </div>
+</div>
+
+<!-- Lista de exercícios -->
+<div class="m-card p-3">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="m-title">Exercícios</div>
+        <span class="m-text-muted small">Toque para ver/adicionar séries</span>
+    </div>
+
+    <div class="m-divider my-3"></div>
+
+    {% if exercises %}
+    <div class="m-exercise-list">
         {% for se in exercises %}
-            <h3>{{ se.order }}. {{ se.exercise.name }} ({{ se.variation }}) <a href="{% url 'training:session_exercise_update' pk=se.pk %}">Editar</a><a href="{% url 'training:session_exercise_delete' pk=se.pk %}">Deletar</a></h3>
-            <ul>
-                {% for s in se.exercise_sets.all %}
-                <li>{{ s }}</li>
-                {% empty %}
-                <li>Sem séries ainda.</li>
-                {% endfor %}
-            </ul>
-            <a href="{% url 'training:session_exercise_detail' pk=se.pk %}">Ver/Adicionar séries</a>
-            {% endfor %}
-    </ul>
+        <article class="m-exercise-card">
+            <div class="d-flex align-items-start justify-content-between gap-3">
+                <div class="flex-grow-1">
+                    <div class="d-flex align-items-baseline gap-2 flex-wrap">
+                        <span class="m-text-muted small">{{ se.order }}.</span>
 
-    <h2>Adicionar Exercício</h2>
+                        <div class="fw-bold">
+                            {{ se.exercise.name }}
+                            <span class="m-text-muted">({{ se.variation }})</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <!-- <a class="m-btn-ghost m-btn-sm"
+                        href="{% url 'training:session_exercise_update' pk=se.pk %}">Editar</a>
+                    <a class="m-btn-ghost m-btn-sm"
+                        href="{% url 'training:session_exercise_delete' pk=se.pk %}">Deletar</a> -->
+                    <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exerciseEditModal"
+                        data-url="{% url 'training:session_exercise_update' pk=se.pk %}?modal=1">
+                        Editar
+                    </button>
+
+                    <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exerciseDeleteModal"
+                        data-url="{% url 'training:session_exercise_delete' pk=se.pk %}?modal=1">
+                        Deletar
+                    </button>
+                </div>
+            </div>
+
+            <div class="m-divider my-3"></div>
+
+            <div class="m-set-list">
+                {% for s in se.exercise_sets.all %}
+                <div class="m-set-row">
+                    <div class="m-text-muted small">Série</div>
+                    <div class="m-mono fw-bold">{{ s }}</div>
+                </div>
+                {% empty %}
+                <div class="m-text-muted small">Sem séries ainda.</div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-3">
+                <a class="m-btn-primary w-100" href="{% url 'training:session_exercise_detail' pk=se.pk %}">
+                    Ver/Adicionar séries
+                </a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="m-text-muted">
+        Sem exercícios ainda. Adicione o primeiro abaixo.
+    </div>
+    {% endif %}
+</div>
+
+<!-- Adicionar exercício -->
+<div class="m-card p-3 mt-3" id="add-exercise">
+    <div class="m-title">Adicionar exercício</div>
+    <div class="m-divider my-3"></div>
+
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Adicionar</button>
+        <div class="m-form">
+            {{ form.as_p }}
+        </div>
+        <button class="m-btn-primary w-100" type="submit">Adicionar</button>
     </form>
-</body>
-</html>
+</div>
+
+<!-- Modal: Editar sessão -->
+<div class="modal fade" id="sessionEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Editar sessão</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="sessionEditBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Deletar sessão -->
+<div class="modal fade" id="sessionDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Excluir sessão?</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="sessionDeleteBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Editar exercício da sessão -->
+<div class="modal fade" id="exerciseEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Editar exercício</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="exerciseEditBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Excluir exercício da sessão -->
+<div class="modal fade" id="exerciseDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Excluir exercício?</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="exerciseDeleteBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function loadModalContent(ModalEl, bodyElId) {
+        const trigger = ModalEl._trigger || null;
+        const url = trigger?.getAttribute("data-url");
+        const body = document.getElementById(bodyElId);
+        if (!url || !body) return;
+
+        body.innerHTML = '<div class="m-text-muted small">Carregando...</div>';
+
+        const res = await fetch(url, { headers: { "X-Requested-With": "fetch" } });
+        body.innerHTML = await res.text();
+
+        const form = body.querySelector("form");
+        if (form) {
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const target = form.getAttribute("action") || url;
+
+                const resp = await fetch(target, {
+                    method: "POST",
+                    body: new FormData(form),
+                    headers: { "X-Requested-With": "fetch" },
+                });
+
+                if (resp.redirected) {
+                    window.location.href = resp.url;
+                    return;
+                }
+
+                const text = await resp.text();
+                if (text.includes("<form")) {
+                    body.innerHTML = text;
+                } else {
+                    window.location.reload();
+                }
+            });
+        }
+
+    }
+
+    const editModal = document.getElementById("sessionEditModal");
+    const delModal = document.getElementById("sessionDeleteModal");
+
+    editModal?.addEventListener("show.bs.modal", (e) => { editModal._trigger = e.relatedTarget; loadModalContent(editModal, "sessionEditBody"); });
+    delModal?.addEventListener("show.bs.modal", (e) => { delModal._trigger = e.relatedTarget; loadModalContent(delModal, "sessionDeleteBody"); });
+    
+    const exEditModal = document.getElementById("exerciseEditModal");
+    const exDelModal = document.getElementById("exerciseDeleteModal");
+
+    exEditModal?.addEventListener("show.bs.modal", (e) => { exEditModal._trigger = e.relatedTarget; loadModalContent(exEditModal, "exerciseEditBody"); });
+    exDelModal?.addEventListener("show.bs.modal", (e) => { exDelModal._trigger = e.relatedTarget; loadModalContent(exDelModal, "exerciseDeleteBody"); });
+</script>
+{% endblock %}

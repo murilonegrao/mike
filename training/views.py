@@ -59,7 +59,7 @@ def training_session_detail(request, pk):
             max_order = session.session_exercises.aggregate(Max('order'))['order__max'] or 0
             se.order = max_order + 1
             se.save()
-            return redirect('training:training_session_detail', pk=session.pk)
+            return redirect('training:session_exercise_detail', pk=se.pk)
     else:
         form = SessionExerciseForm()
 
@@ -94,8 +94,11 @@ def training_session_update(request, pk):
         'session': session,
     }
 
-    return render(request, 'training/training_session_form.html', context)
-
+    # return render(request, 'training/training_session_form.html', context)
+    template = 'training/training_session_form.html'
+    if request.GET.get('modal') == '1':
+        template = 'training/partials/training_session_form_modal.html'
+    return render(request, template, context)
 
 @login_required
 def training_session_delete(request, pk):
@@ -113,7 +116,12 @@ def training_session_delete(request, pk):
         'session': session,
     }
 
-    return render(request, 'training/training_session_confirm_delete.html', context)
+    # return render(request, 'training/training_session_confirm_delete.html', context)
+    template = 'training/training_session_confirm_delete.html'
+    if request.GET.get('modal') =='1':
+        template = 'training/partials/training_session_confirm_delete_modal.html'
+    return render(request, template, context)
+        
 
 
 @login_required
@@ -171,7 +179,7 @@ def session_exercise_update(request, pk):
         'se': se,
     }
 
-    return render(request, 'training/session_exercise_form.html', context)
+    return render(request, 'training/partials/session_exercise_form_modal.html', context)
     
 
 @login_required
@@ -199,7 +207,7 @@ def session_exercise_delete(request, pk):
         'se': se,
     }
     
-    return render(request, 'training/session_exercise_confirm_delete.html', context)
+    return render(request, 'training/partials/session_exercise_confirm_delete_modal.html', context)
 
 
 
@@ -227,7 +235,7 @@ def exercise_set_update(request, session_exercise_pk, pk):
 
     return render(
         request,
-        'training/exercise_set_form.html',
+        'training/partials/exercise_set_form_modal.html',
         {
             'session_exercise': session_exercise,
             'exercise_set': exercise_set,
@@ -262,7 +270,7 @@ def exercise_set_delete(request, session_exercise_pk, pk):
 
     return render(
         request,
-        'training/exercise_set_confirm_delete.html',
+        'training/partials/exercise_set_confirm_delete_modal.html',
         {
             'session_exercise': session_exercise,
             'exercise_set': exercise_set,

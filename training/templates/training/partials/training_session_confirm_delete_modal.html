@@ -1,0 +1,12 @@
+<form method="post" action="{% url 'training:training_session_delete' pk=session.pk %}?modal=1">
+    {% csrf_token %}
+
+    <p class="m-text-muted mb-0">
+        Tem certeza que deseja excluir essa sessão? Isso não poderá ser desfeito.
+    </p>
+
+    <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="m-btn-danger w-100">Excluir</button>
+        <button type="button" class="m-btn-secondary w-100" data-bs-dismiss="modal">Cancelar</button>
+    </div>
+</form>

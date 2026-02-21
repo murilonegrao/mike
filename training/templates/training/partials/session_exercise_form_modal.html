@@ -1,0 +1,9 @@
+<form method="post" class="m-form" action="{% url 'training:session_exercise_update' pk=se.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="m-btn-primary w-100">Salvar</button>
+        <button type="button" class="m-btn-secondary w-100" data-bs-dismiss="modal">Cancelar</button>
+    </div>
+</form>

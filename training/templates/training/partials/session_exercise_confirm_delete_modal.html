@@ -1,0 +1,13 @@
+<form method="post" action="{% url 'training:session_exercise_delete' pk=se.pk %}">
+    {% csrf_token %}
+
+    <p class="m-text-muted mb-0">
+        Excluir <strong>{{ se.exercise.name }}</strong> ({{ se.variation}}) desta sessão?
+        Isso não poderá ser desfeito.
+    </p>
+
+    <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="m-btn-danger w-100">Excluir</button>
+        <button type="button" class="m-btn-secondary w-100" data-bs-dismiss="modal">Cancelar</button>
+    </div>
+</form>
