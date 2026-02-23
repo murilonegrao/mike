@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Max
+from django.urls import reverse
 from .models import TrainingSession, SessionExercise, ExerciseSet
 from .forms import TrainingSessionForm, SessionExerciseForm, ExerciseSetForm
 
@@ -59,7 +60,7 @@ def training_session_detail(request, pk):
             max_order = session.session_exercises.aggregate(Max('order'))['order__max'] or 0
             se.order = max_order + 1
             se.save()
-            return redirect('training:session_exercise_detail', pk=se.pk)
+            return redirect('training:training_session_detail', pk=session.pk)
     else:
         form = SessionExerciseForm()
 
@@ -133,6 +134,7 @@ def session_exercise_detail(request, pk):
     )
 
     sets_qs = se.exercise_sets.all().order_by('order')
+    recent_sets = se.exercise_sets.all().order_by('order')[:5]
 
     if request.method == 'POST':
         form = ExerciseSetForm(request.POST)
@@ -144,16 +146,29 @@ def session_exercise_detail(request, pk):
             s.order = max_order + 1
 
             s.save()
-            return redirect('training:session_exercise_detail', pk=se.pk)
-        
+            # return redirect('training:training_session_detail', pk=se.session.pk)
+            if request.GET.get('modal') == '1':
+                form= ExerciseSetForm()
+                recent_sets = se.exercise_sets.all().order_by('order')[:5]
+            else:
+                return redirect('training:training_session_detail', pk=se.session.pk)
+
     else:
         form = ExerciseSetForm()
 
-    return render(
-        request,
-        'training/session_exercise_detail.html',
-        {'se': se, 'sets': sets_qs, 'form': form}
-    )
+    context = {
+        'se': se,
+        'sets': sets_qs,
+        'form': form,
+        'recent_sets': recent_sets,
+        }
+
+    if request.GET.get('modal') == '1':
+        context["action_url"] = reverse("training:session_exercise_detail", kwargs={"pk": se.pk}) + "?modal=1"
+        context["submit_label"] = "Adicionar"
+        return render(request, "training/partials/exercise_set_form_modal.html", context)
+    # return render(request, 'training/session_exercise_detail.html', context)
+    return render(request, 'training/session_exercise_detail.html', context)
 
 
 @login_required
@@ -228,21 +243,33 @@ def exercise_set_update(request, session_exercise_pk, pk):
     if request.method == 'POST':
         form = ExerciseSetForm(request.POST, instance=exercise_set)
         if form.is_valid():
-            form.save()
-            return redirect('training:session_exercise_detail', pk=session_exercise_pk)
+            # form.save()
+            updated = form.save(commit=False)
+            updated.session_exercise = session_exercise
+            updated.save()
+
+            if request.GET.get('modal') == '1':
+                form = ExerciseSetForm(instance=exercise_set)
+            else:
+                return redirect('training:training_session_detail', pk=session_exercise.session.pk)
     else:
         form = ExerciseSetForm(instance=exercise_set)
 
-    return render(
-        request,
-        'training/partials/exercise_set_form_modal.html',
-        {
-            'session_exercise': session_exercise,
-            'exercise_set': exercise_set,
-            'form': form,
-        },
-    )
+    context = {
+        "session_exercise": session_exercise,
+        "exercise_set": exercise_set,
+        "form": form,
+        "recent_sets": session_exercise.exercise_sets.all().order_by('order')[:5],
+    }
 
+    context["action_url"] = reverse("training:exercise_set_update", kwargs={
+        "session_exercise_pk": session_exercise.pk,
+        "pk": exercise_set.pk,
+    }) + "?modal=1"
+
+    context["submit_label"] = "Salvar"
+
+    return render(request, "training/partials/exercise_set_form_modal.html", context)
 
 @login_required
 def exercise_set_delete(request, session_exercise_pk, pk):
@@ -266,15 +293,12 @@ def exercise_set_delete(request, session_exercise_pk, pk):
             if s.order != idx:
                 s.order = idx
                 s.save(update_fields=['order'])
-        return redirect('training:session_exercise_detail', pk=session_exercise.pk)
+        return redirect('training:training_session_detail', pk=session_exercise.session.pk)
 
-    return render(
-        request,
-        'training/partials/exercise_set_confirm_delete_modal.html',
-        {
-            'session_exercise': session_exercise,
-            'exercise_set': exercise_set,
-        },
-    )
+    context = {
+        'session_exercise': session_exercise,
+        'exercise_set': exercise_set,
+    }
 
+    return render(request, 'training/partials/exercise_set_confirm_delete_modal.html', context)
 

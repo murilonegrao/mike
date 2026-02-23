@@ -77,32 +77,14 @@ class ExerciseSetForm(MikeFormMixin, forms.ModelForm):
     class Meta:
         model = ExerciseSet
         fields = [
-            'duration',
-            'reps',
             'weight',
+            'reps',
+            'duration',
             'description',
         ]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        if "duration" in self.fields:
-            self.fields["duration"].widget = forms.NumberInput(attrs={
-                "class": "form-control m-input", 
-                "inputmode": "numeric",
-                "min":"0",
-                "step": "1",
-                "placeholder": "Tempo em segundos",
-            })
-        
-        if "reps" in self.fields:
-            self.fields["reps"].widget = forms.NumberInput(attrs={
-                "class": "form-control m-input",
-                "inputmode": "numeric",
-                "min": "0",
-                "step": "1",
-                "placeholder": "Reps",
-            })
 
         if "weight" in self.fields:
             self.fields["weight"].widget = forms.NumberInput(attrs={
@@ -113,7 +95,32 @@ class ExerciseSetForm(MikeFormMixin, forms.ModelForm):
                 "placeholder": "Carga (kg)",
             })
 
+        
+        if "reps" in self.fields:
+            self.fields["reps"].widget = forms.NumberInput(attrs={
+                "class": "form-control m-input",
+                "inputmode": "numeric",
+                "min": "0",
+                "step": "1",
+                "placeholder": "Reps",
+            })
+
+        if "duration" in self.fields:
+            self.fields["duration"].widget = forms.NumberInput(attrs={
+                "class": "form-control m-input", 
+                "inputmode": "numeric",
+                "min":"0",
+                "step": "1",
+                "placeholder": "Tempo em segundos",
+            })
+
         if "description" in self.fields:
-            self.fields["description"].widget.attrs.setdefault("placeholder", "Opcional: RPE, observações, etc.")
+            # self.fields["description"].widget.attrs.setdefault("placeholder", "Opcional: RPE, observações, etc.")
+            self.fields["description"].widget = forms.Textarea(attrs={
+                "class": "form-control m-input",
+                "rows": "2",
+                "placeholder": "Opcional: RPE, observações, etc.",
+            })
+            
 
 print("MRO TrainingSessionForm:", [c.__name__ for c in TrainingSessionForm.mro()])

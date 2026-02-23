@@ -16,18 +16,32 @@
         </div>
     </div>
 
-    <div class="d-flex gap-2 flex-wrap justify-content-end">
-        <!-- <a class="m-btn-secondary" href="{% url 'training:training_session_update' pk=session.pk %}">Editar</a>
-        <a class="m-btn-danger" href="{% url 'training:training_session_delete' pk=session.pk %}">Deletar</a> -->
-        <!-- Editar (modal via iframe) -->
-        <button type="button" class="m-btn-secondary" data-bs-toggle="modal" data-bs-target="#sessionEditModal"
-            data-url="{% url 'training:training_session_update' pk=session.pk %}?modal=1">
-            Editar
-        </button>
+    <div class="d-flex flex-column align-items-end gap-2">
+        <div class="dropdown">
+            <button class="m-btn-ghost m-btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                aria-label="Ações da sessão">
+                ⋯
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal"
+                        data-bs-target="#sessionEditModal"
+                        data-url="{% url 'training:training_session_update' pk=session.pk %}?modal=1">
+                        Editar sessão
+                    </button>
+                </li>
+                <li>
+                    <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal"
+                        data-bs-target="#sessionDeleteModal"
+                        data-url="{% url 'training:training_session_delete' pk=session.pk %}?modal=1">
+                        Excluir sessão
+                    </button>
+                </li>
+            </ul>
+        </div>
 
-        <button type="button" class="m-btn-danger" data-bs-toggle="modal" data-bs-target="#sessionDeleteModal"
-            data-url="{% url 'training:training_session_delete' pk=session.pk %}?modal=1">
-            Deletar
+        <button type="button" class="m-btn-secondary" data-bs-toggle="modal" data-bs-target="#addExerciseModal">
+            + Exercício
         </button>
     </div>
 </div>
@@ -36,7 +50,7 @@
 <div class="m-card p-3">
     <div class="d-flex align-items-center justify-content-between">
         <div class="m-title">Exercícios</div>
-        <span class="m-text-muted small">Toque para ver/adicionar séries</span>
+        <span class="m-text-muted small">Toque no card para expandir</span>
     </div>
 
     <div class="m-divider my-3"></div>
@@ -45,66 +59,144 @@
     <div class="m-exercise-list">
         {% for se in exercises %}
         <article class="m-exercise-card">
+            <!-- HEADER (card fechado) -->
             <div class="d-flex align-items-start justify-content-between gap-3">
                 <div class="flex-grow-1">
                     <div class="d-flex align-items-baseline gap-2 flex-wrap">
                         <span class="m-text-muted small">{{ se.order }}.</span>
-
                         <div class="fw-bold">
                             {{ se.exercise.name }}
                             <span class="m-text-muted">({{ se.variation }})</span>
                         </div>
                     </div>
+
+                    <div class="m-text-muted small mt-1">
+                        {{ se.exercise_sets.count }} série{{ se.exercise_sets.count|pluralize }}
+                    </div>
+
+                    <!-- Ação rápida no canto inferior esquerdo -->
+                    <div class="mt-2">
+                        <button type="button" class="m-btn-secondary m-btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#setAddModal"
+                            data-url="{% url 'training:session_exercise_detail' pk=se.pk %}?modal=1"
+                            aria-label="Adicionar série em {{ se.exercise.name }}">
+                            + Série
+                        </button>
+                    </div>
                 </div>
 
-                <div class="d-flex gap-2">
-                    <!-- <a class="m-btn-ghost m-btn-sm"
-                        href="{% url 'training:session_exercise_update' pk=se.pk %}">Editar</a>
-                    <a class="m-btn-ghost m-btn-sm"
-                        href="{% url 'training:session_exercise_delete' pk=se.pk %}">Deletar</a> -->
-                    <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#exerciseEditModal"
-                        data-url="{% url 'training:session_exercise_update' pk=se.pk %}?modal=1">
-                        Editar
+                <!-- Top-right: Detalhes + seta (único gatilho do collapse) -->
+                <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="collapse"
+                    data-bs-target="#ex-{{ se.pk }}" aria-controls="ex-{{ se.pk }}" aria-expanded="false">
+                    Detalhes <span class="m-text-muted ms-1">▾</span>
+                </button>
+            </div>
+            <!-- Menu de contexto (ações secundárias) -->
+            <div class="d-flex justify-content-end mt-2">
+                <div class="dropdown">
+                    <button class="m-btn-ghost m-btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        aria-label="Ações do exercício">
+                        ⋯
                     </button>
-
-                    <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#exerciseDeleteModal"
-                        data-url="{% url 'training:session_exercise_delete' pk=se.pk %}?modal=1">
-                        Deletar
-                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <button class="dropdown-item" type="button" data-bs-toggle="modal"
+                                data-bs-target="#exerciseEditModal"
+                                data-url="{% url 'training:session_exercise_update' pk=se.pk %}">
+                                Editar Exercício
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal"
+                                data-bs-target="#exerciseDeleteModal"
+                                data-url="{% url 'training:session_exercise_delete' pk=se.pk %}">
+                                Excluir Exercício
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="m-divider my-3"></div>
+            <!-- BODY expansível -->
+            <div class="collapse mt-2" id="ex-{{ se.pk }}">
+                <div class="m-divider my-3"></div>
 
-            <div class="m-set-list">
-                {% for s in se.exercise_sets.all %}
-                <div class="m-set-row">
-                    <div class="m-text-muted small">Série</div>
-                    <div class="m-mono fw-bold">{{ s }}</div>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="m-title">Séries</div>
+
+                    <!-- <button type="button" class="m-btn-secondary m-btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#setAddModal"
+                        data-url="{% url 'training:session_exercise_detail' pk=se.pk %}?modal=1">
+                        + Série
+                    </button> -->
                 </div>
-                {% empty %}
-                <div class="m-text-muted small">Sem séries ainda.</div>
-                {% endfor %}
-            </div>
 
-            <div class="mt-3">
-                <a class="m-btn-primary w-100" href="{% url 'training:session_exercise_detail' pk=se.pk %}">
-                    Ver/Adicionar séries
-                </a>
+                <div class="m-set-list">
+                    {% for s in se.exercise_sets.all %}
+                    <div class="m-set-row">
+                        <div>
+                            <div class="m-text-muted small">Série {{ s.order }}</div>
+                            <div class="m-mono fw-bold">{{ s }}</div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#setEditModal"
+                                data-url="{% url 'training:exercise_set_update' session_exercise_pk=se.pk pk=s.pk %}">
+                                Editar
+                            </button>
+
+                            <button type="button" class="m-btn-ghost m-btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#setDeleteModal"
+                                data-url="{% url 'training:exercise_set_delete' session_exercise_pk=se.pk pk=s.pk %}">
+                                Excluir
+                            </button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="m-text-muted small">Sem séries ainda.</div>
+                    {% endfor %}
+                </div>
+
+                <!-- <div class="mt-3">
+                    <a class="m-btn-ghost w-100" href="{% url 'training:session_exercise_detail' pk=se.pk %}">
+                        Ver tudo (tela de séries)
+                    </a>
+                </div> -->
             </div>
         </article>
         {% endfor %}
     </div>
     {% else %}
     <div class="m-text-muted">
-        Sem exercícios ainda. Adicione o primeiro abaixo.
+        Sem exercícios ainda. Toque em <strong>+ Exercício</strong> para adicionar o primeiro.
     </div>
     {% endif %}
 </div>
 
-<!-- Adicionar exercício -->
+<!-- Modal: Adicionar exercício (usa a MESMA view/POST atual) -->
+<div class="modal fade" id="addExerciseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Adicionar exercício</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+
+            <div class="modal-body pt-0">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="m-form">
+                        {{ form.as_p }}
+                    </div>
+                    <button class="m-btn-primary w-100 mt-2" type="submit">Adicionar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Adicionar exercício
 <div class="m-card p-3 mt-3" id="add-exercise">
     <div class="m-title">Adicionar exercício</div>
     <div class="m-divider my-3"></div>
@@ -116,7 +208,7 @@
         </div>
         <button class="m-btn-primary w-100" type="submit">Adicionar</button>
     </form>
-</div>
+</div> -->
 
 <!-- Modal: Editar sessão -->
 <div class="modal fade" id="sessionEditModal" tabindex="-1" aria-hidden="true">
@@ -178,9 +270,54 @@
     </div>
 </div>
 
+<!-- Modal: Adicionar série -->
+<div class="modal fade" id="setAddModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Adicionar série</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="setAddBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Editar série -->
+<div class="modal fade" id="setEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Editar série</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="setEditBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Excluir série -->
+<div class="modal fade" id="setDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content m-card p-2">
+            <div class="modal-header border-0">
+                <h2 class="modal-title h6 m-title mb-0">Excluir série?</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body pt-0" id="setDeleteBody">
+                <div class="m-text-muted small">Carregando…</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    async function loadModalContent(ModalEl, bodyElId) {
-        const trigger = ModalEl._trigger || null;
+    async function loadModalContent(modalEl, bodyElId) {
+        const trigger = modalEl._trigger || null;
         const url = trigger?.getAttribute("data-url");
         const body = document.getElementById(bodyElId);
         if (!url || !body) return;
@@ -190,32 +327,41 @@
         const res = await fetch(url, { headers: { "X-Requested-With": "fetch" } });
         body.innerHTML = await res.text();
 
+        bindModalForm(modalEl, bodyElId);
+    }
+
+    function bindModalForm(modalEl, bodyElId) {
+        const body = document.getElementById(bodyElId);
+        if (!body) return;
+
         const form = body.querySelector("form");
-        if (form) {
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const target = form.getAttribute("action") || url;
+        if (!form) return;
 
-                const resp = await fetch(target, {
-                    method: "POST",
-                    body: new FormData(form),
-                    headers: { "X-Requested-With": "fetch" },
-                });
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-                if (resp.redirected) {
-                    window.location.href = resp.url;
-                    return;
-                }
+            const trigger = modalEl._trigger || null;
+            const fallbackUrl = trigger?.getAttribute("data-url");
+            const target = form.getAttribute("action") || fallbackUrl;
+            if (!target) return;
 
-                const text = await resp.text();
-                if (text.includes("<form")) {
-                    body.innerHTML = text;
-                } else {
-                    window.location.reload();
-                }
+            const resp = await fetch(target, {
+                method: "POST",
+                body: new FormData(form),
+                headers: { "X-Requested-With": "fetch" },
             });
-        }
 
+            if (resp.redirected) {
+                window.location.href = resp.url;
+                return;
+            }
+
+            const html = await resp.text();
+            body.innerHTML = html;
+
+            // ✅ re-binda o form após atualizar o HTML
+            bindModalForm(modalEl, bodyElId);
+        });
     }
 
     const editModal = document.getElementById("sessionEditModal");
@@ -223,11 +369,41 @@
 
     editModal?.addEventListener("show.bs.modal", (e) => { editModal._trigger = e.relatedTarget; loadModalContent(editModal, "sessionEditBody"); });
     delModal?.addEventListener("show.bs.modal", (e) => { delModal._trigger = e.relatedTarget; loadModalContent(delModal, "sessionDeleteBody"); });
-    
+
     const exEditModal = document.getElementById("exerciseEditModal");
     const exDelModal = document.getElementById("exerciseDeleteModal");
 
     exEditModal?.addEventListener("show.bs.modal", (e) => { exEditModal._trigger = e.relatedTarget; loadModalContent(exEditModal, "exerciseEditBody"); });
     exDelModal?.addEventListener("show.bs.modal", (e) => { exDelModal._trigger = e.relatedTarget; loadModalContent(exDelModal, "exerciseDeleteBody"); });
+
+    const setAddModal = document.getElementById("setAddModal");
+    const setEditModal = document.getElementById("setEditModal");
+    const setDelModal = document.getElementById("setDeleteModal");
+
+    setAddModal?.addEventListener("show.bs.modal", (e) => {
+        setAddModal._trigger = e.relatedTarget;
+        loadModalContent(setAddModal, "setAddBody");
+    });
+
+    setEditModal?.addEventListener("show.bs.modal", (e) => {
+        setEditModal._trigger = e.relatedTarget;
+        loadModalContent(setEditModal, "setEditBody");
+    });
+
+    setDelModal?.addEventListener("show.bs.modal", (e) => {
+        setDelModal._trigger = e.relatedTarget;
+        loadModalContent(setDelModal, "setDeleteBody");
+    });
+
+    const reloadOnClose = (modalId) => {
+        const el = document.getElementById(modalId);
+        el?.addEventListener("hidden.bs.modal", () => {
+            window.location.reload();
+        });
+    };
+
+    reloadOnClose("setAddModal");
+    reloadOnClose("setEditModal");
+    reloadOnClose("setDeleteModal");
 </script>
 {% endblock %}
