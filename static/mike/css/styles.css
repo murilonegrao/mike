@@ -570,7 +570,7 @@ html[data-theme="light"] .m-bottomnav {
 
 .bottom-nav-inner {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: repeat(4, 1fr);
   align-items: end;
   gap: 10px;
 }
@@ -708,4 +708,14 @@ html[data-theme="light"] .m-form p input:focus,
 html[data-theme="light"] .m-form p select:focus,
 html[data-theme="light"] .m-form p textarea:focus{
   border-color: rgba(59, 130, 246, .45);
+}
+
+/* Logout as POST form, visually identical to bn-item link */
+.bn-item-form { margin: 0; }
+
+.bn-item-btn {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }

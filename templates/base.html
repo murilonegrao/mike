@@ -60,24 +60,40 @@
         <div class="container">
           <div class="bottom-nav-inner">
 
-            <a class="bn-item {% block nav_history_active %}{% endblock %}"
+            <!-- Home (Histórico) -->
+            <a class="bn-item {% block nav_home_active %}{% endblock %}"
               href="{% url 'training:training_session_list' %}">
-              <div class="bn-ico"><i class="bi bi-clock-history" aria-hidden="true"></i></div>
-              <div class="bn-txt">Histórico</div>
+              <div class="bn-ico"><i class="bi bi-house" aria-hidden="true"></i></div>
+              <div class="bn-txt">Home</div>
             </a>
 
-            {% block fab %}
-            <a class="bn-fab" href="{% url 'training:training_session_create' %}" aria-label="Novo treino">
-              <span class="bn-fab-plus">+</span>
-            </a>
-            {% endblock %}
-
-            <a class="bn-item {% block nav_account_active %}{% endblock %}"
-              href="{% block account_url %}#{% endblock %}">
-              <div class="bn-ico"><i class="bi bi-person" aria-hidden="true"></i></div>
-              <div class="bn-txt">Conta</div>
+            <!-- Relatórios -->
+            <a class="bn-item {% block nav_reports_active %}{% endblock %}"
+              href="{% block reports_url %}#{% endblock %}">
+              <div class="bn-ico"><i class="bi bi-bar-chart" aria-hidden="true"></i></div>
+              <div class="bn-txt">Relatórios</div>
             </a>
 
+            <!-- Relógio/Cronômetro -->
+            <a class="bn-item {% block nav_timer_active %}{% endblock %}"
+              href="{% block timer_url %}#{% endblock %}">
+              <div class="bn-ico"><i class="bi bi-stopwatch" aria-hidden="true"></i></div>
+              <div class="bn-txt">Cronômetro</div>
+            </a>
+
+            <!-- Sair -->
+            <!-- <a class="bn-item {% block nav_logout_active %}{% endblock %}"
+              href="{% url 'logout' %}">
+              <div class="bn-ico"><i class="bi bi-box-arrow-right" aria-hidden="true"></i></div>
+              <div class="bn-txt">Sair</div>
+            </a> -->
+            <form method="post" action="{% url 'logout' %}" class="bn-item-form">
+              {% csrf_token %}
+              <button type="submit" class="bn-item bn-item-btn">
+                <div class="bn-ico"><i class="bi bi-box-arrow-right" aria-hidden="true"></i></div>
+                <div class="bn-txt">Sair</div>
+              </button>
+            </form>
           </div>
         </div>
       </nav>
