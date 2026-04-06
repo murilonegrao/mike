@@ -26,6 +26,9 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements/prod
 # Copia todo o código restante pro container e passa posse ao usuário
 COPY --chown=mike:mike . .
 
+# Garante que o usuário possua a própria pasta /app inteira (para poder criar a subpasta /staticfiles)
+RUN chown -R mike:mike /app
+
 # Altera para o usuário seguro antes de rodar comandos do site
 USER mike
 
