@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Max
 from django.urls import reverse
-from .models import TrainingSession, SessionExercise, ExerciseSet
-from .forms import TrainingSessionForm, SessionExerciseForm, ExerciseSetForm
+from .models import TrainingSession, SessionExercise, ExerciseSet, Exercise
+from .forms import TrainingSessionForm, SessionExerciseForm, ExerciseSetForm, ExerciseForm
 
 # Create your views here.
 @login_required
@@ -133,9 +134,6 @@ def session_exercise_detail(request, pk):
         session__user=request.user,
     )
 
-    sets_qs = se.exercise_sets.all().order_by('order')
-    recent_sets = se.exercise_sets.all().order_by('order')[:5]
-
     if request.method == 'POST':
         form = ExerciseSetForm(request.POST)
         if form.is_valid():
@@ -146,15 +144,17 @@ def session_exercise_detail(request, pk):
             s.order = max_order + 1
 
             s.save()
-            # return redirect('training:training_session_detail', pk=se.session.pk)
             if request.GET.get('modal') == '1':
-                form= ExerciseSetForm()
-                recent_sets = se.exercise_sets.all().order_by('order')[:5]
+                form = ExerciseSetForm()
             else:
                 return redirect('training:training_session_detail', pk=se.session.pk)
 
     else:
         form = ExerciseSetForm()
+
+    # Avaliados APÓS o POST para refletir dados atualizados
+    sets_qs = se.exercise_sets.all().order_by('order')
+    recent_sets = se.exercise_sets.all().order_by('order')[:5]
 
     context = {
         'se': se,
@@ -167,7 +167,6 @@ def session_exercise_detail(request, pk):
         context["action_url"] = reverse("training:session_exercise_detail", kwargs={"pk": se.pk}) + "?modal=1"
         context["submit_label"] = "Adicionar"
         return render(request, "training/partials/exercise_set_form_modal.html", context)
-    # return render(request, 'training/session_exercise_detail.html', context)
     return render(request, 'training/session_exercise_detail.html', context)
 
 
@@ -249,7 +248,7 @@ def exercise_set_update(request, session_exercise_pk, pk):
             updated.save()
 
             if request.GET.get('modal') == '1':
-                form = ExerciseSetForm(instance=exercise_set)
+                form = ExerciseSetForm(instance=updated)
             else:
                 return redirect('training:training_session_detail', pk=session_exercise.session.pk)
     else:
@@ -302,3 +301,40 @@ def exercise_set_delete(request, session_exercise_pk, pk):
 
     return render(request, 'training/partials/exercise_set_confirm_delete_modal.html', context)
 
+# --- Gestão de Exercícios (Admin/Personal only) ---
+
+@staff_member_required
+def exercise_list(request):
+    exercises = Exercise.objects.all().order_by('name')
+    return render(request, 'training/exercise_list.html', {'exercises': exercises})
+
+@staff_member_required
+def exercise_create(request):
+    if request.method == 'POST':
+        form = ExerciseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('training:exercise_list')
+    else:
+        form = ExerciseForm()
+    return render(request, 'training/exercise_form.html', {'form': form})
+
+@staff_member_required
+def exercise_update(request, pk):
+    exercise = get_object_or_404(Exercise, pk=pk)
+    if request.method == 'POST':
+        form = ExerciseForm(request.POST, instance=exercise)
+        if form.is_valid():
+            form.save()
+            return redirect('training:exercise_list')
+    else:
+        form = ExerciseForm(instance=exercise)
+    return render(request, 'training/exercise_form.html', {'form': form, 'exercise': exercise})
+
+@staff_member_required
+def exercise_delete(request, pk):
+    exercise = get_object_or_404(Exercise, pk=pk)
+    if request.method == 'POST':
+        exercise.delete()
+        return redirect('training:exercise_list')
+    return render(request, 'training/exercise_confirm_delete.html', {'exercise': exercise})

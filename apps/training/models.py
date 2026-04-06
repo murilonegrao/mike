@@ -27,7 +27,7 @@ class TrainingSession(models.Model):
         max_length=20,
         choices=SESSION_TYPES,
         blank=True,
-        null=True
+        default=''
     )
     
     def __str__(self):

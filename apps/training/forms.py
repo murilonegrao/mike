@@ -1,5 +1,5 @@
 from django import forms
-from .models import TrainingSession, SessionExercise, ExerciseSet
+from .models import TrainingSession, SessionExercise, ExerciseSet, Exercise
 
 
 class MikeFormMixin:
@@ -121,6 +121,14 @@ class ExerciseSetForm(MikeFormMixin, forms.ModelForm):
                 "rows": "2",
                 "placeholder": "Opcional: RPE, observações, etc.",
             })
-            
 
-print("MRO TrainingSessionForm:", [c.__name__ for c in TrainingSessionForm.mro()])
+class ExerciseForm(MikeFormMixin, forms.ModelForm):
+    class Meta:
+        model = Exercise
+        fields = ['name']
+        labels = {
+            'name': 'Nome do Exercício'
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Ex: Supino Reto'})
+        }

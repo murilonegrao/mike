@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="m-text-muted small mt-1">
-                        {{ se.exercise_sets.count }} série{{ se.exercise_sets.count|pluralize }}
+                        {{ se.exercise_sets.all|length }} série{{ se.exercise_sets.all|length|pluralize }}
                     </div>
 
                     <!-- Ação rápida no canto inferior esquerdo -->
@@ -325,6 +325,7 @@
         body.innerHTML = '<div class="m-text-muted small">Carregando...</div>';
 
         const res = await fetch(url, { headers: { "X-Requested-With": "fetch" } });
+        if (!res.ok) { body.innerHTML = '<div class="text-danger m-3">Falha ao carregar conteúdo. Erro no servidor.</div>'; return; }
         body.innerHTML = await res.text();
 
         bindModalForm(modalEl, bodyElId);

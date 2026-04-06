@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Biblioteca de Exercícios — MIKE{% endblock %}
+{% block section %}Exercícios{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between pt-2 pb-3">
+    <h1 class="h3 m-title mb-0">Exercícios</h1>
+    <a class="m-btn-secondary" href="{% url 'training:exercise_create' %}">
+        + Novo
+    </a>
+</div>
+
+<div class="m-card p-3">
+    {% if exercises %}
+        <div class="d-grid gap-2">
+            {% for exercise in exercises %}
+                <div class="d-flex align-items-center justify-content-between py-2 border-bottom border-secondary">
+                    <div>
+                        <div class="fw-bold">{{ exercise.name }}</div>
+                        <div class="m-text-muted small">Slug: {{ exercise.slug }}</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a class="m-btn-ghost m-btn-sm" href="{% url 'training:exercise_update' pk=exercise.pk %}">Editar</a>
+                        <a class="m-btn-ghost m-btn-sm text-danger" href="{% url 'training:exercise_delete' pk=exercise.pk %}">Excluir</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="m-text-muted">Nenhum exercício cadastrado ainda no sistema.</div>
+    {% endif %}
+</div>
+{% endblock %}

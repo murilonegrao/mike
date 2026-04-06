@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Excluir Exercício — MIKE{% endblock %}
+{% block section %}Exercícios{% endblock %}
+
+{% block content %}
+<div class="pt-2 pb-3">
+    <a class="text-decoration-none m-text-muted small" href="{% url 'training:exercise_list' %}">← Cancelar</a>
+    <h1 class="h4 m-title mt-2 mb-1">Excluir Exercício</h1>
+</div>
+
+<div class="m-card p-4 text-center">
+    <p class="mb-4">Tem certeza que deseja apagar permanentemente o exercício <strong>{{ exercise.name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex flex-column gap-2">
+            <button class="btn btn-danger py-2 w-100" type="submit">Sim, Excluir</button>
+            <a class="m-btn-ghost py-2 w-100" href="{% url 'training:exercise_list' %}">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

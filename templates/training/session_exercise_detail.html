@@ -163,33 +163,46 @@
     body.innerHTML = '<div class="m-text-muted small">Carregando...</div>';
 
     const res = await fetch(url, { headers: { "X-Requested-With": "fetch" } });
+    if (!res.ok) { body.innerHTML = '<div class="text-danger m-3">Falha ao carregar. Erro no servidor.</div>'; return; }
     body.innerHTML = await res.text();
+    
+    bindModalForm(modalEl, bodyElId);
+  }
+
+  function bindModalForm(modalEl, bodyElId) {
+    const body = document.getElementById(bodyElId);
+    if (!body) return;
 
     const form = body.querySelector("form");
-    if (form) {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const target = form.getAttribute("action") || url;
+    if (!form) return;
 
-        const resp = await fetch(target, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { "X-Requested-With": "fetch" },
-        });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const trigger = modalEl._trigger || null;
+      const fallbackUrl = trigger?.getAttribute("data-url");
+      const target = form.getAttribute("action") || fallbackUrl;
+      if (!target) return;
 
-        if (resp.redirected) {
-          window.location.href = resp.url;
-          return;
-        }
-
-        const text = await resp.text();
-        if (text.includes("<form")) {
-          body.innerHTML = text;
-        } else {
-          window.location.reload();
-        }
+      const resp = await fetch(target, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "X-Requested-With": "fetch" },
       });
-    }
+
+      if (resp.redirected) {
+        window.location.href = resp.url;
+        return;
+      }
+
+      const text = await resp.text();
+      if (text.includes("<form")) {
+        body.innerHTML = text;
+        bindModalForm(modalEl, bodyElId); // ✅ Re-bind para garantir revalidação após POST
+      } else {
+        window.location.reload();
+      }
+    });
   }
 
   const addModal = document.getElementById("setAddModal");

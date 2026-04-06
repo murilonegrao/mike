@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{% if exercise %}Editar{% else %}Novo{% endif %} Exercício — MIKE{% endblock %}
+{% block section %}Exercícios{% endblock %}
+
+{% block content %}
+<div class="pt-2 pb-3">
+    <a class="text-decoration-none m-text-muted small" href="{% url 'training:exercise_list' %}">← Voltar para a lista</a>
+    <h1 class="h4 m-title mt-2 mb-1">
+        {% if exercise %}Editar Exercício{% else %}Novo Exercício{% endif %}
+    </h1>
+</div>
+
+<div class="m-card p-4">
+    <form method="post">
+        {% csrf_token %}
+        <div class="m-form">
+            {{ form.as_p }}
+        </div>
+        <button class="m-btn-primary w-100 mt-3" type="submit">Salvar</button>
+    </form>
+</div>
+{% endblock %}

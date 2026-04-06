@@ -1,0 +1,76 @@
+# =============================================================================
+# MIKE - Docker Compose (Produção com Traefik)
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # App Django
+  # ---------------------------------------------------------------------------
+  app:
+    build: .
+    container_name: mike-app
+    restart: always
+    env_file: .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      # Sobrescrevendo o host do banco para enxergar o container "db" 
+      # e ignorar o "localhost" do seu .env local.
+      - POSTGRES_HOST=db
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --threads 2 --access-logfile -"
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_network"
+      - "traefik.http.routers.mike-http.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.mike-http.entrypoints=web"
+      - "traefik.http.routers.mike-http.middlewares=mike-redirect"
+      - "traefik.http.middlewares.mike-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.mike-https.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.mike-https.entrypoints=websecure"
+      - "traefik.http.routers.mike-https.tls=true"
+      - "traefik.http.routers.mike-https.tls.certresolver=myresolver"
+      - "traefik.http.services.mike-service.loadbalancer.server.port=8000"
+    networks:
+      - internal
+      - traefik_network
+
+  # ---------------------------------------------------------------------------
+  # Banco de Dados (PostgreSQL)
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:17-alpine
+    container_name: mike-db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+# =============================================================================
+# Volumes Persistentes
+# =============================================================================
+volumes:
+  postgres_data:
+
+# =============================================================================
+# Redes
+# =============================================================================
+networks:
+  internal:
+    driver: bridge
+  traefik_network:
+    external: true

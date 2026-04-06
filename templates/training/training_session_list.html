@@ -12,10 +12,18 @@
         </div>
     </div>
 
-    <a class="m-btn-secondary" href="{% url 'training:training_session_create' %}"
-        aria-label="Criar nova sessão de treino">
-        Nova Sessão
-    </a>
+    <div class="d-flex gap-2">
+        {% if user.is_staff %}
+        <a class="m-btn-ghost d-flex align-items-center" href="{% url 'training:exercise_list' %}"
+            aria-label="Gerenciar exercícios cadatrados">
+            Exercícios
+        </a>
+        {% endif %}
+        <a class="m-btn-secondary" href="{% url 'training:training_session_create' %}"
+            aria-label="Criar nova sessão de treino">
+            Nova Sessão
+        </a>
+    </div>
 </div>
 
 <div class="session-list">
